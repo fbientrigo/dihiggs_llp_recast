@@ -1,0 +1,6 @@
+{
+  "repository": "https://github.com/llprecasting/recastingCodes.git",
+  "commit": "d4047c744062094c9f88e507bb1ccf69e9fe88d6",
+  "analysis_path": "DisplacedVertices/ATLAS-SUSY-2018-13_GCottin",
+  "purpose": "Public recast of ATLAS arXiv:2301.13866 used as the validation baseline"
+}

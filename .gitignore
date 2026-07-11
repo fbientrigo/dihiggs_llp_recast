@@ -1,0 +1,35 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Local HEP toolchains and upstream checkout
+.local/
+downloads/
+external/recastingCodes/
+
+# Event and analysis products
+*.lhe
+*.lhe.gz
+*.hepmc
+*.hepmc.gz
+*.root
+*.yoda
+*.log
+
+# Heavy/generated project data
+data/raw/
+data/interim/
+cards/generated/
+models/generated/
+results/*
+!results/README.md
+
+# Local configuration
+.env
+configs/toolchain.env

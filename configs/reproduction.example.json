@@ -1,0 +1,10 @@
+{
+  "campaign": "upstream_validation",
+  "stage": "upstream",
+  "analysis_mode": "original",
+  "llp_pdg_ids": [1000022, 1000023, 1000024],
+  "input_cmnd": null,
+  "input_lhe": null,
+  "reference_cutflow": null,
+  "notes": "Copy this file outside version control for a concrete run. Scalar PDG IDs remain unset until upstream validation passes."
+}
