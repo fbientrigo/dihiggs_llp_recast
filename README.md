@@ -28,6 +28,14 @@ make manifest
 
 `make check` validates the repository and frozen upstream layout without requiring event generation. `make hep-preflight` reports which external HEP tools are available.
 
+When Pythia8 and FastJet are available:
+
+```bash
+cp configs/toolchain.env.example configs/toolchain.env
+# Edit the two installation prefixes.
+make build-upstream
+```
+
 ## First physics gate
 
 Do not implement the scalar model or exclusions before all of the following are true:
@@ -43,8 +51,8 @@ See `docs/reproduction_plan.md` and `docs/validation_contract.md`.
 
 ```text
 configs/       frozen upstream and reproduction configuration
-scripts/       bootstrap, preflight and provenance utilities
-src/dvrecast/  small dependency-free Python support package
+scripts/       bootstrap, build, preflight and comparison utilities
+src/dvrecast/  dependency-free Python support package
 tests/         unit tests that run without the HEP stack
 docs/          architecture, milestones and validation contracts
 external/      locally materialized third-party code; ignored by Git
@@ -52,6 +60,7 @@ data/          local or downloaded inputs; heavy content ignored
 results/       manifests and compact validation summaries
 cards/         versioned cards created by this project
 models/        model metadata and small source definitions
+patches/       versioned adaptations against the frozen upstream commit
 ```
 
 ## References

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import subprocess
 import sys
 from pathlib import Path
 
@@ -9,6 +10,13 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from dvrecast.config import load_upstream_lock  # noqa: E402
+
+
+def git_head(path: Path) -> str | None:
+    result = subprocess.run(
+        ["git", "rev-parse", "HEAD"], cwd=path, capture_output=True, text=True, check=False
+    )
+    return result.stdout.strip() if result.returncode == 0 else None
 
 
 def main() -> int:
@@ -26,21 +34,23 @@ def main() -> int:
         base / "recast_code" / "0_mg5_cards",
     ]
 
-    missing = [path for path in expected if not path.exists()]
+    failed = False
     for path in expected:
         marker = "OK" if path.exists() else "MISSING"
-        print(f"[{marker:7}] {path}")
+        print(f"[{marker:8}] {path}")
+        failed = failed or not path.exists()
 
-    git_dir = args.root / ".git"
-    if not git_dir.exists():
-        missing.append(git_dir)
-        print(f"[MISSING] {git_dir}")
+    actual_commit = git_head(args.root) if (args.root / ".git").exists() else None
+    commit_ok = actual_commit == lock.commit
+    print(f"[{'OK' if commit_ok else 'MISMATCH':8}] upstream commit = {actual_commit or '-'}")
+    print(f"[EXPECTED] upstream commit = {lock.commit}")
+    failed = failed or not commit_ok
 
-    if missing:
+    if failed:
         print("\nRun `make bootstrap` before upstream validation.")
         return 2
 
-    print("\nFrozen upstream layout is present.")
+    print("\nFrozen upstream layout and revision are valid.")
     return 0
 
 
