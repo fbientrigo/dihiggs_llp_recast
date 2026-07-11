@@ -26,9 +26,11 @@ done
 [[ -x "${EXECUTABLE}" ]] || { echo "[ERROR] Missing executable: ${EXECUTABLE}" >&2; exit 4; }
 
 mkdir -p "${OUT}"
-COMMAND=("${EXECUTABLE}" "$(realpath "${CMND}")")
+REAL_CMND="$(realpath "${CMND}")"
+COMMAND=("${EXECUTABLE}" "${REAL_CMND}")
 printf '%q ' "${COMMAND[@]}" | tee "${OUT}/command.txt"
 printf '\n' | tee -a "${OUT}/command.txt"
+sha256sum "${REAL_CMND}" | tee "${OUT}/input_checksums.txt"
 
 if [[ "${DRY_RUN}" == "1" ]]; then
   exit 0

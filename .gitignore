@@ -8,10 +8,9 @@ __pycache__/
 build/
 dist/
 
-# Local HEP toolchains and upstream checkout
+# Local HEP toolchains
 .local/
 downloads/
-external/recastingCodes/
 
 # Event and analysis products
 *.lhe

@@ -20,12 +20,16 @@ BUILD_JOBS="${BUILD_JOBS:-4}"
 
 for path in \
   "${PYTHIA8}/include/Pythia8/Pythia.h" \
-  "${PYTHIA8}/lib/libpythia8.so" \
   "${FASTJET3}/include/fastjet" \
   "${FASTJET3}/lib" \
   "${ANALYSIS_DIR}/Makefile"; do
   [[ -e "${path}" ]] || { echo "[ERROR] Required path missing: ${path}" >&2; exit 3; }
 done
+
+if [[ ! -e "${PYTHIA8}/lib/libpythia8.so" && ! -e "${PYTHIA8}/lib/libpythia8.a" ]]; then
+  echo "[ERROR] Neither libpythia8.so nor libpythia8.a exists under ${PYTHIA8}/lib." >&2
+  exit 3
+fi
 
 mkdir -p "${OUT}"
 {

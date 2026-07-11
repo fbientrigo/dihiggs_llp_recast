@@ -8,4 +8,4 @@ The first allowed physics patch, after upstream validation, is limited to:
 2. explicit original/modified analysis modes;
 3. regression preservation of the upstream benchmark.
 
-Do not edit `external/recastingCodes` and treat the modified checkout as the source of truth.
+Do not edit `external/recastingCodes` in place or treat a dirty submodule checkout as a reproducible source.

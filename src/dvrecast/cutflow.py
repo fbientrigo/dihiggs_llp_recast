@@ -57,9 +57,11 @@ def compare_cutflows(
 ) -> list[CutflowComparison]:
     if relative_tolerance < 0 or low_count_absolute_tolerance < 0:
         raise ValueError("tolerances must be non-negative")
+
+    reference_cuts = {row.cut for row in reference}
     observed_by_cut = {row.cut: row for row in observed}
     missing = [row.cut for row in reference if row.cut not in observed_by_cut]
-    extra = [row.cut for row in observed if row.cut not in {item.cut for item in reference}]
+    extra = [row.cut for row in observed if row.cut not in reference_cuts]
     if missing or extra:
         raise ValueError(f"cut names differ; missing={missing}, extra={extra}")
 

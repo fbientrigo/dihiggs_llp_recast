@@ -20,14 +20,18 @@ class UpstreamLock:
     def from_mapping(cls, raw: Mapping[str, Any]) -> "UpstreamLock":
         repository = str(raw.get("repository", "")).strip()
         commit = str(raw.get("commit", "")).strip().lower()
-        analysis_path = Path(str(raw.get("analysis_path", "")).strip())
+        analysis_path_raw = str(raw.get("analysis_path", "")).strip()
         purpose = str(raw.get("purpose", "")).strip()
 
         if not repository.startswith("https://github.com/") or not repository.endswith(".git"):
             raise ValueError("repository must be an HTTPS GitHub clone URL ending in .git")
         if not _COMMIT_RE.fullmatch(commit):
             raise ValueError("commit must be a full 40-character lowercase SHA")
-        if not str(analysis_path) or analysis_path.is_absolute() or ".." in analysis_path.parts:
+        if not analysis_path_raw:
+            raise ValueError("analysis_path must be a non-empty relative path")
+
+        analysis_path = Path(analysis_path_raw)
+        if analysis_path.is_absolute() or ".." in analysis_path.parts:
             raise ValueError("analysis_path must be a non-empty relative path")
 
         return cls(repository, commit, analysis_path, purpose)
