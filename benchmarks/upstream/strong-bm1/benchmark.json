@@ -1,0 +1,73 @@
+{
+  "identifier": "strong-bm1",
+  "status": "BLOCKED",
+  "upstream": {
+    "repository": "https://github.com/llprecasting/recastingCodes.git",
+    "commit": "d4047c744062094c9f88e507bb1ccf69e9fe88d6"
+  },
+  "physics_process": {
+    "description": "gluino-pair production merged with 0, 1, and 2 additional partons; gluino decays to qq plus long-lived neutralino",
+    "madgraph_processes": [
+      "p p > go go",
+      "p p > go go j",
+      "p p > go go j j"
+    ],
+    "merging_scale_gev": 500
+  },
+  "card_paths": {
+    "mg5_process_cards": [
+      "external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/0_mg5_cards/proc_card_mg5/strong/pp2gogo_0_proc_card_mg5.dat",
+      "external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/0_mg5_cards/proc_card_mg5/strong/pp2gogo_1_proc_card_mg5.dat",
+      "external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/0_mg5_cards/proc_card_mg5/strong/pp2gogo_2_proc_card_mg5.dat"
+    ],
+    "run_card": "external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/0_mg5_cards/run_card.dat",
+    "parameter_or_slha_card": null,
+    "related_but_nonmatching_slha_card": "external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/0_mg5_cards/GG_qqn1_2800_10_rpvLF_p01ns.slha",
+    "pythia_cmnd": "external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/cmnd/strong/bm1.cmnd"
+  },
+  "reference_result_path": "external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/2_results/strong/gluino_run01.txt",
+  "expected_event_count": {
+    "generated_per_parton_multiplicity": 10000,
+    "parton_multiplicities": 3,
+    "generated_total": 30000,
+    "reference_merged_weighted_all_events": 9476.625
+  },
+  "expected_cutflow_or_metrics": {
+    "high_pt_percent": {
+      "jet_selection": 99.81456,
+      "fiducial": 99.81456,
+      "r_vertex_gt_4_mm": 29.71822,
+      "track_d0_gt_2_mm": 29.71822,
+      "selected_decay_products_ge_5": 29.71822,
+      "invariant_mass_gt_10_gev": 29.71822,
+      "acceptance": 29.71822,
+      "acceptance_times_efficiency": 26.60133
+    },
+    "trackless_percent": {
+      "jet_selection": 100.0,
+      "fiducial": 100.0,
+      "r_vertex_gt_4_mm": 29.74913,
+      "track_d0_gt_2_mm": 29.74913,
+      "selected_decay_products_ge_5": 29.74913,
+      "invariant_mass_gt_10_gev": 29.74913,
+      "acceptance": 29.74913,
+      "acceptance_times_efficiency": 0.02165427
+    },
+    "inclusive_cross_section_mb": 4.949932e-13
+  },
+  "required_external_tools": [
+    "MadGraph5_aMC@NLO with the bundled MSSM_SLHA2 model",
+    "PYTHIA 8.308",
+    "FastJet 3.4.0",
+    "G++ 13.3.0"
+  ],
+  "missing_inputs": [
+    "MadGraph executable mg5_aMC",
+    "exact bm1 parameter/SLHA card for m_gluino=2000 GeV, m_neutralino=850 GeV and lifetime label 0.01",
+    "strong_0_2000_850_0p01.lhe.gz",
+    "strong_1_2000_850_0p01.lhe.gz",
+    "strong_2_2000_850_0p01.lhe.gz"
+  ],
+  "intended_execution_command": "cd data/upstream/strong-bm1 && ../../../external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/recast_2301_13866 ../../../external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/cmnd/strong/bm1.cmnd",
+  "validation_tolerance_reference": "docs/validation_contract.md#gate-b--upstream-cutflow"
+}
