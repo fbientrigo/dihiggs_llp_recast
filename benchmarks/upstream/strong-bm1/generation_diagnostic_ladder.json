@@ -1,0 +1,63 @@
+{
+  "purpose": "Root-cause ladder for the 1j/2j MadGraph zero-cross-section blocker encountered during strong-bm1 independent generation.",
+  "symptom": "MadGraph5_aMC@NLO 3.5.3 'Survey return zero cross section' for p p > go go j (and p p > go go j j) using the mission-mandated generated SLHA (m_gluino=2000 GeV, m_neutralino=850 GeV, decoupled sfermions at 4.5e5 GeV per the public ALessa template). All 99 integration channels report exactly 0.00000E+00, not a small nonzero value. Repeated IEEE_INVALID_FLAG warnings appear only in failing runs.",
+  "runs": [
+    {
+      "id": "prod_10ev",
+      "param_card": "benchmarks/upstream/strong-bm1/cards/generated/GG_qqn1_2000_850_rpvLF_p01ns.slha (m_gluino=2000, m_squark=4.5e5 GeV)",
+      "nevents": 10,
+      "seed": 222,
+      "result": "zero cross section, all channels, IEEE_INVALID_FLAG present",
+      "log": "/tmp/pilot1j.log (not committed; ephemeral diagnostic)"
+    },
+    {
+      "id": "prod_1000ev",
+      "param_card": "same as prod_10ev",
+      "nevents": 1000,
+      "seed": 222,
+      "result": "zero cross section, all 99 channels literally 0.00000E+00 (checked results.dat directly), IEEE_INVALID_FLAG present. Rules out survey-statistics starvation as the cause.",
+      "log": "/tmp/pilot1j_v2.log"
+    },
+    {
+      "id": "diag_lowsq_3TeV",
+      "param_card": "diagnostic only (not committed): production SLHA with sfermion masses lowered 4.5e5 -> 3.0e3 GeV, gluino/neutralino unchanged at 2000/850",
+      "nevents": 10,
+      "seed": 444,
+      "result": "still zero cross section, same 'No points passed cuts!' pattern. Rules out the specific 4.5e5 GeV magnitude as uniquely responsible; a merely 'heavy relative to gluino' squark (3 TeV vs 2000 GeV gluino) already reproduces the failure.",
+      "log": "/tmp/diag_1j/launch.log"
+    },
+    {
+      "id": "default_mssm_slha2",
+      "param_card": "MG5's own untouched MSSM_SLHA2 default param_card (m_gluino=607.7 GeV, m_squark~550-570 GeV, i.e. squark LIGHTER than gluino)",
+      "nevents": 10,
+      "seed": 555,
+      "result": "SUCCEEDS: cross section 8.25 +/- 0.11 pb, 0 IEEE_INVALID_FLAG occurrences. Proves the proc/run cards and MG5/environment are functionally correct in general.",
+      "log": "/tmp/diag_default/launch.log"
+    },
+    {
+      "id": "default_squark_gluino2000",
+      "param_card": "MG5 default param_card with ONLY m_gluino edited to 2000 GeV (m_squark left at default ~550-570 GeV, i.e. squark now LIGHTER than gluino by construction)",
+      "nevents": 10,
+      "seed": 666,
+      "result": "SUCCEEDS: cross section 0.000567 +/- 0.0000071 pb, 0 IEEE_INVALID_FLAG occurrences. Isolates that m_gluino=2000 GeV alone is NOT the cause.",
+      "log": "/tmp/diag_default/launch2.log"
+    }
+  ],
+  "free_checks": {
+    "slha_source_mismatch": "diff of GCottin's own 0_mg5_cards/GG_qqn1_2800_10_rpvLF_p01ns.slha vs the ALessa validation copy used as source: BYTE IDENTICAL (diff exit 0). Rules out a card-pairing mistake.",
+    "ieee_correlation": "grep IEEE_INVALID_FLAG: 10 occurrences in the failing prod_1000ev run, 0 occurrences in the working default_mssm_slha2 run."
+  },
+  "conclusion": {
+    "ruled_out": [
+      "run/proc card mismatch or corruption (byte-identical to upstream)",
+      "survey statistics starvation (fails identically at 10 and 1000 events, literal exact zero in every channel)",
+      "the specific 4.5e5 GeV magnitude alone (3 TeV squarks reproduce the same failure)",
+      "m_gluino=2000 GeV alone (works fine with light ~550 GeV squarks)",
+      "cuts being generically too strict (ptj/etaj/ktdurham are unchanged between working and failing configurations; a 9 TeV headroom in sqrt(s_hat) makes a hard-cut rejection of literally 100% of 5,000,000 sampled points implausible)"
+    ],
+    "root_cause_candidate": "The failure requires BOTH a squark mass scale decoupled well above the gluino mass (>=3 TeV squark vs 2000 GeV gluino) AND a real-emission/merging-relevant final state (1j/2j; the 2-body 0j process is unaffected at the same decoupled-squark SLHA). This points to the MLM-merging/jet-clustering machinery (cluster.f / sudakov.inc / the ktdurham- and xqcut-related kinematic bookkeeping compiled into each process's SubProcesses tree) mis-evaluating a merging-scale-related kinematic quantity (observed as an overflowed 's min' print field and IEEE_INVALID_FLAG) when a super-heavy propagator mass is present, causing every sampled phase-space point to be rejected before the physical cuts are even applied.",
+    "confidence": "Isolated by direct experiment to 'decoupled squark scale x real-emission topology'; the precise Fortran-level mechanism inside cluster.f/setcuts.f was not traced further, per the mission's diagnostic time-box.",
+    "not_yet_tested": "Whether the original author's own bm1 generation used a materially different squark decoupling scale, a different MG5 patch/version, or an explicit MG5 'set' command (e.g. disabling amplitude suppression or the MLM cluster veto) not present in the public proc/run cards inspected here.",
+    "minimum_next_action": "Ask whether the author's private generation setup applied any non-default MG5 'set' commands (e.g. related to amplitude suppression, cluster scale, or cutoff parameters) when generating the 1j/2j strong-bm1 samples with decoupled sfermions -- or consult MadGraph documentation/support on MLM-merging behavior when spectator sfermions are set far above the hard-process scale. This mission's instructions explicitly forbid re-contacting the author during this run, so this is deferred to the user."
+  }
+}

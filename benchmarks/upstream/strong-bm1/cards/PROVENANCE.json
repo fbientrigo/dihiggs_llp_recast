@@ -1,0 +1,32 @@
+{
+  "upstream_repo": "https://github.com/llprecasting/recastingCodes.git",
+  "upstream_commit": "d4047c744062094c9f88e507bb1ccf69e9fe88d6",
+  "files": [
+    {"name": "pp2gogo_0_proc_card_mg5.dat", "upstream_path": "DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/0_mg5_cards/proc_card_mg5/strong/pp2gogo_0_proc_card_mg5.dat", "sha256": "37cba5f70cb10f7e38bc1cf7c07a452ce8d055193a8b34ceb9d7b828e7f22d73", "byte_identical_copy": true},
+    {"name": "pp2gogo_1_proc_card_mg5.dat", "upstream_path": "DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/0_mg5_cards/proc_card_mg5/strong/pp2gogo_1_proc_card_mg5.dat", "sha256": "6156bd1ad959eb1976811c58fb09039b1df90d6035dc1997e7c4098f5961639d", "byte_identical_copy": true},
+    {"name": "pp2gogo_2_proc_card_mg5.dat", "upstream_path": "DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/0_mg5_cards/proc_card_mg5/strong/pp2gogo_2_proc_card_mg5.dat", "sha256": "ad78ddeed7556ea77a857b5bfef1746819e03627f975bb2324b0004c4dabb212", "byte_identical_copy": true},
+    {"name": "run_card.dat", "upstream_path": "DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/0_mg5_cards/run_card.dat", "sha256": "44df37652d2acf1da042057d7fa9fdf21559e75e4de6121f4f2c55660b483da6", "byte_identical_copy": true},
+    {"name": "bm1.cmnd", "upstream_path": "DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/cmnd/strong/bm1.cmnd", "sha256": "8de0a8b1c7580158c769fa18678226fbd6b53beeeff188a8005fbac54bb5424c", "byte_identical_copy": true},
+    {"name": "GG_qqn1_2800_10_rpvLF_p01ns.slha", "upstream_path": "DisplacedVertices/ATLAS-SUSY-2018-13_ALessa/validation/Cards/strong/GG_qqn1_2800_10_rpvLF_p01ns.slha", "sha256": "ee6e68881322ea4d89c2d60614437fcad12ef28c3bda0647f472e2a84020325a", "byte_identical_copy": true}
+  ],
+  "run_card_verification": {
+    "nevents": 10000,
+    "iseed": "0 (must be overridden to explicit nonzero per-multiplicity seeds for production)",
+    "ebeam1_GeV": 6500.0,
+    "ebeam2_GeV": 6500.0,
+    "pdlabel": "nn23lo1",
+    "lhaid": 230000,
+    "note_lhaid": "lhaid=230000 is a vestigial/inactive field in this run card because pdlabel=nn23lo1 (MG5 built-in PDF set), not 'lhapdf'; lhaid only applies when pdlabel=lhapdf. No LHAPDF library install is required for this run card as pinned.",
+    "ktdurham_GeV": 500,
+    "ptj_GeV": 20.0,
+    "etaj_max": 5.0,
+    "ickkw": 0,
+    "note_ickkw": "CKKW-L merging is performed by Pythia (Merging:doKTMerging=on in bm1.cmnd), consistent with ickkw=0 in the MadGraph run card (MLM matching not used)."
+  },
+  "process_card_verification": {
+    "0j": "generate p p > go go -> output pp2gogo_0",
+    "1j": "generate p p > go go j -> output pp2gogo_1",
+    "2j": "generate p p > go go j j -> output pp2gogo_2",
+    "model": "MSSM_SLHA2"
+  }
+}

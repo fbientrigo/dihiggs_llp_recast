@@ -1,192 +1,295 @@
 {
   "schema_version": 1,
   "benchmark": "strong-bm1",
-  "classification": "INCOMPLETE",
-  "generation_allowed": false,
-  "classification_reason": "The exact bm1 SLHA, assigned random seeds, gluino width, neutralino width/lifetime, and complete branching ratios were not recovered.",
-  "confidence_scale": ["NONE", "LOW", "MEDIUM", "HIGH"],
-  "field_states": ["EXACT", "INFERRED", "CALCULATED", "UNKNOWN", "CONTRADICTORY"],
+  "classification": "RECONSTRUCTED",
+  "generation_allowed": true,
+  "classification_reason": "Author-confirmed reconstruction strategy (Giovanna Cottin): reconstruct the bm1 SLHA by editing only the gluino/neutralino masses of the public 2800/10 template, generate LHE samples independently, and compare against public HEPData/archived recast results. The exact original author SLHA/LHE/seeds were never recovered and this classification does not claim otherwise -- see the still-UNKNOWN exact_parameter_or_slha_card field below.",
+  "confidence_scale": [
+    "NONE",
+    "LOW",
+    "MEDIUM",
+    "HIGH"
+  ],
+  "field_states": [
+    "EXACT",
+    "INFERRED",
+    "CALCULATED",
+    "UNKNOWN",
+    "CONTRADICTORY"
+  ],
   "fields": {
     "mg5_version": {
       "value": "3.5.3",
       "state": "EXACT",
-      "provenance": ["All three upstream strong process-card headers state VERSION 3.5.3 (2023-12-23)."],
+      "provenance": [
+        "All three upstream strong process-card headers state VERSION 3.5.3 (2023-12-23)."
+      ],
       "confidence": "HIGH",
       "consequence_if_wrong": "Generated matrix elements and card defaults may differ from the reference."
     },
     "mg5_model": {
       "value": "MSSM_SLHA2",
       "state": "EXACT",
-      "provenance": ["Each upstream strong process card contains `import model MSSM_SLHA2`."],
+      "provenance": [
+        "Each upstream strong process card contains `import model MSSM_SLHA2`."
+      ],
       "confidence": "HIGH",
       "consequence_if_wrong": "Particle definitions, couplings, masses, and decay handling may differ."
     },
     "process_definitions": {
-      "value": ["p p > go go", "p p > go go j", "p p > go go j j"],
+      "value": [
+        "p p > go go",
+        "p p > go go j",
+        "p p > go go j j"
+      ],
       "state": "EXACT",
-      "provenance": ["Frozen upstream pp2gogo_{0,1,2}_proc_card_mg5.dat files."],
+      "provenance": [
+        "Frozen upstream pp2gogo_{0,1,2}_proc_card_mg5.dat files."
+      ],
       "confidence": "HIGH",
       "consequence_if_wrong": "The merged production phase space and jet multiplicities would differ."
     },
     "gluino_mass_gev": {
       "value": 2000.0,
       "state": "EXACT",
-      "provenance": ["bm1 LHE filenames encode 2000 and the reference LHE event records list PDG 1000021 with mass 2000.000 GeV."],
+      "provenance": [
+        "bm1 LHE filenames encode 2000 and the reference LHE event records list PDG 1000021 with mass 2000.000 GeV."
+      ],
       "confidence": "HIGH",
       "consequence_if_wrong": "Production cross section and event kinematics would be invalid."
     },
     "neutralino_mass_gev": {
       "value": 850.0,
       "state": "EXACT",
-      "provenance": ["bm1 LHE filenames encode 850 and the reference event record lists PDG 1000022 with mass 850.000 GeV."],
+      "provenance": [
+        "bm1 LHE filenames encode 850 and the reference event record lists PDG 1000022 with mass 850.000 GeV."
+      ],
       "confidence": "HIGH",
       "consequence_if_wrong": "Decay kinematics, boosts, and displaced-vertex acceptance would be invalid."
     },
     "neutralino_identity": {
       "value": "lightest neutralino (~chi_10 / n1)",
       "state": "EXACT",
-      "provenance": ["The reference event record names PDG 1000022 as ~chi_10; the embedded QNUMBERS label is n1."],
+      "provenance": [
+        "The reference event record names PDG 1000022 as ~chi_10; the embedded QNUMBERS label is n1."
+      ],
       "confidence": "HIGH",
       "consequence_if_wrong": "The upstream decay and analysis particle selection would not apply."
     },
     "neutralino_pdg_id": {
       "value": 1000022,
       "state": "EXACT",
-      "provenance": ["Reference event record and embedded QNUMBERS block."],
+      "provenance": [
+        "Reference event record and embedded QNUMBERS block."
+      ],
       "confidence": "HIGH",
       "consequence_if_wrong": "Pythia decays and the unmodified analysis would target the wrong particle."
     },
     "gluino_width_gev": {
-      "value": null,
-      "state": "UNKNOWN",
-      "provenance": ["The reference log confirms an imported gluino decay table but does not print its width; the only supplied strong SLHA is the nonmatching 2800/10 point."],
-      "confidence": "NONE",
+      "value": 1.0,
+      "state": "CALCULATED",
+      "provenance": [
+        "Taken unchanged from the public 2800/10 template's DECAY 1000021 block (1.0 GeV); not recomputed for the new 2000 GeV gluino mass. Carried over as part of the documented reconstruction, per slha_transformation_audit.json."
+      ],
+      "confidence": "LOW",
       "consequence_if_wrong": "The gluino decay treatment and event record may not match the reference."
     },
     "gluino_decay_modes": {
-      "value": ["go -> q qbar n1 for light q"],
+      "value": [
+        "go -> q qbar n1 for light q"
+      ],
       "state": "INFERRED",
-      "provenance": ["Reference event records show go -> u ubar n1 and go -> c cbar n1; the nonmatching 2800/10 strong SLHA uses equal d/u/s/c modes."],
+      "provenance": [
+        "Reference event records show go -> u ubar n1 and go -> c cbar n1; the nonmatching 2800/10 strong SLHA uses equal d/u/s/c modes."
+      ],
       "confidence": "MEDIUM",
       "consequence_if_wrong": "Jet flavor and displaced-neutralino kinematics would differ."
     },
     "gluino_branching_ratios": {
-      "value": null,
-      "state": "UNKNOWN",
-      "provenance": ["The reference log does not print complete gluino branching ratios."],
-      "confidence": "NONE",
+      "value": {
+        "go -> u ubar n1": 0.25,
+        "go -> c cbar n1": 0.25,
+        "go -> d dbar n1": 0.25,
+        "go -> s sbar n1": 0.25
+      },
+      "state": "CALCULATED",
+      "provenance": [
+        "Explicit BR table present in the public 2800/10 template's DECAY 1000021 block, unchanged by the mass reconstruction (BR sum verified = 1.0 in slha_transformation_audit.json). Consistent with the reference event records showing go -> u ubar n1 and go -> c cbar n1."
+      ],
+      "confidence": "MEDIUM",
       "consequence_if_wrong": "Flavor composition and acceptance could differ."
     },
     "neutralino_width_gev": {
       "value": 6.582119569e-14,
       "state": "CALCULATED",
-      "provenance": ["Calculated from the inferred 0.01 ns lifetime using hbar = 6.582119569e-25 GeV s; not recovered from the bm1 SLHA."],
+      "provenance": [
+        "Calculated from the inferred 0.01 ns lifetime using hbar = 6.582119569e-25 GeV s; not recovered from the bm1 SLHA."
+      ],
       "confidence": "LOW",
       "consequence_if_wrong": "The decay-radius distribution and displaced-vertex efficiency would be invalid."
     },
     "proper_lifetime": {
       "value": 0.01,
       "state": "INFERRED",
-      "provenance": ["The bm1 filename label `0p01` is consistent with the independently named `p01ns` strong card, whose 6.582120e-14 GeV width calculates to 0.01 ns. The filename alone is not treated as evidence of the unit."],
+      "provenance": [
+        "The bm1 filename label `0p01` is consistent with the independently named `p01ns` strong card, whose 6.582120e-14 GeV width calculates to 0.01 ns. The filename alone is not treated as evidence of the unit."
+      ],
       "confidence": "LOW",
       "consequence_if_wrong": "The displaced-vertex acceptance could change by orders of magnitude."
     },
     "lifetime_unit": {
       "value": "ns",
       "state": "INFERRED",
-      "provenance": ["Cross-comparison with the supplied `p01ns` strong-card name and its explicit width; not inferred from `0p01` alone."],
+      "provenance": [
+        "Cross-comparison with the supplied `p01ns` strong-card name and its explicit width; not inferred from `0p01` alone."
+      ],
       "confidence": "LOW",
       "consequence_if_wrong": "The physical lifetime would be mis-scaled."
     },
     "neutralino_decay_modes": {
-      "value": ["n1 -> u d s and charge conjugate", "n1 -> c d s and charge conjugate"],
+      "value": [
+        "n1 -> u d s and charge conjugate",
+        "n1 -> c d s and charge conjugate"
+      ],
       "state": "INFERRED",
-      "provenance": ["Reference event records show uds-type three-quark decays; the nonmatching strong SLHA contains the four listed modes."],
+      "provenance": [
+        "Reference event records show uds-type three-quark decays; the nonmatching strong SLHA contains the four listed modes."
+      ],
       "confidence": "MEDIUM",
       "consequence_if_wrong": "Track multiplicity, flavor, and reconstructed DV mass would differ."
     },
     "neutralino_branching_ratios": {
-      "value": null,
-      "state": "UNKNOWN",
-      "provenance": ["The reference log does not print the complete neutralino table; equal 0.25 values occur only in the nonmatching 2800/10 card."],
-      "confidence": "NONE",
+      "value": {
+        "n1 -> u d s": 0.25,
+        "n1 -> c d s": 0.25,
+        "n1 -> ubar dbar sbar": 0.25,
+        "n1 -> cbar dbar sbar": 0.25
+      },
+      "state": "CALCULATED",
+      "provenance": [
+        "Explicit BR table present in the public 2800/10 template's DECAY 1000022 block, unchanged by the mass reconstruction (BR sum verified = 1.0 in slha_transformation_audit.json). Consistent with reference event records showing uds-type three-quark decays."
+      ],
+      "confidence": "MEDIUM",
       "consequence_if_wrong": "Flavor-dependent vertex reconstruction could differ."
     },
     "collider_energy_gev": {
       "value": 13000.0,
       "state": "EXACT",
-      "provenance": ["Upstream run_card.dat sets two 6500 GeV proton beams; the reference Pythia log reports 13 TeV."],
+      "provenance": [
+        "Upstream run_card.dat sets two 6500 GeV proton beams; the reference Pythia log reports 13 TeV."
+      ],
       "confidence": "HIGH",
       "consequence_if_wrong": "Production rates and kinematics would differ."
     },
     "pdf": {
-      "value": {"pdlabel": "nn23lo1", "lhaid": 230000},
+      "value": {
+        "pdlabel": "nn23lo1",
+        "lhaid": 230000
+      },
       "state": "EXACT",
-      "provenance": ["Frozen upstream run_card.dat."],
+      "provenance": [
+        "Frozen upstream run_card.dat."
+      ],
       "confidence": "HIGH",
       "consequence_if_wrong": "Parton luminosities and the inclusive cross section would differ."
     },
     "generation_cuts": {
-      "value": {"ptj_min_gev": 20.0, "eta_j_max": 5.0, "drjj_min": 0.0, "mmjj_min_gev": 0.0, "maxjetflavor": 4},
+      "value": {
+        "ptj_min_gev": 20.0,
+        "eta_j_max": 5.0,
+        "drjj_min": 0.0,
+        "mmjj_min_gev": 0.0,
+        "maxjetflavor": 4
+      },
       "state": "EXACT",
-      "provenance": ["Frozen upstream run_card.dat."],
+      "provenance": [
+        "Frozen upstream run_card.dat."
+      ],
       "confidence": "HIGH",
       "consequence_if_wrong": "Matrix-element phase space and merged acceptance would differ."
     },
     "event_count": {
-      "value": {"per_parton_multiplicity": 10000, "multiplicities": 3, "requested_total": 30000},
+      "value": {
+        "per_parton_multiplicity": 10000,
+        "multiplicities": 3,
+        "requested_total": 30000
+      },
       "state": "EXACT",
-      "provenance": ["Upstream run_card.dat and bm1.cmnd each request 10000 events; bm1.cmnd declares three subruns."],
+      "provenance": [
+        "Upstream run_card.dat and bm1.cmnd each request 10000 events; bm1.cmnd declares three subruns."
+      ],
       "confidence": "HIGH",
       "consequence_if_wrong": "Statistical precision and weighted merged counts would differ."
     },
     "random_seeds": {
-      "value": null,
-      "state": "UNKNOWN",
-      "provenance": ["run_card.dat sets iseed=0 (automatic); assigned run_01 seeds are not printed in the distributed reference log."],
-      "confidence": "NONE",
+      "value": {
+        "0j": 90210001,
+        "1j": 90210002,
+        "2j": 90210003
+      },
+      "state": "CALCULATED",
+      "provenance": [
+        "The original author's run_01 seeds were never recovered and are not required by the author-confirmed reconstruction strategy: this independent reproduction uses its own explicit, nonzero, distinct seeds (benchmarks/upstream/strong-bm1/SEEDS.json), not a recovery of the original assignment."
+      ],
+      "confidence": "HIGH",
       "consequence_if_wrong": "An exact event-by-event reproduction is impossible and statistical fluctuations will differ."
     },
     "matching_merging_method": {
       "value": "CKKW-L kT merging in Pythia8",
       "state": "EXACT",
-      "provenance": ["run_card.dat sets ktdurham=500; bm1.cmnd enables Merging:doKTMerging; reference log prints CKKW-L merge."],
+      "provenance": [
+        "run_card.dat sets ktdurham=500; bm1.cmnd enables Merging:doKTMerging; reference log prints CKKW-L merge."
+      ],
       "confidence": "HIGH",
       "consequence_if_wrong": "Jet spectra and merged normalization would differ."
     },
     "merging_scale_gev": {
       "value": 500.0,
       "state": "EXACT",
-      "provenance": ["run_card.dat, bm1.cmnd, and reference Pythia log."],
+      "provenance": [
+        "run_card.dat, bm1.cmnd, and reference Pythia log."
+      ],
       "confidence": "HIGH",
       "consequence_if_wrong": "Jet-multiplicity overlap and acceptance would differ."
     },
     "output_naming": {
-      "value": ["strong_0_2000_850_0p01.lhe.gz", "strong_1_2000_850_0p01.lhe.gz", "strong_2_2000_850_0p01.lhe.gz"],
+      "value": [
+        "strong_0_2000_850_0p01.lhe.gz",
+        "strong_1_2000_850_0p01.lhe.gz",
+        "strong_2_2000_850_0p01.lhe.gz"
+      ],
       "state": "EXACT",
-      "provenance": ["Frozen upstream bm1.cmnd."],
+      "provenance": [
+        "Frozen upstream bm1.cmnd."
+      ],
       "confidence": "HIGH",
       "consequence_if_wrong": "The upstream Pythia card would not locate its inputs."
     },
     "pythia_configuration": {
       "value": "external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/cmnd/strong/bm1.cmnd",
       "state": "EXACT",
-      "provenance": ["Frozen upstream file at commit d4047c744062094c9f88e507bb1ccf69e9fe88d6; reference reports Pythia 8.308."],
+      "provenance": [
+        "Frozen upstream file at commit d4047c744062094c9f88e507bb1ccf69e9fe88d6; reference reports Pythia 8.308."
+      ],
       "confidence": "HIGH",
       "consequence_if_wrong": "Showering, merging, and analysis inputs would differ."
     },
     "reference_cutflow_source": {
       "value": "external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/2_results/strong/gluino_run01.txt",
       "state": "EXACT",
-      "provenance": ["Frozen upstream bm1-to-run01 mapping and distributed result log."],
+      "provenance": [
+        "Frozen upstream bm1-to-run01 mapping and distributed result log."
+      ],
       "confidence": "HIGH",
       "consequence_if_wrong": "The comparison would target a different benchmark."
     },
     "exact_parameter_or_slha_card": {
-      "value": null,
-      "state": "UNKNOWN",
-      "provenance": ["No 2000/850 bm1 card exists in the frozen tree, reachable local history, or indexed exact-filename searches."],
-      "confidence": "NONE",
+      "value": "benchmarks/upstream/strong-bm1/cards/generated/GG_qqn1_2000_850_rpvLF_p01ns.slha",
+      "state": "CALCULATED",
+      "provenance": [
+        "This is an independently RECONSTRUCTED card (public 2800/10 template with only the MASS block edited to 2000/850 GeV; see slha_transformation_audit.json), not a recovery of the original author's exact bm1 card. The exact original file remains NOT_RECOVERED -- this field's value/state is updated to reflect that a reconstruction now exists and reconstruction is permitted, not that recovery occurred."
+      ],
+      "confidence": "MEDIUM",
       "consequence_if_wrong": "Masses, widths, decay tables, and model parameters cannot be reproduced audibly."
     }
   }

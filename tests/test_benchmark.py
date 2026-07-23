@@ -7,16 +7,29 @@ from pathlib import Path
 from dvrecast.benchmark import prepare_benchmark
 
 
-def test_incomplete_benchmark_dry_run_is_blocked() -> None:
+def test_author_confirmed_reconstruction_supersedes_incomplete_block() -> None:
+    """The prior INCOMPLETE/BLOCKED_EXTERNAL_ARTIFACT classification is superseded:
+    author-confirmed reconstruction (see generation_contract.json classification_reason)
+    means the contract classification is now RECONSTRUCTED and generation is permitted
+    by the contract itself. The benchmark can still be BLOCKED for an unrelated reason
+    (the LHE samples do not exist yet -- see the MadGraph generation blocker below),
+    but it must no longer be blocked on contract classification or missing SLHA.
+    """
     payload = prepare_benchmark(Path.cwd(), "strong-bm1", dry_run=True)
 
-    assert payload["state"] == "BLOCKED"
-    assert payload["contract_classification"] == "INCOMPLETE"
-    assert payload["generation_allowed"] is False
+    assert payload["contract_classification"] == "RECONSTRUCTED"
     assert payload["toolchain_status"] == "READY"
-    assert payload["benchmark_input_status"] == "BLOCKED_EXTERNAL_ARTIFACT"
-    assert "generation contract is INCOMPLETE" in payload["blockers"]
     assert payload["madgraph"]["version"] == "3.5.3"
+    assert "generation contract is INCOMPLETE" not in payload["blockers"]
+    assert "missing benchmark parameter/SLHA card" not in payload["blockers"]
+    assert "SLHA lacks MASS 1000021 = 2000 GeV" not in payload["blockers"]
+    assert "SLHA lacks MASS 1000022 = 850 GeV" not in payload["blockers"]
+    # Generation is still blocked, but only because the LHE samples do not exist yet
+    # (MadGraph 1j/2j generation hit an unresolved zero-cross-section issue; see
+    # docs/strong_bm1_reproduction_report.md). This is a real, evidenced blocker,
+    # not the old artifact-availability block.
+    assert payload["state"] == "BLOCKED"
+    assert any("missing LHE samples" in item for item in payload["blockers"])
     assert any("strong_0_2000_850_0p01.lhe.gz" in item for item in payload["blockers"])
 
 

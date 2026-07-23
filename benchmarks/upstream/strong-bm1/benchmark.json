@@ -1,8 +1,22 @@
 {
   "identifier": "strong-bm1",
-  "status": "BLOCKED",
+  "status": "BLOCKED_AT_GENERATION",
   "toolchain_status": "READY",
-  "benchmark_input_status": "BLOCKED_EXTERNAL_ARTIFACT",
+  "benchmark_input_status": "AUTHOR_CONFIRMED_RECONSTRUCTION",
+  "previous_assessment": {
+    "benchmark_input_status": "BLOCKED_EXTERNAL_ARTIFACT",
+    "reason": "The exact original author SLHA/LHE artifacts for bm1 (m_gluino=2000 GeV, m_neutralino=850 GeV, ctau=0.01 ns) were not available in the pinned upstream repository or otherwise recovered.",
+    "superseded_by": "author_confirmed_resolution",
+    "note": "This assessment is preserved for history. It remains true that the exact original author SLHA/LHE files were never recovered -- see distinction below."
+  },
+  "author_confirmed_resolution": {
+    "author": "Giovanna Cottin",
+    "summary": "Author confirmed the intended public reproduction procedure is: (1) use the public MadGraph process cards, (2) start from the public official strong-production SLHA example (GG_qqn1_2800_10_rpvLF_p01ns.slha), (3) modify it to the target bm1 masses/lifetime, (4) regenerate LHE samples independently, (5) compare against public HEPData resources. No private LHE files are required or awaited.",
+    "distinction": {
+      "exact_original_author_slha_or_lhe": "NOT_RECOVERED",
+      "author_approved_reconstructed_slha": "PERMITTED_AND_USED"
+    }
+  },
   "mg5": {
     "path": "/home/fabi/.local/mg5amcnlo/3.5.3/bin/mg5_aMC",
     "version": "3.5.3",
@@ -39,7 +53,8 @@
       "external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/0_mg5_cards/proc_card_mg5/strong/pp2gogo_2_proc_card_mg5.dat"
     ],
     "run_card": "external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/0_mg5_cards/run_card.dat",
-    "parameter_or_slha_card": null,
+    "parameter_or_slha_card": "benchmarks/upstream/strong-bm1/cards/generated/GG_qqn1_2000_850_rpvLF_p01ns.slha",
+    "parameter_or_slha_card_provenance": "Independently reconstructed by editing only the BLOCK MASS entries of the public template (2800/10 GeV -> 2000/850 GeV); see cards/slha_transformation_audit.json. This is not a bitwise recovery of the original author's bm1 card.",
     "related_but_nonmatching_slha_card": "external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/0_mg5_cards/GG_qqn1_2800_10_rpvLF_p01ns.slha",
     "pythia_cmnd": "external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/cmnd/strong/bm1.cmnd"
   },
@@ -80,15 +95,22 @@
     "G++ 13.3.0"
   ],
   "missing_inputs": [
-    "exact bm1 parameter/SLHA card for m_gluino=2000 GeV, m_neutralino=850 GeV and lifetime label 0.01",
-    "strong_0_2000_850_0p01.lhe.gz",
-    "strong_1_2000_850_0p01.lhe.gz",
-    "strong_2_2000_850_0p01.lhe.gz"
+    "strong_0_2000_850_0p01.lhe.gz (pending/in-progress independent generation)",
+    "strong_1_2000_850_0p01.lhe.gz (pending/in-progress independent generation)",
+    "strong_2_2000_850_0p01.lhe.gz (pending/in-progress independent generation)"
   ],
   "known_unresolved_dependencies": [
-    "exact bm1 parameter/SLHA card",
-    "three exact bm1 LHE samples"
+    "three independently generated bm1 LHE samples (production scale, 10000 events each) -- pilot-scale samples validated, production pending"
+  ],
+  "permanently_unresolved_by_design": [
+    "exact original author bm1 SLHA/LHE files (not required per author-confirmed reconstruction strategy; see author_confirmed_resolution)"
   ],
   "intended_execution_command": "cd data/upstream/strong-bm1 && ../../../external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/recast_2301_13866 ../../../external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/cmnd/strong/bm1.cmnd",
-  "validation_tolerance_reference": "docs/validation_contract.md#gate-b--upstream-cutflow"
+  "validation_tolerance_reference": "docs/validation_contract.md#gate-b--upstream-cutflow",
+  "generation_status": {
+    "0j": "PILOT_VALIDATED (10 events, seed 111, mass/weight checks pass; production 10000-event generation not yet run pending 1j/2j resolution)",
+    "1j": "BLOCKED -- zero cross section across all channels, see generation_diagnostic_ladder.json",
+    "2j": "NOT_ATTEMPTED (blocked by same root cause expected; not tested to conserve compute per mission time-box)"
+  },
+  "diagnostic_ladder_path": "benchmarks/upstream/strong-bm1/generation_diagnostic_ladder.json"
 }

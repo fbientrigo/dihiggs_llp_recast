@@ -1,0 +1,13 @@
+{
+  "note": "Explicit, nonzero, distinct seeds for the strong-bm1 production generation. iseed=0 (upstream default, auto-assigned) is forbidden for the final reproducibility run per mission requirements.",
+  "seeds": {
+    "0j": 90210001,
+    "1j": 90210002,
+    "2j": 90210003
+  },
+  "pilot_seeds": {
+    "0j": 111,
+    "1j": 222,
+    "2j": 333
+  }
+}

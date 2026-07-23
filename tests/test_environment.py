@@ -120,7 +120,8 @@ def test_selected_benchmark_remains_blocked_without_inventory_inputs(tmp_path: P
         tmp_path, benchmark, contract, mg5_available=False
     )
     assert state.state == "BLOCKED"
-    assert "generation contract is INCOMPLETE" in state.blockers
+    # Author-confirmed reconstruction supersedes the old INCOMPLETE classification.
+    assert "generation contract is INCOMPLETE" not in state.blockers
     assert any("strong_0_2000_850_0p01.lhe.gz" in item for item in state.blockers)
     assert "missing mg5_aMC" in state.blockers
 

@@ -33,3 +33,4 @@ results/*
 # Local configuration
 .env
 configs/toolchain.env
+py.py
