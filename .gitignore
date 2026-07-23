@@ -29,7 +29,18 @@ cards/generated/
 models/generated/
 results/*
 !results/README.md
+!results/scalar_h2_smoke/
+results/scalar_h2_smoke/events.jsonl*
+!results/scalar_h2_smoke/manifest.json
+!results/scalar_h2_smoke/input_audit.json
+!results/scalar_h2_smoke/cutflow.json
+!results/scalar_h2_smoke/cutflow.csv
+!results/scalar_h2_smoke/atlas_constants_check.json
+!results/scalar_h2_smoke/plots/
+!results/scalar_h2_smoke/plots/*.png
+!results/scalar_h2_smoke/plots/diagnostics.json
 
 # Local configuration
 .env
 configs/toolchain.env
+reports_*.bundle

@@ -1,0 +1,17 @@
+stage,raw_count,weighted_count,fraction_of_input,weighted_fraction_of_input,conditional_fraction,weighted_conditional_fraction,statistical_note
+events_read,100,2.3453e-09,1.0,0.9999999999999998,1.0,0.9999999999999998,100 unique production events; event weights preserved; no replica uncertainty used
+events_expected_h2,100,2.3453e-09,1.0,0.9999999999999998,1.0,1.0,100 unique production events; event weights preserved; no replica uncertainty used
+events_successful_h2_bb,100,2.3453e-09,1.0,0.9999999999999998,1.0,1.0,100 unique production events; event weights preserved; no replica uncertainty used
+events_displaced_h2_vertex,40,9.3812e-10,0.4,0.3999999999999999,0.4,0.4,100 unique production events; event weights preserved; no replica uncertainty used
+events_fiducial_decay,40,9.3812e-10,0.4,0.3999999999999999,1.0,1.0,100 unique production events; event weights preserved; no replica uncertainty used
+events_jet_preselection,38,8.91214e-10,0.38,0.3799999999999999,0.95,0.95,100 unique production events; event weights preserved; no replica uncertainty used
+events_high_pt_selection,0,0.0,0.0,0.0,0.0,0.0,100 unique production events; event weights preserved; no replica uncertainty used
+events_trackless_selection,0,0.0,0.0,0.0,0.0,0.0,100 unique production events; event weights preserved; no replica uncertainty used
+events_jet_selection,0,0.0,0.0,0.0,0.0,0.0,100 unique production events; event weights preserved; no replica uncertainty used
+candidate_displaced_vertices,0,0.0,0.0,0.0,0.0,0.0,100 unique production events; event weights preserved; no replica uncertainty used
+vertices_displaced_track_requirements,0,0.0,0.0,0.0,0.0,0.0,100 unique production events; event weights preserved; no replica uncertainty used
+vertices_track_multiplicity,0,0.0,0.0,0.0,0.0,0.0,100 unique production events; event weights preserved; no replica uncertainty used
+vertices_mdv,0,0.0,0.0,0.0,0.0,0.0,100 unique production events; event weights preserved; no replica uncertainty used
+events_event_efficiency_map,0,0.0,0.0,0.0,0.0,0.0,100 unique production events; event weights preserved; no replica uncertainty used
+events_vertex_efficiency_map,0,0.0,0.0,0.0,0.0,0.0,100 unique production events; event weights preserved; no replica uncertainty used
+final_selected_events,0,0.0,0.0,0.0,0.0,0.0,100 unique production events; event weights preserved; no replica uncertainty used

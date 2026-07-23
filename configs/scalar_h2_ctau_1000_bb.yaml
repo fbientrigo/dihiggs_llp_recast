@@ -1,0 +1,11 @@
+mode: scalar-h2
+llp_pdg: 9000006
+llp_mass_GeV: 200.0
+ctau_mm: 1000.0
+is_resonance: false
+decay: [5, -5]
+branching_ratio: 1.0
+seed: 900006005
+production_events: 100
+decay_replicas: 0
+atlas_cuts_source: external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/recast_2301_13866.cc

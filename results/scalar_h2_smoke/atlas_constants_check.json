@@ -1,0 +1,24 @@
+{
+  "schema": "scalar_h2.atlas_constants.v1",
+  "checks": {
+    "250.": true,
+    "195.": true,
+    "116.": true,
+    "90.": true,
+    "137.": true,
+    "101.": true,
+    "83.": true,
+    "55.": true,
+    "70.": true,
+    "50.": true,
+    "3870.": true,
+    "300.": true,
+    "4.": true,
+    "520.": true,
+    "10.": true,
+    "no_modified_trackless_thresholds": true,
+    "efficiency_maps_reused": true
+  },
+  "upstream_source_sha256": "e24bd377b6737f28537eb4d237488649d5e080212990627686d6b19c9c18adf2",
+  "efficiency_source_sha256": "c19e57cd2de24f223a69e4e5757c62683655319c9e7948357a84440b4232856b"
+}

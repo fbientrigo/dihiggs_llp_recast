@@ -1,0 +1,179 @@
+{
+  "schema": "scalar_h2.cutflow.v1",
+  "status": "PROVISIONAL_ENGINEERING_SMOKE",
+  "input_events": 100,
+  "unique_production_events": 100,
+  "decay_replicas": 0,
+  "normalization": {
+    "pack_a_smoke_sigma_separate": true,
+    "branching_ratio_bb": 1.0,
+    "acceptance_claim": "PROVISIONAL_ENGINEERING_SMOKE; NOT_MODEL_DERIVED; UPSTREAM_REGRESSION_PENDING"
+  },
+  "stages": [
+    {
+      "stage": "events_read",
+      "raw_count": 100,
+      "weighted_count": 2.3453e-09,
+      "fraction_of_input": 1.0,
+      "weighted_fraction_of_input": 0.9999999999999998,
+      "conditional_fraction": 1.0,
+      "weighted_conditional_fraction": 0.9999999999999998,
+      "statistical_note": "100 unique production events; event weights preserved; no replica uncertainty used"
+    },
+    {
+      "stage": "events_expected_h2",
+      "raw_count": 100,
+      "weighted_count": 2.3453e-09,
+      "fraction_of_input": 1.0,
+      "weighted_fraction_of_input": 0.9999999999999998,
+      "conditional_fraction": 1.0,
+      "weighted_conditional_fraction": 1.0,
+      "statistical_note": "100 unique production events; event weights preserved; no replica uncertainty used"
+    },
+    {
+      "stage": "events_successful_h2_bb",
+      "raw_count": 100,
+      "weighted_count": 2.3453e-09,
+      "fraction_of_input": 1.0,
+      "weighted_fraction_of_input": 0.9999999999999998,
+      "conditional_fraction": 1.0,
+      "weighted_conditional_fraction": 1.0,
+      "statistical_note": "100 unique production events; event weights preserved; no replica uncertainty used"
+    },
+    {
+      "stage": "events_displaced_h2_vertex",
+      "raw_count": 40,
+      "weighted_count": 9.3812e-10,
+      "fraction_of_input": 0.4,
+      "weighted_fraction_of_input": 0.3999999999999999,
+      "conditional_fraction": 0.4,
+      "weighted_conditional_fraction": 0.4,
+      "statistical_note": "100 unique production events; event weights preserved; no replica uncertainty used"
+    },
+    {
+      "stage": "events_fiducial_decay",
+      "raw_count": 40,
+      "weighted_count": 9.3812e-10,
+      "fraction_of_input": 0.4,
+      "weighted_fraction_of_input": 0.3999999999999999,
+      "conditional_fraction": 1.0,
+      "weighted_conditional_fraction": 1.0,
+      "statistical_note": "100 unique production events; event weights preserved; no replica uncertainty used"
+    },
+    {
+      "stage": "events_jet_preselection",
+      "raw_count": 38,
+      "weighted_count": 8.91214e-10,
+      "fraction_of_input": 0.38,
+      "weighted_fraction_of_input": 0.3799999999999999,
+      "conditional_fraction": 0.95,
+      "weighted_conditional_fraction": 0.95,
+      "statistical_note": "100 unique production events; event weights preserved; no replica uncertainty used"
+    },
+    {
+      "stage": "events_high_pt_selection",
+      "raw_count": 0,
+      "weighted_count": 0.0,
+      "fraction_of_input": 0.0,
+      "weighted_fraction_of_input": 0.0,
+      "conditional_fraction": 0.0,
+      "weighted_conditional_fraction": 0.0,
+      "statistical_note": "100 unique production events; event weights preserved; no replica uncertainty used"
+    },
+    {
+      "stage": "events_trackless_selection",
+      "raw_count": 0,
+      "weighted_count": 0.0,
+      "fraction_of_input": 0.0,
+      "weighted_fraction_of_input": 0.0,
+      "conditional_fraction": 0.0,
+      "weighted_conditional_fraction": 0.0,
+      "statistical_note": "100 unique production events; event weights preserved; no replica uncertainty used"
+    },
+    {
+      "stage": "events_jet_selection",
+      "raw_count": 0,
+      "weighted_count": 0.0,
+      "fraction_of_input": 0.0,
+      "weighted_fraction_of_input": 0.0,
+      "conditional_fraction": 0.0,
+      "weighted_conditional_fraction": 0.0,
+      "statistical_note": "100 unique production events; event weights preserved; no replica uncertainty used"
+    },
+    {
+      "stage": "candidate_displaced_vertices",
+      "raw_count": 0,
+      "weighted_count": 0.0,
+      "fraction_of_input": 0.0,
+      "weighted_fraction_of_input": 0.0,
+      "conditional_fraction": 0.0,
+      "weighted_conditional_fraction": 0.0,
+      "statistical_note": "100 unique production events; event weights preserved; no replica uncertainty used"
+    },
+    {
+      "stage": "vertices_displaced_track_requirements",
+      "raw_count": 0,
+      "weighted_count": 0.0,
+      "fraction_of_input": 0.0,
+      "weighted_fraction_of_input": 0.0,
+      "conditional_fraction": 0.0,
+      "weighted_conditional_fraction": 0.0,
+      "statistical_note": "100 unique production events; event weights preserved; no replica uncertainty used"
+    },
+    {
+      "stage": "vertices_track_multiplicity",
+      "raw_count": 0,
+      "weighted_count": 0.0,
+      "fraction_of_input": 0.0,
+      "weighted_fraction_of_input": 0.0,
+      "conditional_fraction": 0.0,
+      "weighted_conditional_fraction": 0.0,
+      "statistical_note": "100 unique production events; event weights preserved; no replica uncertainty used"
+    },
+    {
+      "stage": "vertices_mdv",
+      "raw_count": 0,
+      "weighted_count": 0.0,
+      "fraction_of_input": 0.0,
+      "weighted_fraction_of_input": 0.0,
+      "conditional_fraction": 0.0,
+      "weighted_conditional_fraction": 0.0,
+      "statistical_note": "100 unique production events; event weights preserved; no replica uncertainty used"
+    },
+    {
+      "stage": "events_event_efficiency_map",
+      "raw_count": 0,
+      "weighted_count": 0.0,
+      "fraction_of_input": 0.0,
+      "weighted_fraction_of_input": 0.0,
+      "conditional_fraction": 0.0,
+      "weighted_conditional_fraction": 0.0,
+      "statistical_note": "100 unique production events; event weights preserved; no replica uncertainty used"
+    },
+    {
+      "stage": "events_vertex_efficiency_map",
+      "raw_count": 0,
+      "weighted_count": 0.0,
+      "fraction_of_input": 0.0,
+      "weighted_fraction_of_input": 0.0,
+      "conditional_fraction": 0.0,
+      "weighted_conditional_fraction": 0.0,
+      "statistical_note": "100 unique production events; event weights preserved; no replica uncertainty used"
+    },
+    {
+      "stage": "final_selected_events",
+      "raw_count": 0,
+      "weighted_count": 0.0,
+      "fraction_of_input": 0.0,
+      "weighted_fraction_of_input": 0.0,
+      "conditional_fraction": 0.0,
+      "weighted_conditional_fraction": 0.0,
+      "statistical_note": "100 unique production events; event weights preserved; no replica uncertainty used"
+    }
+  ],
+  "failure_reason_by_selection_stage": {
+    "fiducial_dv": 60,
+    "high_pt_or_trackless": 38,
+    "jet_preselection": 2
+  }
+}

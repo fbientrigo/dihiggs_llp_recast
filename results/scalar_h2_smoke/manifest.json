@@ -1,0 +1,99 @@
+{
+  "schema": "scalar_h2.smoke_manifest.v1",
+  "status": "PROVISIONAL_SCALAR_SMOKE_EXECUTED",
+  "ufo": {
+    "path": "/home/fabi/atlas_dihiggs/ufos",
+    "commit": "383e0cffb9736d5a5e5f65b94bb3de1dad023202",
+    "dirty_state": ""
+  },
+  "pack_a": {
+    "artifact_path": "/home/fabi/atlas_dihiggs/ufos/releases/pack_a/frozen/pi_ufo_baseline_v1_frozen_hotfix1.zip",
+    "artifact_sha256": "58f1e976bc8fd6dcc89f353d68dc85ff70c935164e5d168322b1f8633e2537f6",
+    "smoke_sigma_kept_separate": true
+  },
+  "input_lhe": {
+    "path": "/home/fabi/atlas_dihiggs/ufos/pack_aa/inputs/pack_a_A_PI_NATIVE_200_source.lhe.gz",
+    "sha256": "c83fbf9d29b3f58bbe98579e6c7b9846d60f45ed4f0262528cb61875b3646838",
+    "unique_production_events": 100,
+    "decay_replicas": 0
+  },
+  "pack_aa_config": {
+    "path": "/home/fabi/atlas_dihiggs/ufos/pack_aa/configs/ctau_1000_bb.yaml",
+    "sha256": "99bda0c22f5d96e54c57b40b0f0e392871d85c5740c64da269fd493aa6709219"
+  },
+  "recast": {
+    "path": "/home/fabi/atlas_dihiggs/worktrees/recast_h2bb_smoke_20260723T000000Z",
+    "implementation_base_commit": "747b8e3bdee31e22cb03a2efcc526cde7420f2d6",
+    "upstream_commit": "d4047c744062094c9f88e507bb1ccf69e9fe88d6",
+    "upstream_submodule_immutable": true,
+    "adapter_overlay": "src/scalar_h2_recast.cc",
+    "adapter_overlay_sha256": "32a7778e169f706b5a8d3015c8238d8a9eb55a56ef40a0b0a706ced47181f873"
+  },
+  "tools": {
+    "MG5": "Usage: mg5_aMC [options] [FILE] ",
+    "Pythia8": "exit=0",
+    "FastJet": "3.4.0",
+    "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "python": "Python 3.12.7"
+  },
+  "analysis": {
+    "mode": "scalar-h2",
+    "default_mode": "upstream-susy",
+    "llp_pdg": 9000006,
+    "mass_GeV": 200.0,
+    "ctau_mm": 1000.0,
+    "is_resonance": false,
+    "decay": [
+      5,
+      -5
+    ],
+    "branching_ratio": 1.0,
+    "seed": 900006005,
+    "single_pythia_decay_shower_hadronization_pass": true,
+    "unique_production_events": 100,
+    "decay_replicas": 0
+  },
+  "commands": {
+    "git status --short --branch": 0,
+    "git submodule status": 0,
+    "git diff --check": 0,
+    "make hep-preflight": 0,
+    "make build-upstream": 0,
+    "initial make bootstrap network attempt": 2,
+    "local pinned submodule seeding": 0,
+    "scalar build": 0,
+    "input audit": 0,
+    "100-event scalar smoke": 0,
+    "cutflow extraction": 0,
+    "plot generation": 0,
+    "ATLAS constants check": 0
+  },
+  "output_sha256": {
+    "results/scalar_h2_smoke/input_audit.json": "04deb68499d603b5c6861608d5158dd538aa51d8cbf9d91841bf34ac16dc9722",
+    "results/scalar_h2_smoke/cutflow.json": "c728545335f7dd887ec3029a604cab5d0bf32561dc555c1bf5feb2c55cf9b225",
+    "results/scalar_h2_smoke/cutflow.csv": "225abe7a0888b10c766e46a9e2b7a03a3599667fc52706149c9655d7b01d725c",
+    "results/scalar_h2_smoke/atlas_constants_check.json": "ba43b47ce6353b0d7d11cf7f5f7664c22c1681fcaa2538c0720df8f14d5c36d6",
+    "results/scalar_h2_smoke/plots/diagnostics.json": "018515426c71994b4f0e141f01fdb5c7197cee7d8c37d9226371414ebf21a2f7",
+    "results/scalar_h2_smoke/plots/beta_gamma.png": "225d37685bdb75a8e1f8baf97781f6fbfdd6efcdefea6d768b8a1a0587c8b457",
+    "results/scalar_h2_smoke/plots/charged_descendants.png": "24903ae2bc471302bbd70ee7b574415b8db471177c14d0f01c0b9d35e91fd756",
+    "results/scalar_h2_smoke/plots/dv_radius_mm.png": "a262b7bfd1fa4eba99a8f896902829f959d86bc4ce887b76cd76783117af0014",
+    "results/scalar_h2_smoke/plots/dv_z_mm.png": "9e677d03d64c478813a6bdb777938ea48fd1622dfe7d5d9a4efd992d8ac086c9",
+    "results/scalar_h2_smoke/plots/failure_reason.png": "8b12e7d6ffdfdc84e628c276b7a50b2d8f59146d90399a2e1aad2d486872ac25",
+    "results/scalar_h2_smoke/plots/ht_GeV.png": "ad0eb3b1f1c5885892028508385e39c7f498328c6372a9597a999d9315cd91a9",
+    "results/scalar_h2_smoke/plots/lab_flight_length_mm.png": "b6bf278529fa28b642ef16af9b76897632e343ec8ecc8e2221f9c0ff92fcbdc6",
+    "results/scalar_h2_smoke/plots/leading_jet_pt_GeV.png": "332483ff15207337c26ea1a3be1103648acbea890737dd540108753b6835c3d0",
+    "results/scalar_h2_smoke/plots/n_jets.png": "b1251eaf09d732cb999759c278d69ac8ee86da531afdbf07b472f4f6cdf90d36",
+    "results/scalar_h2_smoke/plots/proper_flight_length_mm.png": "eb66767c49f6d5d2bba78376797d57983b12f4d47e87a5d0e4846edb57c5ebc2",
+    "results/scalar_h2_smoke/plots/reconstructed_dv_mass_GeV.png": "a206badd141731a55fb755de03a85b514fc7df8e1a5921165178797af7557221",
+    "results/scalar_h2_smoke/plots/selected_displaced_track_multiplicity.png": "a582e3ce03ab14363e375ab33ea47b81c2616bbbec2bfa0ce2aeb51d2be7557a",
+    "results/scalar_h2_smoke/plots/subleading_jet_pt_GeV.png": "adb7aa268c428aa4d61a926d0d9e135ecfdabc981d04234925c5a325dd284129",
+    "results/scalar_h2_smoke/plots/truth_dv_mass_GeV.png": "6ab30b9816e91e067b544d403395caf250e4b71fd42123c48800cace487af15c"
+  },
+  "normalization_disclaimer": "PROVISIONAL_ENGINEERING_SMOKE; NOT_MODEL_DERIVED; UPSTREAM_REGRESSION_PENDING; no sigma*BR^2*Aepsilon, yield, exclusion or limit",
+  "validation_limitations": [
+    "upstream strong-bm1 inputs remain blocked",
+    "no Pack B inputs used",
+    "no upstream recast validation or ATLAS exclusion",
+    "100 events only and no independent replica uncertainty"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "schema": "scalar_h2.input_audit.v1",
+  "input": {
+    "path": "/home/fabi/atlas_dihiggs/ufos/pack_aa/inputs/pack_a_A_PI_NATIVE_200_source.lhe.gz",
+    "sha256": "c83fbf9d29b3f58bbe98579e6c7b9846d60f45ed4f0262528cb61875b3646838",
+    "sha256_expected": "c83fbf9d29b3f58bbe98579e6c7b9846d60f45ed4f0262528cb61875b3646838"
+  },
+  "pack_a": {
+    "artifact_sha256": "58f1e976bc8fd6dcc89f353d68dc85ff70c935164e5d168322b1f8633e2537f6",
+    "artifact_sha256_enforced": true,
+    "artifact_path": "/home/fabi/atlas_dihiggs/ufos/releases/pack_a/frozen/pi_ufo_baseline_v1_frozen_hotfix1.zip",
+    "observed_sha256": "58f1e976bc8fd6dcc89f353d68dc85ff70c935164e5d168322b1f8633e2537f6"
+  },
+  "events": {
+    "total": 100,
+    "unique_production_events": 100,
+    "decay_replicas": 0,
+    "h2_record_counts": {
+      "2": 100
+    },
+    "expected_pdg": 9000006,
+    "expected_mass_GeV": 200.0,
+    "stable_h2_events": 100,
+    "invalid_events": [],
+    "predecayed_or_displaced_events": [],
+    "weights": {
+      "count": 100,
+      "sum": 2.3453,
+      "min": 0.023453,
+      "max": 0.023453
+    }
+  },
+  "contract": {
+    "single_pythia_pass_required": true,
+    "reject_double_processing": true
+  },
+  "pack_aa_config": {
+    "path": "/home/fabi/atlas_dihiggs/ufos/pack_aa/configs/ctau_1000_bb.yaml",
+    "sha256": "99bda0c22f5d96e54c57b40b0f0e392871d85c5740c64da269fd493aa6709219"
+  },
+  "checks": {
+    "input_sha256": true,
+    "pack_a_sha256": true,
+    "events": true,
+    "stable_h2": true,
+    "no_predecay": true
+  },
+  "status": "PASS"
+}
