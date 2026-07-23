@@ -24,6 +24,7 @@ downloads/
 # Heavy/generated project data
 data/raw/
 data/interim/
+data/upstream/*/mg5_processes/
 cards/generated/
 models/generated/
 results/*

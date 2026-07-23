@@ -1,6 +1,24 @@
 {
   "identifier": "strong-bm1",
   "status": "BLOCKED",
+  "toolchain_status": "READY",
+  "benchmark_input_status": "BLOCKED_EXTERNAL_ARTIFACT",
+  "mg5": {
+    "path": "/home/fabi/.local/mg5amcnlo/3.5.3/bin/mg5_aMC",
+    "version": "3.5.3",
+    "verified": true
+  },
+  "pythia8": {
+    "path": "/home/fabi/.local/pythia8308",
+    "version": "8.308",
+    "verified": true
+  },
+  "fastjet": {
+    "path": "/home/fabi/.local/fastjet-3.4.0",
+    "version": "3.4.0",
+    "verified": true
+  },
+  "generation_contract_path": "benchmarks/upstream/strong-bm1/generation_contract.json",
   "upstream": {
     "repository": "https://github.com/llprecasting/recastingCodes.git",
     "commit": "d4047c744062094c9f88e507bb1ccf69e9fe88d6"
@@ -62,11 +80,14 @@
     "G++ 13.3.0"
   ],
   "missing_inputs": [
-    "MadGraph executable mg5_aMC",
     "exact bm1 parameter/SLHA card for m_gluino=2000 GeV, m_neutralino=850 GeV and lifetime label 0.01",
     "strong_0_2000_850_0p01.lhe.gz",
     "strong_1_2000_850_0p01.lhe.gz",
     "strong_2_2000_850_0p01.lhe.gz"
+  ],
+  "known_unresolved_dependencies": [
+    "exact bm1 parameter/SLHA card",
+    "three exact bm1 LHE samples"
   ],
   "intended_execution_command": "cd data/upstream/strong-bm1 && ../../../external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/recast_2301_13866 ../../../external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/cmnd/strong/bm1.cmnd",
   "validation_tolerance_reference": "docs/validation_contract.md#gate-b--upstream-cutflow"

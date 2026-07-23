@@ -52,6 +52,7 @@ def main() -> int:
     parser.add_argument(
         "--toolchain", type=Path, default=ROOT / "configs" / "toolchain.env"
     )
+    parser.add_argument("--benchmark", default="strong-bm1")
     args = parser.parse_args()
 
     config = load_toolchain_config(args.toolchain) if args.toolchain.is_file() else {}
@@ -66,6 +67,7 @@ def main() -> int:
         if config.get("MG5_HOME")
         else None,
     }
+    madgraph, _, mg5_version = madgraph_readiness(config)
     for tool in [
         Tool("git"),
         Tool("make"),
@@ -78,18 +80,22 @@ def main() -> int:
         configured = configured_paths.get(tool.name)
         path = str(configured) if configured and configured.is_file() else shutil.which(tool.name)
         status = "FOUND" if path else "MISSING"
-        detail = version(path, tool.version_args) if path else "-"
+        detail = mg5_version if tool.name == "mg5_aMC" and path else (
+            version(path, tool.version_args) if path else "-"
+        )
         print(f"{tool.name:18} {status:8} {path or '-'} | {detail}")
 
     core = core_environment_readiness()
     build = upstream_build_readiness(config)
-    madgraph, _ = madgraph_readiness(config)
-    benchmark_path = ROOT / "benchmarks/upstream/strong-bm1/benchmark.json"
+    benchmark_dir = ROOT / "benchmarks/upstream" / args.benchmark
+    benchmark_path = benchmark_dir / "benchmark.json"
+    contract_path = benchmark_dir / "generation_contract.json"
     selected = None
-    if benchmark_path.is_file():
+    if benchmark_path.is_file() and contract_path.is_file():
         benchmark = json.loads(benchmark_path.read_text(encoding="utf-8"))
+        contract = json.loads(contract_path.read_text(encoding="utf-8"))
         selected = selected_benchmark_readiness(
-            ROOT, benchmark, madgraph.state == "READY"
+            ROOT, benchmark, contract, madgraph.state == "READY"
         )
 
     print()

@@ -14,6 +14,7 @@ from typing import Any
 
 from .config import UpstreamLock
 from .readiness import (
+    Readiness,
     core_environment_readiness,
     madgraph_readiness,
     selected_benchmark_readiness,
@@ -164,11 +165,7 @@ def pythia_source_provenance(toolchain: Mapping[str, str]) -> dict[str, Any]:
 
 
 def _file_sha256(path: Path) -> str:
-    digest = sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
+    return sha256(path.read_bytes()).hexdigest()
 
 
 def _build_snapshot(repo_root: Path) -> dict[str, Any]:
@@ -205,18 +202,28 @@ def _build_snapshot(repo_root: Path) -> dict[str, Any]:
     }
 
 
-def _readiness_snapshot(repo_root: Path, toolchain: Mapping[str, str]) -> dict[str, Any]:
+def _readiness_snapshot(
+    repo_root: Path,
+    toolchain: Mapping[str, str],
+    madgraph: Readiness,
+    mg5_version: str | None,
+) -> dict[str, Any]:
     core = core_environment_readiness()
     build = upstream_build_readiness(toolchain)
-    madgraph, _ = madgraph_readiness(toolchain)
     benchmark_path = repo_root / "benchmarks/upstream/strong-bm1/benchmark.json"
+    contract_path = repo_root / "benchmarks/upstream/strong-bm1/generation_contract.json"
     benchmark = (
         json.loads(benchmark_path.read_text(encoding="utf-8"))
         if benchmark_path.is_file()
         else {}
     )
+    contract = (
+        json.loads(contract_path.read_text(encoding="utf-8"))
+        if contract_path.is_file()
+        else {}
+    )
     selected = selected_benchmark_readiness(
-        repo_root, benchmark, mg5_available=madgraph.state == "READY"
+        repo_root, benchmark, contract, mg5_available=madgraph.state == "READY"
     )
 
     def record(state: str, blockers: tuple[str, ...]) -> dict[str, Any]:
@@ -225,7 +232,10 @@ def _readiness_snapshot(repo_root: Path, toolchain: Mapping[str, str]) -> dict[s
     return {
         "core_environment": record(core.state, core.blockers),
         "upstream_recast_build": record(build.state, build.blockers),
-        "madgraph_lhe_generation_tool": record(madgraph.state, madgraph.blockers),
+        "madgraph_lhe_generation_tool": {
+            **record(madgraph.state, madgraph.blockers),
+            "version": mg5_version,
+        },
         "selected_upstream_benchmark": record(selected.state, selected.blockers),
     }
 
@@ -238,6 +248,8 @@ def build_environment_manifest(
     toolchain = dict(toolchain or {})
     pythia_prefix = Path(toolchain["PYTHIA8"]) if toolchain.get("PYTHIA8") else None
     fastjet_prefix = Path(toolchain["FASTJET3"]) if toolchain.get("FASTJET3") else None
+    madgraph_prefix = Path(toolchain["MG5_HOME"]) if toolchain.get("MG5_HOME") else None
+    madgraph_state, madgraph_path, madgraph_version = madgraph_readiness(toolchain)
     configured_tools = {
         "fastjet-config": fastjet_prefix / "bin/fastjet-config" if fastjet_prefix else None,
         "pythia8-config": pythia_prefix / "bin/pythia8-config" if pythia_prefix else None,
@@ -245,7 +257,16 @@ def build_environment_manifest(
             Path(toolchain["MG5_HOME"]) / "bin/mg5_aMC" if toolchain.get("MG5_HOME") else None
         ),
     }
-    tools = ["git", "make", "g++", "python3", "fastjet-config", "pythia8-config", "mg5_aMC"]
+    tools = ["git", "make", "g++", "python3", "fastjet-config", "pythia8-config"]
+    tool_records = [tool_snapshot(name, configured_tools.get(name)) for name in tools]
+    tool_records.append(
+        {
+            "name": "mg5_aMC",
+            "available": madgraph_state.state == "READY",
+            "path": madgraph_path,
+            "version": madgraph_version,
+        }
+    )
     selected_env = {
         key: os.environ.get(key)
         for key in ("CC", "CXX", "PYTHIA8", "FASTJET3", "MG5_HOME", "OMP_NUM_THREADS")
@@ -265,7 +286,7 @@ def build_environment_manifest(
             "analysis_path": str(lock.analysis_path),
             "checkout": git_snapshot(upstream_root) if (upstream_root / ".git").exists() else None,
         },
-        "tools": [tool_snapshot(name, configured_tools.get(name)) for name in tools],
+        "tools": tool_records,
         "toolchain": {
             "fastjet": {
                 "prefix": str(fastjet_prefix) if fastjet_prefix else None,
@@ -282,9 +303,17 @@ def build_environment_manifest(
                 "version": _pythia_version(pythia_prefix),
                 "source_provenance": pythia_source_provenance(toolchain),
             },
+            "madgraph": {
+                "prefix": str(madgraph_prefix) if madgraph_prefix else None,
+                "path": madgraph_path,
+                "version": madgraph_version,
+                "state": madgraph_state.state,
+            },
             "compiler": tool_snapshot(toolchain.get("CXX", "g++")),
         },
         "build": _build_snapshot(repo_root),
-        "readiness": _readiness_snapshot(repo_root, toolchain),
+        "readiness": _readiness_snapshot(
+            repo_root, toolchain, madgraph_state, madgraph_version
+        ),
         "environment": selected_env,
     }
