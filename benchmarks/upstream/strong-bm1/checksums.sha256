@@ -1,0 +1,43 @@
+# SHA-256 checksums of read-only source evidence.
+3f9bbbc54e487c34f3cd8c45aa4bfc230e18a8b760a4e031386badc44fcce037  source/README.md
+3bd26b48cbd1cccf413041476c034a456fce5de42b800f758a5f2e4f9cf1505b  source/build.log
+cab1cd8dd42cb16694eb45f17864b64b9b325c6632434f8949359c922dd381eb  source/commands.sh
+65585ca41b654b7b034b76fe3efaaaf6a907c8ef7bcff9dcf67f3f8ed2a3d65f  source/comparison.csv
+da9e386f4367b753d14dd9b1a4a0d813fe29cff24228224a38b48389485d2334  source/comparison.md
+3b876e28dfc81d7f446695603ddaabe390b9145692c90d943b7416e970f1fbe0  source/cutflow.csv
+fe38727fcaceea2889146229501b8ff038b92c289fc9555e613bc97d290e99bf  source/cutflow.json
+17c650fe7ab2468efae0fe7cc5a5c66407ca19cfd38425b11f3a913f758e0098  source/diagnosis.md
+a6bc047666c2964e0e8c38f11eac82e23d01e02e4fcbd095c49a809bd7957b5d  source/environment.txt
+8b6066ce57aba4eaaa2a241c03578b94438bb2936625fcb4f7a34b9f6b01aaf1  source/generation_summary.json
+b4fdd6b48d77f6c80ef2dd4136cd7b653d497f316cc5374ffca4a84958fef2a1  source/lhe_checksums.txt
+936067b7a50aaf3c5dcfc17e1c3a3fa88205f11ef42ba1a58c220d6e780515c1  source/run.log
+da83689839d755837c4b388e60a4a9b07b971d108f505f0e0486b917abd4ea87  source/slha_diff.patch
+74ed9397e17b0ba53003401648f4840b9f3f44366d8884bf676aedf60a8458da  source/tool_versions.txt
+
+# SHA-256 checksums of canonical cards and generated validation artifacts.
+c6247ccdc2bb430762284e78cce7d0b0858765e539b1346f4e20fa308935db37  cards/PROVENANCE.json
+c014ede6dafe138329898586b8efda20754b4f6dcaae076d17a91164a3a7a0ef  cards/slha_transformation_audit.json
+1a92f7cdd65932b2b2d0527d59b1eb151a76763f800b769330e3c4f06f46b009  cards/generated/GG_qqn1_2000_850_rpvLF_p01ns.slha
+ee6e68881322ea4d89c2d60614437fcad12ef28c3bda0647f472e2a84020325a  cards/source/GG_qqn1_2800_10_rpvLF_p01ns.slha
+8de0a8b1c7580158c769fa18678226fbd6b53beeeff188a8005fbac54bb5424c  cards/source/bm1.cmnd
+37cba5f70cb10f7e38bc1cf7c07a452ce8d055193a8b34ceb9d7b828e7f22d73  cards/source/pp2gogo_0_proc_card_mg5.dat
+6156bd1ad959eb1976811c58fb09039b1df90d6035dc1997e7c4098f5961639d  cards/source/pp2gogo_1_proc_card_mg5.dat
+ad78ddeed7556ea77a857b5bfef1746819e03627f975bb2324b0004c4dabb212  cards/source/pp2gogo_2_proc_card_mg5.dat
+44df37652d2acf1da042057d7fa9fdf21559e75e4de6121f4f2c55660b483da6  cards/source/run_card.dat
+121999b9605c5c627c200c051c14d3ad26d152a9ddbc3904bb91811243871f6c  benchmark.json
+e541171f0a9689ec7ce451271888a02e16e52646273986c44a854d0f0e71e357  manifest.json
+73e5d3adc8082e9c17d9869fafc3548ac088747707bae5510341adb1c39f2ca3  environment.json
+9261ac6d7ed0ccb3aab52ec36dfdc0081d73dec4dbdbb01568c523b822207fcd  commands.sh
+e0bff1b30bc30030304933c3ef719ec1ac736de3e2c9a531803d41fce5d943b0  README.md
+57ccb2d413cb56410f6bec021bbf835f51654035e28ebd4411bff187fb14bdda  ../../../results/upstream/strong-bm1/cutflow.csv
+572ef07b301234ae34bd1056290c418da8e1dd3a334ad7f1817ae9efb279d849  ../../../results/upstream/strong-bm1/cutflow.json
+438730d8d96bd967c88d3c75fa1878f3ff6ac2f925fda608262e6223d50585da  ../../../results/upstream/strong-bm1/comparison.csv
+72f84ff8a65bfd581755d6812f4bdab8cfc2d096b236f6b0e810ce576f64908f  ../../../results/upstream/strong-bm1/comparison.json
+ab86239c1b0935ae2b25ce720ad8141dfe996a917711b6273e7b636fc28043bb  ../../../results/upstream/strong-bm1/generation_summary.json
+f1cf650d637227d730ba8cf3434356cc5023aa88f501d5b07430be66ec8063f7  ../../../results/upstream/strong-bm1/plots/strong_bm1_cross_section.pdf
+88a3a7b62a182c6d8af22a1adece32dc52ffa58978d99e1f527a20162caf8f09  ../../../results/upstream/strong-bm1/plots/strong_bm1_cross_section.png
+b12bb3db5edb1e5afa2fa8b4325e4567cc6474b256915bc13d6f797225531be8  ../../../results/upstream/strong-bm1/plots/strong_bm1_cutflow.pdf
+c1eaf30d1fe41ea6fbf875a4543b990ca04de36d8340646b50da0b39c2e770d3  ../../../results/upstream/strong-bm1/plots/strong_bm1_cutflow.png
+9e023b187deeb5debc52c77d5aa85e2a308ba20c5b8a47f34333530b538e984b  ../../../results/upstream/strong-bm1/plots/strong_bm1_cutflow.svg
+273e3a32a70d3b7552560ba562d18ce88951c5c63ef57f3db87a8c5b03e659a5  ../../../results/upstream/strong-bm1/plots/strong_bm1_ratio.pdf
+5d02b161b1e5457c08c6e53716cfc6d3539672f0f72bda17c9bca3571c224839  ../../../results/upstream/strong-bm1/plots/strong_bm1_ratio.png

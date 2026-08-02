@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "benchmark": "strong-bm1",
+  "verdict": "UPSTREAM_STRONG_BM1_PROVISIONAL",
+  "validation_timestamp_utc": "2026-08-01T00:00:00Z",
+  "upstream_repository": "https://github.com/llprecasting/recastingCodes.git",
+  "upstream_commit": "d4047c744062094c9f88e507bb1ccf69e9fe88d6",
+  "local_base_commit": "fcf5f5e49690aa833c46629f02d9f5c2f4f6ea63",
+  "local_repository_commit": "RECORDED_AFTER_COMMIT",
+  "dirty_state": {"primary_checkout_before": true, "selected_base_worktree_before": false, "canonical_worktree_after": false, "upstream_clone_before": true, "upstream_physics_code_changed": false},
+  "toolchain": {"madgraph": "3.5.3", "pythia": "8.308", "fastjet": "3.4.0", "gcc": "13.3.0", "gfortran": "13.3.0", "python": "3.12.7", "os": "Ubuntu 24.04.3 LTS (noble)"},
+  "benchmark_parameters": {"sqrt_s_TeV": 13, "m_gluino_GeV": 2000, "m_neutralino1_GeV": 850, "neutralino_lifetime_ns": 0.01, "neutralino_ctau_mm": 2.9979243837, "signal_region": "High-pT", "merging_scheme": "CKKW-L", "merging_scale_GeV": 500},
+  "event_counts": {"generated_per_multiplicity": 10000, "multiplicities": 3, "generated_total": 30000, "our_accepted_raw": 7884, "our_accepted_weighted": 9458.407, "authors_accepted_weighted": 9476.625},
+  "source_artifacts": {"root": "original_llp_results/strong_bm1_20260724_000724", "checksums": "checksums.sha256", "exact_author_lhe_recovered": false},
+  "generated_artifacts": {"root": "results/upstream/strong-bm1", "plots": "results/upstream/strong-bm1/plots", "plotting_command": "bash benchmarks/upstream/strong-bm1/commands.sh"},
+  "uncertainty_treatment": {"integration": "Per-multiplicity MadGraph integration errors are retained; additive input quadrature is technical only.", "acceptance": "Not calculated: weighted sum-of-squares/event weights are unavailable.", "implementation_difference": "Reported separately from generator/statistical/theory uncertainties.", "theory_scale_pdf": "Not assessed."},
+  "known_closure_items": ["Source generation_summary.json labels the fb-scale merged value as merged_inclusive_cross_section_pb; canonical data normalize to fb.", "No defensible weighted acceptance uncertainty can be reconstructed from archived aggregates."],
+  "upstream_integrity": {"checkout": "original_llp", "head": "d4047c744062094c9f88e507bb1ccf69e9fe88d6", "physical_analysis_code_unchanged": true, "known_dirty_change": "Makefile path adaptation plus generated build/run artifacts; no analysis source diff."}
+}

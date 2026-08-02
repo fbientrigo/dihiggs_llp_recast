@@ -1,0 +1,8 @@
+stage_id,label,our_pct,authors_pct,absolute_difference_pct,relative_difference_pct,ratio_our_over_authors
+jet_selection,Jet selection,99.87405,99.81456,0.05949,0.0596005232,1.0005960052
+fiducial_dv,Fiducial DV,99.87405,99.81456,0.05949,0.0596005232,1.0005960052
+rxy_gt_4_mm,Rxy > 4 mm,29.92715,29.71822,0.20893,0.7030367229,1.0070303672
+d0_gt_2_mm,|d0| > 2 mm,29.92715,29.71822,0.20893,0.7030367229,1.0070303672
+tracks_ge_5,selected tracks >= 5,29.92715,29.71822,0.20893,0.7030367229,1.0070303672
+mdv_gt_10_gev,mDV > 10 GeV,29.92715,29.71822,0.20893,0.7030367229,1.0070303672
+acceptance_x_efficiency,A × efficiency,26.84045,26.60133,0.23912,0.8989024233,1.0089890242

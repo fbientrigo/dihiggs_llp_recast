@@ -1,0 +1,40 @@
+# Validation commands and results for canonical strong-bm1 freeze
+
+find /home/fabi/atlas_dihiggs/original_llp_results/strong_bm1_20260724_000724 -maxdepth 3 -type f | sort
+PASS: all 14 requested source artifacts present.
+
+sha256sum /home/fabi/atlas_dihiggs/original_llp_results/strong_bm1_20260724_000724/*
+PASS: source hashes recorded in benchmarks/upstream/strong-bm1/checksums.sha256.
+
+git -C /home/fabi/atlas_dihiggs/original_llp status --short
+git -C /home/fabi/atlas_dihiggs/original_llp rev-parse HEAD
+git -C /home/fabi/atlas_dihiggs/original_llp diff --stat
+git -C /home/fabi/atlas_dihiggs/original_llp diff
+PASS: pinned HEAD; tracked change is the known Makefile path adaptation; no physical analysis source diff; generated outputs are untracked.
+
+git submodule update --init external/recastingCodes
+PASS: isolated worktree submodule at d4047c744062094c9f88e507bb1ccf69e9fe88d6.
+
+PYTHONPATH=src MPLBACKEND=Agg pytest -q tests/test_strong_bm1_freeze.py tests/test_benchmark.py
+PASS: 7 tests.
+
+ruff check scripts/plot_strong_bm1.py tests/test_strong_bm1_freeze.py tests/test_benchmark.py
+PASS.
+
+MPLBACKEND=Agg bash benchmarks/upstream/strong-bm1/commands.sh
+PASS: all seven required plot files regenerated from canonical CSV/JSON inputs.
+
+MPLBACKEND=Agg pytest -q
+PASS: 41 tests.
+
+Repeated plotting command and compared SHA-256 values for all plot files.
+PASS: byte-identical PNG, PDF, and SVG outputs.
+
+PYTHONPATH=src MPLBACKEND=Agg pytest -q
+PASS: 42 tests after checksum coverage was added (final count recorded after rerun).
+
+ruff format and ruff check on changed Python files
+PASS.
+
+git diff --check
+PASS before commit; rerun after each commit.

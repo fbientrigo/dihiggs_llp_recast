@@ -29,6 +29,9 @@ cards/generated/
 models/generated/
 results/*
 !results/README.md
+!results/upstream/
+!results/upstream/strong-bm1/
+!results/upstream/strong-bm1/**
 
 # Local configuration
 .env

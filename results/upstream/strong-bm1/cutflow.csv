@@ -1,0 +1,8 @@
+stage_id,label,our_weighted_events,our_efficiency_pct,authors_recast_efficiency_pct,atlas_full_sim_pct,atlas_parametric_pct,paper_recast_pct
+jet_selection,Jet selection,9446.493,99.87405,99.81456,99.9,,99.8
+fiducial_dv,Fiducial DV,9446.493,99.87405,99.81456,99.9,,99.8
+rxy_gt_4_mm,Rxy > 4 mm,2830.631,29.92715,29.71822,29.6,,29.7
+d0_gt_2_mm,|d0| > 2 mm,2830.631,29.92715,29.71822,29.6,,29.7
+tracks_ge_5,selected tracks >= 5,2830.631,29.92715,29.71822,29.6,,29.7
+mdv_gt_10_gev,mDV > 10 GeV,2830.631,29.92715,29.71822,29.6,,29.7
+acceptance_x_efficiency,A × efficiency,2538.679,26.84045,26.60133,27.8,26.0,26.6

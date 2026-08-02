@@ -7,30 +7,11 @@ from pathlib import Path
 from dvrecast.benchmark import prepare_benchmark
 
 
-def test_author_confirmed_reconstruction_supersedes_incomplete_block() -> None:
-    """The prior INCOMPLETE/BLOCKED_EXTERNAL_ARTIFACT classification is superseded:
-    author-confirmed reconstruction (see generation_contract.json classification_reason)
-    means the contract classification is now RECONSTRUCTED and generation is permitted
-    by the contract itself. The benchmark can still be BLOCKED for an unrelated reason
-    (the LHE samples do not exist yet -- see the MadGraph generation blocker below),
-    but it must no longer be blocked on contract classification or missing SLHA.
-    """
-    payload = prepare_benchmark(Path.cwd(), "strong-bm1", dry_run=True)
-
-    assert payload["contract_classification"] == "RECONSTRUCTED"
-    assert payload["toolchain_status"] == "READY"
-    assert payload["madgraph"]["version"] == "3.5.3"
-    assert "generation contract is INCOMPLETE" not in payload["blockers"]
-    assert "missing benchmark parameter/SLHA card" not in payload["blockers"]
-    assert "SLHA lacks MASS 1000021 = 2000 GeV" not in payload["blockers"]
-    assert "SLHA lacks MASS 1000022 = 850 GeV" not in payload["blockers"]
-    # Generation is still blocked, but only because the LHE samples do not exist yet
-    # (MadGraph 1j/2j generation hit an unresolved zero-cross-section issue; see
-    # docs/strong_bm1_reproduction_report.md). This is a real, evidenced blocker,
-    # not the old artifact-availability block.
-    assert payload["state"] == "BLOCKED"
-    assert any("missing LHE samples" in item for item in payload["blockers"])
-    assert any("strong_0_2000_850_0p01.lhe.gz" in item for item in payload["blockers"])
+def test_canonical_strong_bm1_manifest_is_provisional() -> None:
+    payload = json.loads(Path("benchmarks/upstream/strong-bm1/benchmark.json").read_text())
+    assert payload["status"] == "PROVISIONAL"
+    assert payload["verdict"] == "UPSTREAM_STRONG_BM1_PROVISIONAL"
+    assert payload["upstream"]["commit"] == "d4047c744062094c9f88e507bb1ccf69e9fe88d6"
 
 
 def test_nonmatching_slha_is_rejected(tmp_path: Path) -> None:

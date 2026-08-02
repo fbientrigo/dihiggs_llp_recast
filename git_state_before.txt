@@ -1,0 +1,32 @@
+Task: canonical strong-bm1 freeze
+Recorded: 2026-08-01 UTC
+
+Primary checkout (left untouched):
+  path: /home/fabi/atlas_dihiggs/llp_recast
+  branch: feat/m2-strong-bm1-reproduction
+  HEAD: 747b8e3 (dirty; modified src/dvrecast/cutflow.py and tests/test_cutflow.py; untracked scalar/package/report/tooling files)
+
+Verified reproduction worktree:
+  path: /home/fabi/atlas_dihiggs/worktrees/strong_bm1_reproduction_20260723T183627Z
+  branch: feat/r2-strong-bm1-independent-reproduction
+  HEAD: fcf5f5e49690aa833c46629f02d9f5c2f4f6ea63
+  status: clean
+  rationale: registered llp_recast worktree; intended strong-bm1 reproduction commit; no H2/scalar adaptation; not selected for writing so unfinished work remains preserved.
+
+Selected isolated freeze worktree:
+  path: /tmp/llp_recast_strong_bm1_freeze_20260801T000000Z
+  branch: feat/strong-bm1-canonical-freeze-20260801T000000Z
+  base: fcf5f5e49690aa833c46629f02d9f5c2f4f6ea63
+  rationale: new isolated worktree from the verified clean reproduction base; primary and existing reproduction worktree are not edited.
+
+Upstream integrity before freeze:
+  path: /home/fabi/atlas_dihiggs/original_llp
+  HEAD: d4047c744062094c9f88e507bb1ccf69e9fe88d6
+  tracked diff: known 1_analysis/Makefile path adaptation only
+  untracked: generated objects, executable, build/run logs, and LHE files
+  physical analysis source diff: none
+  submodule in selected worktree: d4047c744062094c9f88e507bb1ccf69e9fe88d6
+
+Source evidence:
+  /home/fabi/atlas_dihiggs/original_llp_results/strong_bm1_20260724_000724
+  all 14 requested files present; SHA-256 values recorded in checksums.sha256
