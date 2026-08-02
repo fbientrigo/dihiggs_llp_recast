@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "benchmark": "strong-bm1",
+  "source_artifact": "original_llp_results/strong_bm1_20260724_000724/generation_summary.json",
+  "multiplicities": {
+    "0j": {"generated_events": 10000, "seed": 201, "cross_section_fb": 0.4852, "integration_uncertainty_fb": 0.0008492},
+    "1j": {"generated_events": 10000, "seed": 202, "cross_section_fb": 0.002812, "integration_uncertainty_fb": 0.00001095},
+    "2j": {"generated_events": 10000, "seed": 203, "cross_section_fb": 0.0004248, "integration_uncertainty_fb": 0.000002077}
+  },
+  "merged_cross_section": {"unit": "fb", "authors_recast": 0.4949932, "our_reproduction": 0.4889942, "absolute_difference": -0.005999, "relative_difference_pct": -1.2119358407, "additive_input_quadrature_uncertainty_fb": 0.0008492731, "propagated_merged_uncertainty_fb": null, "uncertainty_note": "The merged normalization is not an additive sum of the three inputs and no covariance/merged estimator is archived; the quadrature value is technical input uncertainty only, not a complete merged uncertainty."},
+  "unit_reconciliation": {"source_field": "merged_inclusive_cross_section_mb", "source_value": {"authors": 4.949932e-13, "our_reproduction": 4.889942e-13}, "conversion": "1 mb = 1e12 fb", "source_mislabeled_field": "merged_inclusive_cross_section_pb stores the fb-scale number 0.4889942; canonical data use explicit fb units."}
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "benchmark": "strong-bm1",
+  "signal_region": "High-pT",
+  "denominators": {"our_reproduction": {"weighted_events": 9458.407, "raw_events": 7884}, "authors_recast": {"weighted_events": 9476.625, "raw_events": null}},
+  "uncertainty": {
+    "our_reproduction": {"status": "INSUFFICIENT_WEIGHT_MOMENTS", "estimator": "No weighted sum of squares or event-level weights are archived; binomial errors are not used.", "source_reported_percent": {"jet_selection": 0.036, "r_vertex_gt_4_mm": 0.470, "acceptance_x_efficiency": 0.446}},
+    "authors_recast": {"status": "NOT_AVAILABLE"}
+  },
+  "stages": [
+    {"id": "jet_selection", "label": "Jet selection", "our_weighted_events": 9446.493, "our_efficiency_pct": 99.87405, "authors_recast_efficiency_pct": 99.81456, "atlas_full_sim_pct": 99.9, "atlas_parametric_pct": null, "paper_recast_pct": 99.8},
+    {"id": "fiducial_dv", "label": "Fiducial DV", "our_weighted_events": 9446.493, "our_efficiency_pct": 99.87405, "authors_recast_efficiency_pct": 99.81456, "atlas_full_sim_pct": 99.9, "atlas_parametric_pct": null, "paper_recast_pct": 99.8},
+    {"id": "rxy_gt_4_mm", "label": "Rxy > 4 mm", "our_weighted_events": 2830.631, "our_efficiency_pct": 29.92715, "authors_recast_efficiency_pct": 29.71822, "atlas_full_sim_pct": 29.6, "atlas_parametric_pct": null, "paper_recast_pct": 29.7},
+    {"id": "d0_gt_2_mm", "label": "|d0| > 2 mm", "our_weighted_events": 2830.631, "our_efficiency_pct": 29.92715, "authors_recast_efficiency_pct": 29.71822, "atlas_full_sim_pct": 29.6, "atlas_parametric_pct": null, "paper_recast_pct": 29.7},
+    {"id": "tracks_ge_5", "label": "selected tracks >= 5", "our_weighted_events": 2830.631, "our_efficiency_pct": 29.92715, "authors_recast_efficiency_pct": 29.71822, "atlas_full_sim_pct": 29.6, "atlas_parametric_pct": null, "paper_recast_pct": 29.7},
+    {"id": "mdv_gt_10_gev", "label": "mDV > 10 GeV", "our_weighted_events": 2830.631, "our_efficiency_pct": 29.92715, "authors_recast_efficiency_pct": 29.71822, "atlas_full_sim_pct": 29.6, "atlas_parametric_pct": null, "paper_recast_pct": 29.7},
+    {"id": "acceptance_x_efficiency", "label": "A × efficiency", "our_weighted_events": 2538.679, "our_efficiency_pct": 26.84045, "authors_recast_efficiency_pct": 26.60133, "atlas_full_sim_pct": 27.8, "atlas_parametric_pct": 26.0, "paper_recast_pct": 26.6}
+  ]
+}

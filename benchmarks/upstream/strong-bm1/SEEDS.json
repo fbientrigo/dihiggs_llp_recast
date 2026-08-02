@@ -1,0 +1,13 @@
+{
+  "note": "Seeds recorded by the canonical independent reproduction; the upstream run card retains iseed=0 because it is an immutable source card, not the executed seed record.",
+  "seeds": {
+    "0j": 201,
+    "1j": 202,
+    "2j": 203
+  },
+  "pilot_seeds": {
+    "0j": 111,
+    "1j": 222,
+    "2j": 333
+  }
+}

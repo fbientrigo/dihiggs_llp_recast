@@ -1,0 +1,3 @@
+# Imported/generated canonical SLHA cards preserve upstream byte formatting.
+benchmarks/upstream/strong-bm1/cards/source/*.slha -whitespace
+benchmarks/upstream/strong-bm1/cards/generated/*.slha -whitespace

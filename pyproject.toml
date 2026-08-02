@@ -26,6 +26,8 @@ addopts = "-q"
 [tool.ruff]
 target-version = "py310"
 line-length = 100
+# Frozen third-party submodule; project lint ownership excludes upstream code.
+extend-exclude = ["external/recastingCodes"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]

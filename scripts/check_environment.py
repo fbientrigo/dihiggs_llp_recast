@@ -2,15 +2,28 @@
 from __future__ import annotations
 
 import argparse
+import json
 import shutil
 import subprocess
+import sys
 from dataclasses import dataclass
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from dvrecast.config import load_toolchain_config  # noqa: E402
+from dvrecast.readiness import (  # noqa: E402
+    core_environment_readiness,
+    madgraph_readiness,
+    selected_benchmark_readiness,
+    upstream_build_readiness,
+)
 
 
 @dataclass(frozen=True)
 class Tool:
     name: str
-    required: bool
     version_args: tuple[str, ...] = ("--version",)
 
 
@@ -25,45 +38,83 @@ def version(path: str, args: tuple[str, ...]) -> str:
     return text[0] if text else f"exit={result.returncode}"
 
 
+def _print_readiness(name: str, state: str, blockers: tuple[str, ...]) -> None:
+    print(f"{name}: {state}")
+    for blocker in blockers:
+        print(f"  - {blocker}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Report compiler and HEP tool availability")
     parser.add_argument(
-        "--strict-hep", action="store_true", help="Fail unless all optional HEP tools exist"
+        "--strict-hep", action="store_true", help="Fail unless all HEP readiness checks pass"
     )
+    parser.add_argument(
+        "--toolchain", type=Path, default=ROOT / "configs" / "toolchain.env"
+    )
+    parser.add_argument("--benchmark", default="strong-bm1")
     args = parser.parse_args()
 
-    tools = [
-        Tool("git", True),
-        Tool("make", True),
-        Tool("g++", True),
-        Tool("python3", True),
-        Tool("fastjet-config", False),
-        Tool("pythia8-config", False),
-        Tool("mg5_aMC", False, ("--version",)),
-    ]
-
-    missing_required: list[str] = []
-    missing_hep: list[str] = []
-    for tool in tools:
-        path = shutil.which(tool.name)
+    config = load_toolchain_config(args.toolchain) if args.toolchain.is_file() else {}
+    configured_paths = {
+        "fastjet-config": Path(config["FASTJET3"]) / "bin/fastjet-config"
+        if config.get("FASTJET3")
+        else None,
+        "pythia8-config": Path(config["PYTHIA8"]) / "bin/pythia8-config"
+        if config.get("PYTHIA8")
+        else None,
+        "mg5_aMC": Path(config["MG5_HOME"]) / "bin/mg5_aMC"
+        if config.get("MG5_HOME")
+        else None,
+    }
+    madgraph, _, mg5_version = madgraph_readiness(config)
+    for tool in [
+        Tool("git"),
+        Tool("make"),
+        Tool("g++"),
+        Tool("python3"),
+        Tool("fastjet-config"),
+        Tool("pythia8-config"),
+        Tool("mg5_aMC"),
+    ]:
+        configured = configured_paths.get(tool.name)
+        path = str(configured) if configured and configured.is_file() else shutil.which(tool.name)
         status = "FOUND" if path else "MISSING"
-        detail = version(path, tool.version_args) if path else "-"
+        detail = mg5_version if tool.name == "mg5_aMC" and path else (
+            version(path, tool.version_args) if path else "-"
+        )
         print(f"{tool.name:18} {status:8} {path or '-'} | {detail}")
-        if not path and tool.required:
-            missing_required.append(tool.name)
-        elif not path:
-            missing_hep.append(tool.name)
 
-    if missing_required:
-        print(f"\nRequired tools missing: {', '.join(missing_required)}")
+    core = core_environment_readiness()
+    build = upstream_build_readiness(config)
+    benchmark_dir = ROOT / "benchmarks/upstream" / args.benchmark
+    benchmark_path = benchmark_dir / "benchmark.json"
+    contract_path = benchmark_dir / "generation_contract.json"
+    selected = None
+    if benchmark_path.is_file() and contract_path.is_file():
+        benchmark = json.loads(benchmark_path.read_text(encoding="utf-8"))
+        contract = json.loads(contract_path.read_text(encoding="utf-8"))
+        selected = selected_benchmark_readiness(
+            ROOT, benchmark, contract, madgraph.state == "READY"
+        )
+
+    print()
+    _print_readiness("Core environment", core.state, core.blockers)
+    _print_readiness("Upstream recast build readiness", build.state, build.blockers)
+    _print_readiness(
+        "MadGraph LHE-generation tool readiness", madgraph.state, madgraph.blockers
+    )
+    if selected is None:
+        _print_readiness("Selected upstream benchmark readiness", "NOT_CONFIGURED", ())
+    else:
+        _print_readiness(
+            "Selected upstream benchmark readiness", selected.state, selected.blockers
+        )
+
+    if core.state == "BLOCKED":
         return 2
-    if args.strict_hep and missing_hep:
-        print(f"\nHEP tools missing: {', '.join(missing_hep)}")
+    if args.strict_hep and (build.state == "BLOCKED" or madgraph.state == "BLOCKED"):
         return 3
-
-    print("\nCore environment is usable." if not missing_required else "")
-    if missing_hep:
-        print("HEP stack is incomplete; upstream compilation remains BLOCKED.")
     return 0
 
 

@@ -1,0 +1,8 @@
+{
+  "source_file": "original_llp_results/strong_bm1_20260724_000724/generation_summary.json",
+  "source_file_modified": false,
+  "identified_issue": "unit label mismatch",
+  "merged_inclusive_cross_section_mb": 4.889942e-13,
+  "merged_inclusive_cross_section_pb": 0.0004889942,
+  "merged_inclusive_cross_section_fb": 0.4889942
+}

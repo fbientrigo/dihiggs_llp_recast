@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "benchmark": "strong-bm1",
+  "sources": {
+    "our_reproduction": "cutflow.json",
+    "authors_recast": "upstream reference log"
+  },
+  "stages": [
+    {
+      "id": "jet_selection",
+      "absolute_difference_pct": 0.05949,
+      "relative_difference_pct": 0.0596005232,
+      "ratio_our_over_authors": 1.0005960052
+    },
+    {
+      "id": "fiducial_dv",
+      "absolute_difference_pct": 0.05949,
+      "relative_difference_pct": 0.0596005232,
+      "ratio_our_over_authors": 1.0005960052
+    },
+    {
+      "id": "rxy_gt_4_mm",
+      "absolute_difference_pct": 0.20893,
+      "relative_difference_pct": 0.7030367229,
+      "ratio_our_over_authors": 1.0070303672
+    },
+    {
+      "id": "d0_gt_2_mm",
+      "absolute_difference_pct": 0.20893,
+      "relative_difference_pct": 0.7030367229,
+      "ratio_our_over_authors": 1.0070303672
+    },
+    {
+      "id": "tracks_ge_5",
+      "absolute_difference_pct": 0.20893,
+      "relative_difference_pct": 0.7030367229,
+      "ratio_our_over_authors": 1.0070303672
+    },
+    {
+      "id": "mdv_gt_10_gev",
+      "absolute_difference_pct": 0.20893,
+      "relative_difference_pct": 0.7030367229,
+      "ratio_our_over_authors": 1.0070303672
+    },
+    {
+      "id": "acceptance_x_efficiency",
+      "absolute_difference_pct": 0.23912,
+      "relative_difference_pct": 0.8989024233,
+      "ratio_our_over_authors": 1.0089890242
+    }
+  ],
+  "uncertainty_status": "No pull is reported: weighted sum-of-squares and author uncertainties are unavailable."
+}

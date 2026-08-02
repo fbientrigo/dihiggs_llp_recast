@@ -1,0 +1,47 @@
+{
+  "template_sha256": "ee6e68881322ea4d89c2d60614437fcad12ef28c3bda0647f472e2a84020325a",
+  "generated_sha256": "1a92f7cdd65932b2b2d0527d59b1eb151a76763f800b769330e3c4f06f46b009",
+  "changed_lines": [
+    {
+      "line": 69,
+      "source": "   1000021    2800.0  # ",
+      "generated": "   1000021    2000.0  # "
+    },
+    {
+      "line": 70,
+      "source": "   1000022    10.0  # ",
+      "generated": "   1000022    850.0  # "
+    }
+  ],
+  "num_changed_lines": 2,
+  "unchanged_decay_blocks": "all DECAY blocks byte-identical except none contain mass block content; verified via line diff restricted to lines 69-70 (BLOCK MASS only)",
+  "mass_verification": {
+    "1000021_GeV": 2000.0,
+    "1000022_GeV": 850.0
+  },
+  "width_verification": {
+    "1000022_width_GeV": 6.58212e-14,
+    "unchanged_from_template": true
+  },
+  "lifetime_verification": {
+    "formula": "tau = hbar/Gamma; ctau = c*tau",
+    "hbar_GeV_s": 6.582119569e-25,
+    "tau_s": 9.999999345195771e-12,
+    "tau_ns": 0.009999999345195772,
+    "ctau_mm": 2.9979243836946305,
+    "expected_tau_ns": 0.01,
+    "expected_ctau_mm_approx": 2.998,
+    "agreement": true
+  },
+  "branching_ratio_sum_checks": {
+    "gluino_1000021_BR_sum": 1.0,
+    "neutralino_1000022_BR_sum": 1.0,
+    "valid": true
+  },
+  "kinematic_consistency": {
+    "gluino_decay_go_to_n1_qqbar_open": true,
+    "neutralino_decay_n1_to_qqq_open": true,
+    "note": "m_gluino=2000 GeV > m_n1=850 GeV, RPV 3-body decay go->n1 q qbar remains kinematically open. n1->qqq (RPV UDD-type light-flavour) uses ~massless SM quarks, remains open with m_n1=850 GeV. No decay table required modification."
+  },
+  "madgraph_pythia_parser_acceptance": "pending pilot generation (Phase 3)"
+}

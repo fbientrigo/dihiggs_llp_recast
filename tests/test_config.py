@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from dvrecast.config import UpstreamLock, load_upstream_lock
+from dvrecast.config import UpstreamLock, load_toolchain_config, load_upstream_lock
 
 
 def test_load_upstream_lock(tmp_path: Path) -> None:
@@ -45,3 +45,17 @@ def test_rejects_parent_traversal() -> None:
                 "analysis_path": "../escape",
             }
         )
+
+
+def test_load_toolchain_config_expands_home(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("HOME", str(tmp_path))
+    path = tmp_path / "toolchain.env"
+    path.write_text(
+        'PYTHIA8="$HOME/.local/pythia8308"\nPYTHIA8_SOURCE_TAG="pythia8308"\n',
+        encoding="utf-8",
+    )
+    config = load_toolchain_config(path)
+    assert config["PYTHIA8"] == str(tmp_path / ".local" / "pythia8308")
+    assert config["PYTHIA8_SOURCE_TAG"] == "pythia8308"

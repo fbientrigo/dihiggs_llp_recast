@@ -1,0 +1,18 @@
+Task: canonical strong-bm1 freeze
+Branch: feat/strong-bm1-canonical-freeze-20260801T000000Z
+Worktree: /tmp/llp_recast_strong_bm1_freeze_20260801T000000Z
+Base commit: fcf5f5e49690aa833c46629f02d9f5c2f4f6ea63
+Canonical data commit recorded in manifest: 23522ca9f1ed6e39896626cfe98d0810a0ee0d42
+Final local HEAD before this state-file update: bc68ebae08902dfd0283a8e4a3cab8dd9dc1f0ba
+
+Primary checkout remains untouched and dirty at its pre-task state.
+Existing reproduction worktree remains untouched and clean at fcf5f5e49690aa833c46629f02d9f5c2f4f6ea63.
+Pinned submodule: d4047c744062094c9f88e507bb1ccf69e9fe88d6, clean.
+Push: branch published to origin/feat/strong-bm1-canonical-freeze-20260801T000000Z.
+
+Closure gate: corrected unit interpretation, input validation, source
+classification, source/archive checksums, deterministic plot regeneration, and
+focused/full tests passed. Verdict: UPSTREAM_STRONG_BM1_VALIDATED for High-pT
+strong-bm1 only; no H2/scalar adaptation or upstream physics-code change.
+
+Independent review: complete after remediation; no actionable findings.
