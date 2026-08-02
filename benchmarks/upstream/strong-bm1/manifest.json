@@ -6,7 +6,7 @@
   "upstream_repository": "https://github.com/llprecasting/recastingCodes.git",
   "upstream_commit": "d4047c744062094c9f88e507bb1ccf69e9fe88d6",
   "local_base_commit": "fcf5f5e49690aa833c46629f02d9f5c2f4f6ea63",
-  "local_repository_commit": "RECORDED_AFTER_COMMIT",
+  "local_repository_commit": "23522ca",
   "dirty_state": {"primary_checkout_before": true, "selected_base_worktree_before": false, "canonical_worktree_after": false, "upstream_clone_before": true, "upstream_physics_code_changed": false},
   "toolchain": {"madgraph": "3.5.3", "pythia": "8.308", "fastjet": "3.4.0", "gcc": "13.3.0", "gfortran": "13.3.0", "python": "3.12.7", "os": "Ubuntu 24.04.3 LTS (noble)"},
   "benchmark_parameters": {"sqrt_s_TeV": 13, "m_gluino_GeV": 2000, "m_neutralino1_GeV": 850, "neutralino_lifetime_ns": 0.01, "neutralino_ctau_mm": 2.9979243837, "signal_region": "High-pT", "merging_scheme": "CKKW-L", "merging_scale_GeV": 500},
