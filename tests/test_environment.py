@@ -78,13 +78,20 @@ def test_madgraph_readiness_is_only_local_tool_capability(
 
 
 def test_madgraph_resolver_finds_known_non_path_installation(
+    tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    home = tmp_path / "home"
+    prefix = home / ".local/mg5amcnlo/3.5.3"
+    _make_usable(prefix / "bin/mg5_aMC")
+    (prefix / "VERSION").write_text("version = 3.5.3\n", encoding="utf-8")
+
+    monkeypatch.setenv("HOME", str(home))
     monkeypatch.setattr(readiness_module.shutil, "which", lambda name: None)
     monkeypatch.delenv("MG5_BIN", raising=False)
     state, path, version = madgraph_readiness({})
     assert state.state == "READY"
-    assert path == "/home/fabi/.local/mg5amcnlo/3.5.3/bin/mg5_aMC"
+    assert path == str(prefix / "bin/mg5_aMC")
     assert version == "3.5.3"
 
 
