@@ -35,6 +35,9 @@ def save_figure(figure: plt.Figure, path: Path) -> None:
     elif path.suffix == ".pdf":
         metadata["CreationDate"] = FIXED_DATE
     figure.savefig(path, bbox_inches="tight", metadata=metadata)
+    if path.suffix == ".svg":
+        cleaned = "\n".join(line.rstrip() for line in path.read_text().splitlines())
+        path.write_text(cleaned + "\n")
 
 
 def load_rows(root: Path) -> list[dict[str, str]]:

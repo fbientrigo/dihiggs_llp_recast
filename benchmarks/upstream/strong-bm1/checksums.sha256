@@ -1,13 +1,13 @@
 # SHA-256 checksums of portable canonical cards and validation artifacts.
-c6247ccdc2bb430762284e78cce7d0b0858765e539b1346f4e20fa308935db37  cards/PROVENANCE.json
+02243ec6731671a9c5ceef298df6bd51e5b9488bfdb703e0c3ae91cee70ecb49  cards/PROVENANCE.json
 c014ede6dafe138329898586b8efda20754b4f6dcaae076d17a91164a3a7a0ef  cards/slha_transformation_audit.json
 1a92f7cdd65932b2b2d0527d59b1eb151a76763f800b769330e3c4f06f46b009  cards/generated/GG_qqn1_2000_850_rpvLF_p01ns.slha
 ee6e68881322ea4d89c2d60614437fcad12ef28c3bda0647f472e2a84020325a  cards/source/GG_qqn1_2800_10_rpvLF_p01ns.slha
-8de0a8b1c7580158c769fa18678226fbd6b53beeeff188a8005fbac54bb5424c  cards/source/bm1.cmnd
+4f205d1871d9ab24d66ecfd1e3a57fa6804a34e4104c1150f4fe1ea2e3466e1d  cards/source/bm1.cmnd
 37cba5f70cb10f7e38bc1cf7c07a452ce8d055193a8b34ceb9d7b828e7f22d73  cards/source/pp2gogo_0_proc_card_mg5.dat
 6156bd1ad959eb1976811c58fb09039b1df90d6035dc1997e7c4098f5961639d  cards/source/pp2gogo_1_proc_card_mg5.dat
 ad78ddeed7556ea77a857b5bfef1746819e03627f975bb2324b0004c4dabb212  cards/source/pp2gogo_2_proc_card_mg5.dat
-44df37652d2acf1da042057d7fa9fdf21559e75e4de6121f4f2c55660b483da6  cards/source/run_card.dat
+2fa3608bc449e5a2ab1e7f2bd40cf251c00c803b342ffe514a0661093fed9a0a  cards/source/run_card.dat
 1e08d40db61f74f6f5bf997fc22634db1645c753a38bd69738d875c3504b6e82  cards/README.md
 540fe716fd3681be37d751635326e82add9edb470643f026a66dcd06d9b53595  SEEDS.json
 f3d752eda50f249492311de3e4aa0edac4b9ef8d7683dbaf25989a4471183d41  generation_contract.json
@@ -19,7 +19,7 @@ bef0c919cec633be12d391d9f432eead952442193d1f44d325733df79e8e3925  missing_inputs
 1f374592e9cb170c592b9c53534a1051cf20fbd0b4380c1b7939e60f4e3b64b3  environment.json
 9261ac6d7ed0ccb3aab52ec36dfdc0081d73dec4dbdbb01568c523b822207fcd  commands.sh
 0e65e24f99a41445832f8b0962a053d6f6f1b032ee6b999b0acf76737f05e411  README.md
-e0c56b38b84d15b56f57d260e62aef35c9e1999da65ddd58d8d7cb97a4e6ffbf  ../../../scripts/plot_strong_bm1.py
+e57e6609cdd7a3ae185b40f493144fbf68c6ce8304623c42ff6289017eb27ebc  ../../../scripts/plot_strong_bm1.py
 57ccb2d413cb56410f6bec021bbf835f51654035e28ebd4411bff187fb14bdda  ../../../results/upstream/strong-bm1/cutflow.csv
 572ef07b301234ae34bd1056290c418da8e1dd3a334ad7f1817ae9efb279d849  ../../../results/upstream/strong-bm1/cutflow.json
 438730d8d96bd967c88d3c75fa1878f3ff6ac2f925fda608262e6223d50585da  ../../../results/upstream/strong-bm1/comparison.csv
@@ -31,6 +31,6 @@ f1cf650d637227d730ba8cf3434356cc5023aa88f501d5b07430be66ec8063f7  ../../../resul
 88a3a7b62a182c6d8af22a1adece32dc52ffa58978d99e1f527a20162caf8f09  ../../../results/upstream/strong-bm1/plots/strong_bm1_cross_section.png
 b12bb3db5edb1e5afa2fa8b4325e4567cc6474b256915bc13d6f797225531be8  ../../../results/upstream/strong-bm1/plots/strong_bm1_cutflow.pdf
 c1eaf30d1fe41ea6fbf875a4543b990ca04de36d8340646b50da0b39c2e770d3  ../../../results/upstream/strong-bm1/plots/strong_bm1_cutflow.png
-9e023b187deeb5debc52c77d5aa85e2a308ba20c5b8a47f34333530b538e984b  ../../../results/upstream/strong-bm1/plots/strong_bm1_cutflow.svg
+32517084169a61a852f52d22ff831a8a010af4dab12c9725f5ea62cf7fba5b6c  ../../../results/upstream/strong-bm1/plots/strong_bm1_cutflow.svg
 273e3a32a70d3b7552560ba562d18ce88951c5c63ef57f3db87a8c5b03e659a5  ../../../results/upstream/strong-bm1/plots/strong_bm1_ratio.pdf
 5d02b161b1e5457c08c6e53716cfc6d3539672f0f72bda17c9bca3571c224839  ../../../results/upstream/strong-bm1/plots/strong_bm1_ratio.png

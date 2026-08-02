@@ -85,3 +85,42 @@ PYTHONPATH=src MPLBACKEND=Agg python3 -m pytest -q
 PASS: 50 tests. Added physical positive-cross-section and 0–100% efficiency
 range rejection; historical reports are explicitly superseded by the canonical
 baseline documentation.
+
+Review-gate repair, 2026-08-02 UTC:
+
+git submodule sync --recursive
+git submodule update --init --recursive
+PASS: initialized `external/recastingCodes` clean at
+d4047c744062094c9f88e507bb1ccf69e9fe88d6; the parent gitlink matches.
+The initial remote clone had no objects, so the same pinned commit was fetched
+from the existing local upstream checkout without changing the submodule SHA.
+
+PYTHONPATH=src MPLBACKEND=Agg python3 -m pytest -q \
+  tests/test_strong_bm1_cards.py tests/test_strong_bm1_freeze.py \
+  tests/test_benchmark.py tests/test_environment.py tests/test_manifest.py
+PASS: 43 tests.
+
+PYTHONPATH=src MPLBACKEND=Agg python3 -m pytest -o addopts='' -q
+PASS: 50 tests in 12.60s.
+
+python3 -m ruff check src/dvrecast/benchmark.py scripts/plot_strong_bm1.py \
+  tests/test_benchmark.py tests/test_strong_bm1_freeze.py \
+  tests/test_strong_bm1_cards.py tests/test_environment.py tests/test_manifest.py
+make lint
+PASS: all checks passed.
+
+MPLBACKEND=Agg MPLCONFIGDIR="$PWD/.cache/matplotlib" \
+  bash benchmarks/upstream/strong-bm1/commands.sh
+PASS: compact derived artifacts only; repeated artifact SHA-256 values were
+identical, with no event generation.
+
+(cd benchmarks/upstream/strong-bm1 && sha256sum -c checksums.sha256)
+(cd benchmarks/upstream/strong-bm1 && sha256sum -c source_checksums.sha256)
+PASS: all portable and optional archived-source entries OK.
+
+python3 -m json.tool benchmarks/upstream/strong-bm1/benchmark.json
+python3 -m json.tool benchmarks/upstream/strong-bm1/manifest.json
+python3 -m json.tool results/upstream/strong-bm1/comparison.json
+python3 -m json.tool results/upstream/strong-bm1/generation_summary.json
+python3 -m json.tool results/upstream/strong-bm1/generation_summary_interpretation_corrected.json
+PASS: JSON valid; canonical CSV parsed with Python csv; headline values asserted.

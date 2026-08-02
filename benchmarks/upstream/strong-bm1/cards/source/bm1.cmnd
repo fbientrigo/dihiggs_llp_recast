@@ -46,7 +46,3 @@ Beams:LHEF                = strong_1_2000_850_0p01.lhe.gz
 Main:subrun               = 2   ! input for third subrun, + 2 jets
 Beams:LHEF                = strong_2_2000_850_0p01.lhe.gz
 !--------------------------------------------------------------------
-
-
-
-
