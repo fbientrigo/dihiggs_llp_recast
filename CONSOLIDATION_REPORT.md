@@ -15,8 +15,9 @@ second moments or event weights.
 
 All requested source artifacts exist: README, comparison Markdown/CSV,
 diagnosis, cutflow CSV/JSON, generation summary, LHE checksums, SLHA patch,
-tool/environment records, commands, build log, and run log. Their SHA-256
-values are recorded in `benchmarks/upstream/strong-bm1/checksums.sha256`.
+tool/environment records, commands, build log, and run log. Their archived
+SHA-256 values are recorded in `source_checksums.sha256`; portable repository
+artifacts are recorded in `checksums.sha256`.
 The source README/diagnosis use the historical label `STRONG_BM1_REPRODUCED`;
 the canonical verdict is instead tied to the checked compact artifacts and is
 explicitly benchmark-specific.
@@ -74,3 +75,7 @@ technical inputs, authors-versus-ours numerical reconciliation, and the
 separate supported ATLAS comparison. Open scope: other benchmarks, Trackless,
 efficiency-map bin validation, ALP/H2 interpretation, exclusions, and a
 rigorous weighted statistical-significance calculation.
+
+The project API exposes this distinction explicitly: the canonical compact
+result is `VALIDATED`, while a new event-generation preflight remains blocked
+because LHE samples are intentionally not stored in the repository.

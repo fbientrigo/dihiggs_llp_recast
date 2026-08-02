@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import math
 import os
 import shutil
 import subprocess
@@ -50,6 +51,16 @@ def test_generation_summary_separates_sources_and_corrects_units() -> None:
     assert corrected["merged_inclusive_cross_section_mb"] == 4.889942e-13
     assert corrected["merged_inclusive_cross_section_pb"] == 0.0004889942
     assert corrected["merged_inclusive_cross_section_fb"] == 0.4889942
+
+
+def test_seed_provenance_is_consistent_across_canonical_artifacts() -> None:
+    benchmark = json.loads((BENCHMARK / "benchmark.json").read_text(encoding="utf-8"))
+    seeds = json.loads((BENCHMARK / "SEEDS.json").read_text(encoding="utf-8"))["seeds"]
+    contract = json.loads((BENCHMARK / "generation_contract.json").read_text(encoding="utf-8"))
+    contract_seeds = contract["fields"]["random_seeds"]["value"]
+    summary = json.loads((RESULTS / "generation_summary.json").read_text(encoding="utf-8"))
+    summary_seeds = {key: value["seed"] for key, value in summary["multiplicities"].items()}
+    assert seeds == benchmark["generation"]["seeds"] == contract_seeds == summary_seeds
 
 
 def test_no_forbidden_statistical_claims_in_canonical_reports() -> None:
@@ -138,3 +149,32 @@ def test_plot_rejects_inconsistent_cross_section_summary(tmp_path: Path) -> None
     )
     assert result.returncode != 0
     assert "relative difference is inconsistent" in result.stderr
+
+
+def test_plot_rejects_nonfinite_or_unit_inconsistent_summary(tmp_path: Path) -> None:
+    for value, message in ((float("nan"), "must be numeric"), (1.0, "mb-to-fb conversion")):
+        input_root = tmp_path / message.replace(" ", "_")
+        input_root.mkdir()
+        for name in ("cutflow.csv", "generation_summary.json"):
+            shutil.copy2(RESULTS / name, input_root / name)
+        summary_path = input_root / "generation_summary.json"
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+        if math.isnan(value):
+            summary["merged_cross_section"]["our_reproduction"] = value
+            summary["merged_cross_section"]["relative_difference_pct"] = value
+        else:
+            summary["unit_reconciliation"]["source_value"]["our_reproduction"] = value
+        summary_path.write_text(json.dumps(summary), encoding="utf-8")
+        result = subprocess.run(
+            [
+                sys.executable,
+                str(ROOT / "scripts/plot_strong_bm1.py"),
+                "--input-root",
+                str(input_root),
+            ],
+            capture_output=True,
+            text=True,
+            env={**os.environ, "MPLBACKEND": "Agg"},
+        )
+        assert result.returncode != 0
+        assert message in result.stderr

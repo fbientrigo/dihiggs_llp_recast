@@ -1,6 +1,10 @@
 # strong-bm1 generation provenance
 
-Contract classification: `INCOMPLETE`.
+Contract classification: `RECONSTRUCTED`.
+
+This document records the generation reconstruction. It does not supersede the
+canonical High-pT result freeze, which is validated against archived compact
+outputs without claiming recovery of the authors' private LHE files.
 
 ## Repository evidence
 
@@ -60,4 +64,5 @@ the frozen repository evidence.
 The label `0p01` is not assigned a unit from the filename alone. A 0.01 ns
 interpretation is recorded only as `INFERRED`, using the separate `p01ns`
 card name together with its explicit width. The exact bm1 width and branching
-ratios remain unknown, so no bm1 SLHA or event sample is produced.
+ratios remain unknown, so the tracked SLHA is an independent reconstruction and
+the canonical repository retains compact results rather than event samples.

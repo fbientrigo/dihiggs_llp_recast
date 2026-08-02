@@ -1,6 +1,6 @@
 # Missing inputs for strong-bm1
 
-Status: `BLOCKED`.
+Status: `NOT_REQUIRED_FOR_CANONICAL_RESULT`.
 
 The upstream card `bm1.cmnd` names these inputs, none of which is distributed in the
 frozen checkout:
@@ -22,7 +22,7 @@ The only supplied strong-production SLHA card is
 `GG_qqn1_2800_10_rpvLF_p01ns.slha`, which instead specifies 2800 GeV and 10 GeV.
 It must not be substituted silently.
 
-Generation can start only after the exact bm1 SLHA/generation configuration is recovered
-or an explicit reconstruction is approved and documented. The three 10,000-event LHE
-samples would then require recorded seeds and checksums. No event generation has been
-attempted because the physical contract remains `INCOMPLETE`.
+The canonical result freeze does not require these LHE files: it imports compact
+run outputs, records the independent reconstruction card and seeds 201/202/203,
+and regenerates only derived JSON and plots. A future new-generation campaign
+remains a separate gate and must preserve its LHE inputs and event-level weights.

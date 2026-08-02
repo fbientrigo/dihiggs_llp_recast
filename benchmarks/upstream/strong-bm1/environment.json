@@ -3,9 +3,10 @@
   "architecture": "x86_64",
   "compiler": {"g++": "13.3.0", "gfortran": "13.3.0"},
   "python": "3.12.7",
+  "matplotlib": "3.10.0",
   "madgraph": {"version": "3.5.3", "path": "/home/fabi/.local/mg5amcnlo/3.5.3"},
   "pythia": {"version": "8.308", "path": "/home/fabi/.local/pythia8308"},
   "fastjet": {"version": "3.4.0", "path": "/home/fabi/.local/fastjet-3.4.0"},
   "upstream_commit": "d4047c744062094c9f88e507bb1ccf69e9fe88d6",
-  "notes": "Paths describe the archived reproduction environment; plotting only requires Python and matplotlib."
+  "notes": "Paths describe the archived reproduction environment; deterministic plot bytes are asserted only under this recorded Python/matplotlib environment."
 }

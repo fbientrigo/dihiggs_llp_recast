@@ -1,7 +1,9 @@
 # strong-bm1 cards
 
-No project-owned bm1 generation card is tracked.
+The tracked generated SLHA is an independent 2000/850 GeV reconstruction from
+the public 2800/10 template; `slha_transformation_audit.json` records its two
+mass-line changes. It is not claimed to be the authors' exact private card.
 
-The exact 2000/850 GeV SLHA was not recovered. In particular, the upstream
-2800/10 GeV strong SLHA is not copied or adapted here. Generation remains
-disabled while `generation_contract.json` is `INCOMPLETE`.
+The cards document the already archived independent reproduction. New event
+generation remains a separate preflight gate because the canonical repository
+intentionally does not store LHE samples.

@@ -223,13 +223,13 @@
     },
     "random_seeds": {
       "value": {
-        "0j": 90210001,
-        "1j": 90210002,
-        "2j": 90210003
+        "0j": 201,
+        "1j": 202,
+        "2j": 203
       },
       "state": "CALCULATED",
       "provenance": [
-        "The original author's run_01 seeds were never recovered and are not required by the author-confirmed reconstruction strategy: this independent reproduction uses its own explicit, nonzero, distinct seeds (benchmarks/upstream/strong-bm1/SEEDS.json), not a recovery of the original assignment."
+        "The canonical source generation_summary.json records the independent reproduction seeds 201, 202, and 203. The original authors' run_01 seeds were not recovered; the immutable upstream run card's iseed=0 is therefore not evidence for the canonical execution."
       ],
       "confidence": "HIGH",
       "consequence_if_wrong": "An exact event-by-event reproduction is impossible and statistical fluctuations will differ."

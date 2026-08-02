@@ -14,6 +14,14 @@ def test_canonical_strong_bm1_manifest_is_benchmark_specific_validated() -> None
     assert payload["upstream"]["commit"] == "d4047c744062094c9f88e507bb1ccf69e9fe88d6"
 
 
+def test_canonical_strong_bm1_is_validated_while_generation_remains_a_separate_gate() -> None:
+    payload = prepare_benchmark(Path("."), "strong-bm1", dry_run=True)
+    assert payload["state"] == "VALIDATED"
+    assert payload["canonical_result"]["state"] == "VALIDATED"
+    assert payload["generation_preflight_state"] == "BLOCKED"
+    assert payload["generation_allowed"] is False
+
+
 def test_nonmatching_slha_is_rejected(tmp_path: Path) -> None:
     benchmark_dir = tmp_path / "benchmarks/upstream/demo"
     benchmark_dir.mkdir(parents=True)

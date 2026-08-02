@@ -61,3 +61,20 @@ PASS: all 43 recorded source and canonical-artifact checksums match.
 
 git diff --check
 PASS.
+
+Review-remediation update, 2026-08-02 UTC:
+
+PYTHONPATH=src MPLBACKEND=Agg python3 -m pytest -q
+PASS: 48 tests. Coverage now includes canonical-result versus generation-preflight
+separation, seed consistency, and rejection of non-finite or mb/fb-inconsistent
+machine-readable inputs.
+
+python3 -m ruff check src/dvrecast/benchmark.py scripts/plot_strong_bm1.py tests/test_benchmark.py tests/test_strong_bm1_freeze.py
+PASS.
+
+(cd benchmarks/upstream/strong-bm1 && sha256sum -c checksums.sha256)
+PASS: all 35 portable canonical entries match in a clone-compatible manifest.
+
+(cd benchmarks/upstream/strong-bm1 && sha256sum -c source_checksums.sha256)
+PASS: all 15 optional immutable workspace-source entries match when the archived
+source paths are available.

@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import math
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -47,6 +48,9 @@ def load_rows(root: Path) -> list[dict[str, str]]:
         raise ValueError("cutflow.csv has no stages")
     for row in rows:
         for key in ("our_weighted_events", "our_efficiency_pct", "authors_recast_efficiency_pct"):
+            if number(row, key) is None:
+                raise ValueError(f"cutflow.csv missing numeric {key!r}")
+        for key in ("atlas_full_sim_pct", "atlas_parametric_pct"):
             number(row, key)
         row["our_pct"] = row["our_efficiency_pct"]
         row["authors_pct"] = row["authors_recast_efficiency_pct"]
@@ -55,9 +59,12 @@ def load_rows(root: Path) -> list[dict[str, str]]:
 
 def number(row: dict[str, str], key: str) -> float | None:
     try:
-        return float(row[key]) if row[key] else None
+        value = float(row[key]) if row[key] else None
     except ValueError as error:
         raise ValueError(f"invalid numeric {key!r}: {row[key]!r}") from error
+    if value is not None and not math.isfinite(value):
+        raise ValueError(f"non-finite numeric {key!r}")
+    return value
 
 
 def load_generation_summary(root: Path) -> dict[str, object]:
@@ -65,12 +72,38 @@ def load_generation_summary(root: Path) -> dict[str, object]:
     merged = data.get("merged_cross_section")
     if not isinstance(merged, dict) or merged.get("unit") != "fb":
         raise ValueError("generation_summary.json must contain merged_cross_section in fb")
-    for key in ("authors_recast", "our_reproduction", "relative_difference_pct"):
-        if not isinstance(merged.get(key), (int, float)):
+    for key in (
+        "authors_recast",
+        "our_reproduction",
+        "absolute_difference",
+        "relative_difference_pct",
+    ):
+        if not isinstance(merged.get(key), (int, float)) or not math.isfinite(merged[key]):
             raise ValueError(f"merged_cross_section.{key} must be numeric")
     expected = (merged["our_reproduction"] / merged["authors_recast"] - 1) * 100
     if abs(merged["relative_difference_pct"] - expected) > 1e-8:
         raise ValueError("merged_cross_section relative difference is inconsistent")
+    absolute = merged["our_reproduction"] - merged["authors_recast"]
+    if abs(merged["absolute_difference"] - absolute) > 1e-8:
+        raise ValueError("merged_cross_section absolute difference is inconsistent")
+    reconciliation = data.get("unit_reconciliation")
+    if not isinstance(reconciliation, dict):
+        raise ValueError("generation_summary.json unit reconciliation is missing")
+    source_values = reconciliation.get("source_value")
+    if not isinstance(source_values, dict):
+        raise ValueError("generation_summary.json source mb values are missing")
+    pairs = (
+        ("authors", merged["authors_recast"]),
+        ("our_reproduction", merged["our_reproduction"]),
+    )
+    for source, fb in pairs:
+        mb = source_values.get(source)
+        if not isinstance(mb, (int, float)) or not math.isfinite(mb):
+            raise ValueError(f"generation_summary.json source mb value for {source} is missing")
+        if not math.isclose(mb * 1e12, fb, rel_tol=1e-10, abs_tol=1e-12):
+            raise ValueError(
+                f"generation_summary.json mb-to-fb conversion is inconsistent for {source}"
+            )
     return data
 
 

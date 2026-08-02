@@ -30,6 +30,29 @@ def _card_paths(card_paths: object) -> list[str]:
     return paths
 
 
+def _canonical_result_readiness(root: Path, benchmark: Mapping[str, object]) -> dict[str, object]:
+    result_dir = benchmark.get("canonical_result_dir")
+    required = (
+        "cutflow.csv",
+        "cutflow.json",
+        "comparison.csv",
+        "comparison.json",
+        "generation_summary.json",
+        "generation_summary_interpretation_corrected.json",
+        "VALIDATION_REPORT.md",
+    )
+    if not isinstance(result_dir, str):
+        return {"state": "NOT_CONFIGURED", "blockers": ["canonical result directory is missing"]}
+    missing = [name for name in required if not (root / result_dir / name).is_file()]
+    if benchmark.get("verdict") != "UPSTREAM_STRONG_BM1_VALIDATED":
+        missing.append("benchmark verdict is not validated")
+    return {
+        "state": "VALIDATED" if not missing else "BLOCKED",
+        "result_dir": result_dir,
+        "blockers": missing,
+    }
+
+
 def prepare_benchmark(repo_root: Path, identifier: str, *, dry_run: bool) -> dict[str, Any]:
     root = repo_root.resolve()
     benchmark_dir = root / "benchmarks/upstream" / identifier
@@ -100,6 +123,10 @@ def prepare_benchmark(repo_root: Path, identifier: str, *, dry_run: bool) -> dic
     data_dir = root / "data/upstream" / identifier
     results_dir = root / "results/upstream_validation" / identifier
     missing_inputs = [name for name in required_inputs if not (data_dir / name).is_file()]
+    canonical = _canonical_result_readiness(root, benchmark)
+    state = canonical["state"]
+    if state == "NOT_CONFIGURED":
+        state = "BLOCKED" if blockers else "NOT_RUN"
 
     if not dry_run and not blockers:
         (data_dir / "mg5_processes").mkdir(parents=True, exist_ok=True)
@@ -108,8 +135,10 @@ def prepare_benchmark(repo_root: Path, identifier: str, *, dry_run: bool) -> dic
     return {
         "schema_version": 1,
         "benchmark": identifier,
-        "state": "BLOCKED" if blockers else "NOT_RUN",
+        "state": state,
         "dry_run": dry_run,
+        "canonical_result": canonical,
+        "generation_preflight_state": "BLOCKED" if blockers else "NOT_RUN",
         "contract_classification": classification,
         "generation_allowed": not blockers,
         "toolchain_status": (

@@ -12,6 +12,7 @@
   "signal_region": "High-pT",
   "merging": {"scheme": "CKKW-L", "scale_GeV": 500, "max_jet_multiplicity": 2},
   "generation": {"events_per_multiplicity": 10000, "multiplicities": ["0j", "1j", "2j"], "total_generated_events": 30000, "seeds": {"0j": 201, "1j": 202, "2j": 203}},
+  "card_paths": {"parameter_or_slha_card": "benchmarks/upstream/strong-bm1/cards/generated/GG_qqn1_2000_850_rpvLF_p01ns.slha", "process_cards": ["benchmarks/upstream/strong-bm1/cards/source/pp2gogo_0_proc_card_mg5.dat", "benchmarks/upstream/strong-bm1/cards/source/pp2gogo_1_proc_card_mg5.dat", "benchmarks/upstream/strong-bm1/cards/source/pp2gogo_2_proc_card_mg5.dat"], "pythia_card": "benchmarks/upstream/strong-bm1/cards/source/bm1.cmnd", "run_card": "benchmarks/upstream/strong-bm1/cards/source/run_card.dat"},
   "cards": {"source_dir": "benchmarks/upstream/strong-bm1/cards/source", "generated_slha": "benchmarks/upstream/strong-bm1/cards/generated/GG_qqn1_2000_850_rpvLF_p01ns.slha", "provenance": "benchmarks/upstream/strong-bm1/cards/PROVENANCE.json"},
   "reference_result": "external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/2_results/strong/gluino_run01.txt",
   "reference_result_path": "external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/2_results/strong/gluino_run01.txt",

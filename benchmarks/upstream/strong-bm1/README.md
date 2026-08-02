@@ -8,8 +8,12 @@ The pinned public code is the `external/recastingCodes` submodule at
 The authoritative machine-readable result is under
 `results/upstream/strong-bm1/`. Run `bash benchmarks/upstream/strong-bm1/commands.sh`
 to regenerate the plots and derived comparison JSON without rerunning event
-generation. The source package and every compact artifact are checksummed in
-`checksums.sha256`.
+generation. Portable canonical artifacts are checksummed in `checksums.sha256`.
+
+Verify them from the benchmark directory with
+`(cd benchmarks/upstream/strong-bm1 && sha256sum -c checksums.sha256)`.
+`source_checksums.sha256` is optional archival verification for original
+workspace paths and is not required in a fresh clone.
 
 Verdict: `UPSTREAM_STRONG_BM1_VALIDATED`, limited to this High-pT strong-bm1
 benchmark. The cutflow and cross-section values are reconciled to archived logs,
