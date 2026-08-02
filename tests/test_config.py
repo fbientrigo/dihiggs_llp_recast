@@ -5,7 +5,13 @@ from pathlib import Path
 
 import pytest
 
-from dvrecast.config import UpstreamLock, load_toolchain_config, load_upstream_lock
+from dvrecast.config import (
+    DEFAULT_LLP_PDG_ID,
+    UpstreamLock,
+    load_toolchain_config,
+    load_upstream_lock,
+    resolve_llp_pdg_id,
+)
 
 
 def test_load_upstream_lock(tmp_path: Path) -> None:
@@ -59,3 +65,22 @@ def test_load_toolchain_config_expands_home(
     config = load_toolchain_config(path)
     assert config["PYTHIA8"] == str(tmp_path / ".local" / "pythia8308")
     assert config["PYTHIA8_SOURCE_TAG"] == "pythia8308"
+
+
+def test_resolve_llp_pdg_id_defaults_to_neutralino() -> None:
+    assert resolve_llp_pdg_id() == DEFAULT_LLP_PDG_ID == 1000022
+
+
+def test_resolve_llp_pdg_id_prefers_explicit_over_config() -> None:
+    assert resolve_llp_pdg_id(9000006, config={"llp_pdg_id": 1000023}) == 9000006
+
+
+def test_resolve_llp_pdg_id_falls_back_to_config() -> None:
+    assert resolve_llp_pdg_id(None, config={"llp_pdg_id": "9000006"}) == 9000006
+
+
+def test_resolve_llp_pdg_id_rejects_malformed_value() -> None:
+    with pytest.raises(ValueError, match="invalid LLP PDG id"):
+        resolve_llp_pdg_id("not-a-pdg-id")
+    with pytest.raises(ValueError, match="nonzero"):
+        resolve_llp_pdg_id(0)

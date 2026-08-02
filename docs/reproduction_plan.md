@@ -42,6 +42,21 @@ Implement only:
 
 Exit condition: upstream regression remains valid after the adaptation.
 
+### R4/R5 status — configurable LLP identity (compatibility layer only)
+
+The LLP PDG id is now a single configurable parameter,
+`dvrecast.config.resolve_llp_pdg_id`, defaulting to `1000022` (the strong-bm1
+neutralino). strong-bm1 remains the validated baseline and is unaffected: it
+does not call this resolver and keeps its own frozen PDG assertions in
+`src/dvrecast/readiness.py`. `dvrecast.llp_event` adds fixture-driven,
+dependency-free LLP identification, descendant traversal and displaced-vertex
+reading (`scripts/run_llp_smoke.py`), exercised against a synthetic
+alternate-scalar fixture (`tests/fixtures/llp_scalar_smoke_event.json`). This
+is a **technical** smoke test, not a physics benchmark — it carries no
+physics-derived thresholds and does not constitute the M4 paper benchmark or
+any H2 physical interpretation, which remain later milestones blocked on
+upstream compilation (M1/M2).
+
 ## M4 — Paper benchmark
 
 Run one declared benchmark from arXiv:2606.01681 and reproduce the corresponding original/modified cutflow to the agreed tolerance. Cross-section normalization is tracked separately from acceptance and efficiency.
