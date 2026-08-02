@@ -13,6 +13,7 @@ b4fdd6b48d77f6c80ef2dd4136cd7b653d497f316cc5374ffca4a84958fef2a1  /home/fabi/atl
 936067b7a50aaf3c5dcfc17e1c3a3fa88205f11ef42ba1a58c220d6e780515c1  /home/fabi/atlas_dihiggs/original_llp_results/strong_bm1_20260724_000724/run.log
 da83689839d755837c4b388e60a4a9b07b971d108f505f0e0486b917abd4ea87  /home/fabi/atlas_dihiggs/original_llp_results/strong_bm1_20260724_000724/slha_diff.patch
 74ed9397e17b0ba53003401648f4840b9f3f44366d8884bf676aedf60a8458da  /home/fabi/atlas_dihiggs/original_llp_results/strong_bm1_20260724_000724/tool_versions.txt
+08d9ab00f4b5bc67bf70698590bd2fdf57bc862b75cd3a92682ccdb37782a344  /home/fabi/atlas_dihiggs/original_llp/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/2_results/strong/gluino_run01.txt
 
 # SHA-256 checksums of canonical cards and generated validation artifacts.
 c6247ccdc2bb430762284e78cce7d0b0858765e539b1346f4e20fa308935db37  cards/PROVENANCE.json
@@ -24,16 +25,18 @@ ee6e68881322ea4d89c2d60614437fcad12ef28c3bda0647f472e2a84020325a  cards/source/G
 6156bd1ad959eb1976811c58fb09039b1df90d6035dc1997e7c4098f5961639d  cards/source/pp2gogo_1_proc_card_mg5.dat
 ad78ddeed7556ea77a857b5bfef1746819e03627f975bb2324b0004c4dabb212  cards/source/pp2gogo_2_proc_card_mg5.dat
 44df37652d2acf1da042057d7fa9fdf21559e75e4de6121f4f2c55660b483da6  cards/source/run_card.dat
-121999b9605c5c627c200c051c14d3ad26d152a9ddbc3904bb91811243871f6c  benchmark.json
-ad0d00326dcaa2d04e3c69fcbd98baa03b9b2a61db9c1ec5f10eaedbf2718ffc  manifest.json
+625a1673c3046727cba06f0bf0cd3183584dc9e9d2eace420645656f05882338  benchmark.json
+8856edf465bcd15b81e37408e6a86ea602731aecd7c76b816978a8f6f4ac69d8  manifest.json
 73e5d3adc8082e9c17d9869fafc3548ac088747707bae5510341adb1c39f2ca3  environment.json
 9261ac6d7ed0ccb3aab52ec36dfdc0081d73dec4dbdbb01568c523b822207fcd  commands.sh
-e0bff1b30bc30030304933c3ef719ec1ac736de3e2c9a531803d41fce5d943b0  README.md
+01dc2a53aa8667bbb605afc37f5b1aec672339cf14673f09d261ccf2cfe793b5  README.md
 57ccb2d413cb56410f6bec021bbf835f51654035e28ebd4411bff187fb14bdda  ../../../results/upstream/strong-bm1/cutflow.csv
 572ef07b301234ae34bd1056290c418da8e1dd3a334ad7f1817ae9efb279d849  ../../../results/upstream/strong-bm1/cutflow.json
 438730d8d96bd967c88d3c75fa1878f3ff6ac2f925fda608262e6223d50585da  ../../../results/upstream/strong-bm1/comparison.csv
 72f84ff8a65bfd581755d6812f4bdab8cfc2d096b236f6b0e810ce576f64908f  ../../../results/upstream/strong-bm1/comparison.json
 ab86239c1b0935ae2b25ce720ad8141dfe996a917711b6273e7b636fc28043bb  ../../../results/upstream/strong-bm1/generation_summary.json
+647d00b29dbc491a7723149ed730ffb1074778162bdd6a79afe009eff99c8005  ../../../results/upstream/strong-bm1/generation_summary_interpretation_corrected.json
+499c04a6e409919c298d416bcc2d074aae468d068a23296f6ec189b7e4771865  ../../../results/upstream/strong-bm1/VALIDATION_REPORT.md
 f1cf650d637227d730ba8cf3434356cc5023aa88f501d5b07430be66ec8063f7  ../../../results/upstream/strong-bm1/plots/strong_bm1_cross_section.pdf
 88a3a7b62a182c6d8af22a1adece32dc52ffa58978d99e1f527a20162caf8f09  ../../../results/upstream/strong-bm1/plots/strong_bm1_cross_section.png
 b12bb3db5edb1e5afa2fa8b4325e4567cc6474b256915bc13d6f797225531be8  ../../../results/upstream/strong-bm1/plots/strong_bm1_cutflow.pdf

@@ -1,7 +1,7 @@
 {
   "source_directory": "original_llp_results/strong_bm1_20260724_000724",
   "source_files": ["README.md", "comparison.md", "comparison.csv", "diagnosis.md", "cutflow.csv", "cutflow.json", "generation_summary.json", "lhe_checksums.txt", "slha_diff.patch", "tool_versions.txt", "environment.txt", "commands.sh", "build.log", "run.log"],
-  "canonical_files": ["benchmarks/upstream/strong-bm1/benchmark.json", "benchmarks/upstream/strong-bm1/manifest.json", "benchmarks/upstream/strong-bm1/environment.json", "benchmarks/upstream/strong-bm1/commands.sh", "results/upstream/strong-bm1/cutflow.csv", "results/upstream/strong-bm1/cutflow.json", "results/upstream/strong-bm1/comparison.csv", "results/upstream/strong-bm1/comparison.json", "results/upstream/strong-bm1/generation_summary.json", "results/upstream/strong-bm1/VALIDATION_REPORT.md"],
+  "canonical_files": ["benchmarks/upstream/strong-bm1/benchmark.json", "benchmarks/upstream/strong-bm1/manifest.json", "benchmarks/upstream/strong-bm1/environment.json", "benchmarks/upstream/strong-bm1/commands.sh", "results/upstream/strong-bm1/cutflow.csv", "results/upstream/strong-bm1/cutflow.json", "results/upstream/strong-bm1/comparison.csv", "results/upstream/strong-bm1/comparison.json", "results/upstream/strong-bm1/generation_summary.json", "results/upstream/strong-bm1/generation_summary_interpretation_corrected.json", "results/upstream/strong-bm1/VALIDATION_REPORT.md"],
   "plot_files": ["strong_bm1_cutflow.png", "strong_bm1_cutflow.pdf", "strong_bm1_cutflow.svg", "strong_bm1_ratio.png", "strong_bm1_ratio.pdf", "strong_bm1_cross_section.png", "strong_bm1_cross_section.pdf"],
   "excluded_large_or_external": ["LHE files", "generated binaries", "full upstream checkout", "original_llp_results source directory"]
 }

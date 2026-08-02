@@ -13,6 +13,15 @@ import matplotlib.pyplot as plt
 
 FIXED_DATE = datetime(2020, 1, 1, tzinfo=timezone.utc)
 plt.rcParams["svg.hashsalt"] = "strong-bm1"
+REQUIRED_CUTFLOW_COLUMNS = {
+    "stage_id",
+    "label",
+    "our_weighted_events",
+    "our_efficiency_pct",
+    "authors_recast_efficiency_pct",
+    "atlas_full_sim_pct",
+    "atlas_parametric_pct",
+}
 
 
 def save_figure(figure: plt.Figure, path: Path) -> None:
@@ -29,15 +38,40 @@ def save_figure(figure: plt.Figure, path: Path) -> None:
 
 def load_rows(root: Path) -> list[dict[str, str]]:
     with (root / "cutflow.csv").open(newline="", encoding="utf-8") as handle:
-        rows = list(csv.DictReader(handle))
+        reader = csv.DictReader(handle)
+        missing = REQUIRED_CUTFLOW_COLUMNS - set(reader.fieldnames or ())
+        if missing:
+            raise ValueError(f"cutflow.csv missing columns: {', '.join(sorted(missing))}")
+        rows = list(reader)
+    if not rows:
+        raise ValueError("cutflow.csv has no stages")
     for row in rows:
+        for key in ("our_weighted_events", "our_efficiency_pct", "authors_recast_efficiency_pct"):
+            number(row, key)
         row["our_pct"] = row["our_efficiency_pct"]
         row["authors_pct"] = row["authors_recast_efficiency_pct"]
     return rows
 
 
 def number(row: dict[str, str], key: str) -> float | None:
-    return float(row[key]) if row[key] else None
+    try:
+        return float(row[key]) if row[key] else None
+    except ValueError as error:
+        raise ValueError(f"invalid numeric {key!r}: {row[key]!r}") from error
+
+
+def load_generation_summary(root: Path) -> dict[str, object]:
+    data = json.loads((root / "generation_summary.json").read_text(encoding="utf-8"))
+    merged = data.get("merged_cross_section")
+    if not isinstance(merged, dict) or merged.get("unit") != "fb":
+        raise ValueError("generation_summary.json must contain merged_cross_section in fb")
+    for key in ("authors_recast", "our_reproduction", "relative_difference_pct"):
+        if not isinstance(merged.get(key), (int, float)):
+            raise ValueError(f"merged_cross_section.{key} must be numeric")
+    expected = (merged["our_reproduction"] / merged["authors_recast"] - 1) * 100
+    if abs(merged["relative_difference_pct"] - expected) > 1e-8:
+        raise ValueError("merged_cross_section relative difference is inconsistent")
+    return data
 
 
 def write_comparison(root: Path, rows: list[dict[str, str]]) -> None:
@@ -65,6 +99,30 @@ def write_comparison(root: Path, rows: list[dict[str, str]]) -> None:
         ),
     }
     (root / "comparison.json").write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+
+
+def write_corrected_unit_interpretation(root: Path, summary: dict[str, object]) -> None:
+    reconciliation = summary.get("unit_reconciliation")
+    merged = summary["merged_cross_section"]
+    if not isinstance(reconciliation, dict) or not isinstance(merged, dict):
+        raise ValueError("generation_summary.json unit reconciliation is missing")
+    source_values = reconciliation.get("source_value")
+    if not isinstance(source_values, dict) or not isinstance(
+        source_values.get("our_reproduction"), (int, float)
+    ):
+        raise ValueError("generation_summary.json source mb value is missing")
+    fb = merged["our_reproduction"]
+    corrected = {
+        "source_file": summary["source_artifact"],
+        "source_file_modified": False,
+        "identified_issue": "unit label mismatch",
+        "merged_inclusive_cross_section_mb": source_values["our_reproduction"],
+        "merged_inclusive_cross_section_pb": fb / 1000,
+        "merged_inclusive_cross_section_fb": fb,
+    }
+    (root / "generation_summary_interpretation_corrected.json").write_text(
+        json.dumps(corrected, indent=2) + "\n", encoding="utf-8"
+    )
 
 
 def plot_cutflow(root: Path, out: Path, rows: list[dict[str, str]]) -> None:
@@ -130,7 +188,7 @@ def plot_ratio(root: Path, out: Path, rows: list[dict[str, str]]) -> None:
 
 
 def plot_cross_section(root: Path, out: Path) -> None:
-    data = json.loads((root / "generation_summary.json").read_text(encoding="utf-8"))
+    data = load_generation_summary(root)
     values = data["merged_cross_section"]
     fig, axis = plt.subplots(figsize=(6, 4.5))
     axis.bar(
@@ -164,8 +222,10 @@ def main() -> None:
     out = (args.output_root or root).resolve()
     out.mkdir(parents=True, exist_ok=True)
     rows = load_rows(root)
+    summary = load_generation_summary(root)
     if args.write_comparison_json:
         write_comparison(root, rows)
+        write_corrected_unit_interpretation(root, summary)
     plot_cutflow(root, out, rows)
     plot_ratio(root, out, rows)
     plot_cross_section(root, out)

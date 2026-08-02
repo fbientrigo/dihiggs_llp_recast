@@ -7,10 +7,10 @@ from pathlib import Path
 from dvrecast.benchmark import prepare_benchmark
 
 
-def test_canonical_strong_bm1_manifest_is_provisional() -> None:
+def test_canonical_strong_bm1_manifest_is_benchmark_specific_validated() -> None:
     payload = json.loads(Path("benchmarks/upstream/strong-bm1/benchmark.json").read_text())
-    assert payload["status"] == "PROVISIONAL"
-    assert payload["verdict"] == "UPSTREAM_STRONG_BM1_PROVISIONAL"
+    assert payload["status"] == "VALIDATED"
+    assert payload["verdict"] == "UPSTREAM_STRONG_BM1_VALIDATED"
     assert payload["upstream"]["commit"] == "d4047c744062094c9f88e507bb1ccf69e9fe88d6"
 
 

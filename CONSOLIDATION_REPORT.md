@@ -2,13 +2,14 @@
 
 ## Verdict
 
-`UPSTREAM_STRONG_BM1_PROVISIONAL`
+`UPSTREAM_STRONG_BM1_VALIDATED`
 
 The independently generated 0j/1j/2j samples, CKKW-L merge, and unmodified
 upstream recast output are consolidated into machine-readable canonical data and
-deterministic plots. The result is not marked `VALIDATED` because the source
-package labels one femtobarn-scale value as pb and archives weighted sums but
-not weighted second moments or event weights.
+deterministic plots. This is `VALIDATED` only for the High-pT strong-bm1
+benchmark: the source-unit mismatch is corrected in a separate interpretation
+artifact, and no statistical-significance claim is made without weighted
+second moments or event weights.
 
 ## Input verification
 
@@ -17,8 +18,8 @@ diagnosis, cutflow CSV/JSON, generation summary, LHE checksums, SLHA patch,
 tool/environment records, commands, build log, and run log. Their SHA-256
 values are recorded in `benchmarks/upstream/strong-bm1/checksums.sha256`.
 The source README/diagnosis use the historical label `STRONG_BM1_REPRODUCED`;
-that label is not adopted here because the uncertainty and unit gates below are
-not closed.
+the canonical verdict is instead tied to the checked compact artifacts and is
+explicitly benchmark-specific.
 
 The authors' reference is `external/recastingCodes/.../2_results/strong/gluino_run01.txt`.
 It supplies the reference weighted denominator 9476.625, High-pT values
@@ -57,3 +58,19 @@ scale/PDF uncertainties are kept as separate concepts.
 The upstream clone is at the pinned commit. Its only tracked change is the
 known local Makefile path adaptation; generated objects/logs/LHE files are
 untracked. No physical analysis source file differs from the pinned upstream.
+
+## Canonical derivations and scope
+
+Imported compact source evidence remains immutable under
+`original_llp_results/strong_bm1_20260724_000724` and the authors' archived
+output remains immutable under `original_llp`. Derived repository artifacts are
+the normalized-fb generation summary, recomputed comparison JSON, corrected
+unit interpretation JSON, and deterministic PNG/PDF/SVG plots. The corrected
+interpretation records $4.889942\times10^{-13}$ mb as $0.0004889942$ pb and
+$0.4889942$ fb; it never reports the source's mislabeled $0.4889942$ as pb.
+
+Closed scope: one High-pT strong-bm1 benchmark, including its 0j/1j/2j CKKW-L
+technical inputs, authors-versus-ours numerical reconciliation, and the
+separate supported ATLAS comparison. Open scope: other benchmarks, Trackless,
+efficiency-map bin validation, ALP/H2 interpretation, exclusions, and a
+rigorous weighted statistical-significance calculation.

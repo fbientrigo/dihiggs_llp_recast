@@ -41,3 +41,23 @@ PASS before commit; rerun after each commit.
 
 (cd benchmarks/upstream/strong-bm1 && sha256sum -c checksums.sha256)
 PASS: all source, card, machine-readable, and plot checksums match.
+
+Closure update, 2026-08-02 UTC:
+
+PYTHONPATH=src MPLBACKEND=Agg python3 -m pytest -q
+PASS: 45 tests, including compact-input schema rejection, source separation,
+unit conversion, plot regeneration in a fresh temporary directory, and the
+forbidden-statistical-claim guard.
+
+python3 -m ruff check scripts/plot_strong_bm1.py tests/test_strong_bm1_freeze.py tests/test_benchmark.py
+PASS.
+
+MPLBACKEND=Agg bash benchmarks/upstream/strong-bm1/commands.sh
+PASS: regenerated comparison JSON, corrected unit interpretation JSON, and all
+seven deterministic plot files without event generation.
+
+(cd benchmarks/upstream/strong-bm1 && sha256sum -c checksums.sha256)
+PASS: all 43 recorded source and canonical-artifact checksums match.
+
+git diff --check
+PASS.

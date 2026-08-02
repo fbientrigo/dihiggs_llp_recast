@@ -11,7 +11,7 @@ to regenerate the plots and derived comparison JSON without rerunning event
 generation. The source package and every compact artifact are checksummed in
 `checksums.sha256`.
 
-Verdict: `UPSTREAM_STRONG_BM1_PROVISIONAL`. The cutflow and cross-section values
-are reconciled to the archived logs. Promotion remains provisional because the
-source JSON has one mislabeled cross-section field and does not preserve the
-weighted moments needed for a defensible acceptance uncertainty.
+Verdict: `UPSTREAM_STRONG_BM1_VALIDATED`, limited to this High-pT strong-bm1
+benchmark. The cutflow and cross-section values are reconciled to archived logs,
+while the corrected unit interpretation and unavailable weighted-significance
+inputs remain explicit limitations.

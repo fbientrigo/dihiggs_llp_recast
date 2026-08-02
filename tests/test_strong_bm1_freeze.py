@@ -35,6 +35,37 @@ def test_comparison_values_recompute() -> None:
         assert abs(float(row["ratio_our_over_authors"]) - ours / authors) < 1e-8
 
 
+def test_generation_summary_separates_sources_and_corrects_units() -> None:
+    summary = json.loads((RESULTS / "generation_summary.json").read_text(encoding="utf-8"))
+    merged = summary["merged_cross_section"]
+    assert merged["unit"] == "fb"
+    assert merged["authors_recast"] == 0.4949932
+    assert merged["our_reproduction"] == 0.4889942
+    assert abs(merged["relative_difference_pct"] + 1.2119358407) < 1e-10
+    corrected = json.loads(
+        (RESULTS / "generation_summary_interpretation_corrected.json").read_text(encoding="utf-8")
+    )
+    assert corrected["source_file_modified"] is False
+    assert corrected["identified_issue"] == "unit label mismatch"
+    assert corrected["merged_inclusive_cross_section_mb"] == 4.889942e-13
+    assert corrected["merged_inclusive_cross_section_pb"] == 0.0004889942
+    assert corrected["merged_inclusive_cross_section_fb"] == 0.4889942
+
+
+def test_no_forbidden_statistical_claims_in_canonical_reports() -> None:
+    text = "\n".join(
+        path.read_text(encoding="utf-8")
+        for path in (ROOT / "CONSOLIDATION_REPORT.md", RESULTS / "VALIDATION_REPORT.md")
+    ).lower()
+    for claim in (
+        "0.5" "2%",
+        "less than 0.5 " "sigma",
+        "within 1 " "sigma",
+        "statistical " "proof",
+    ):
+        assert claim not in text
+
+
 def test_checksums_match_source_and_canonical_files() -> None:
     source_root = Path("/home/fabi/atlas_dihiggs/original_llp_results/strong_bm1_20260724_000724")
     for line in (BENCHMARK / "checksums.sha256").read_text(encoding="utf-8").splitlines():
@@ -82,3 +113,28 @@ def test_plot_smoke_regenerates_all_outputs(tmp_path: Path) -> None:
     }
     assert {path.name for path in output_root.iterdir()} == expected
     assert (input_root / "comparison.json").is_file()
+    corrected = json.loads(
+        (input_root / "generation_summary_interpretation_corrected.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert corrected["merged_inclusive_cross_section_pb"] == 0.0004889942
+
+
+def test_plot_rejects_inconsistent_cross_section_summary(tmp_path: Path) -> None:
+    input_root = tmp_path / "input"
+    input_root.mkdir()
+    for name in ("cutflow.csv", "generation_summary.json"):
+        shutil.copy2(RESULTS / name, input_root / name)
+    summary_path = input_root / "generation_summary.json"
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    summary["merged_cross_section"]["relative_difference_pct"] = 0
+    summary_path.write_text(json.dumps(summary), encoding="utf-8")
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts/plot_strong_bm1.py"), "--input-root", str(input_root)],
+        capture_output=True,
+        text=True,
+        env={**os.environ, "MPLBACKEND": "Agg"},
+    )
+    assert result.returncode != 0
+    assert "relative difference is inconsistent" in result.stderr

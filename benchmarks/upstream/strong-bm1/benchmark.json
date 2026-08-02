@@ -1,7 +1,7 @@
 {
   "identifier": "strong-bm1",
-  "status": "PROVISIONAL",
-  "status_reason": "Canonical evidence is internally reconciled and reproducible; weighted-statistical uncertainty is unavailable and the source package contains a mislabeled cross-section field.",
+  "status": "VALIDATED",
+  "status_reason": "Benchmark-specific High-pT strong-bm1 canonical artifacts are internally reconciled, checked, and reproducibly plotted. The corrected unit interpretation and unavailable weighted-significance inputs remain explicit limitations.",
   "upstream": {"repository": "https://github.com/llprecasting/recastingCodes.git", "commit": "d4047c744062094c9f88e507bb1ccf69e9fe88d6"},
   "physics_process": "pp -> gluino gluino + 0,1,2 jets",
   "sqrt_s_TeV": 13,
@@ -18,5 +18,5 @@
   "canonical_result_dir": "results/upstream/strong-bm1",
   "exact_author_lhe_recovered": false,
   "local_reproduction": "Independent 0j/1j/2j production, Pythia 8.308 CKKW-L merge, and unmodified upstream recast execution archived outside Git.",
-  "verdict": "UPSTREAM_STRONG_BM1_PROVISIONAL"
+  "verdict": "UPSTREAM_STRONG_BM1_VALIDATED"
 }
