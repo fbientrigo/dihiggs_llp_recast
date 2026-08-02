@@ -1,5 +1,9 @@
 # strong-bm1 independent reproduction report
 
+> Historical pre-freeze record. Its blocked verdict and reserved seeds are
+> superseded for the canonical compact result by
+> `benchmarks/upstream/strong-bm1/README.md` and `CONSOLIDATION_REPORT.md`.
+
 **Verdict: `STRONG_BM1_EXECUTION_BLOCKED`**
 
 ## Which local repository state was selected?

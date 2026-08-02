@@ -178,3 +178,44 @@ def test_plot_rejects_nonfinite_or_unit_inconsistent_summary(tmp_path: Path) -> 
         )
         assert result.returncode != 0
         assert message in result.stderr
+
+
+def test_plot_rejects_negative_cross_sections(tmp_path: Path) -> None:
+    input_root = tmp_path / "negative_cross_section"
+    input_root.mkdir()
+    for name in ("cutflow.csv", "generation_summary.json"):
+        shutil.copy2(RESULTS / name, input_root / name)
+    summary_path = input_root / "generation_summary.json"
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    merged = summary["merged_cross_section"]
+    merged["authors_recast"] *= -1
+    merged["our_reproduction"] *= -1
+    merged["absolute_difference"] *= -1
+    summary["unit_reconciliation"]["source_value"] = {
+        key: value * -1 for key, value in summary["unit_reconciliation"]["source_value"].items()
+    }
+    summary_path.write_text(json.dumps(summary), encoding="utf-8")
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts/plot_strong_bm1.py"), "--input-root", str(input_root)],
+        capture_output=True,
+        text=True,
+        env={**os.environ, "MPLBACKEND": "Agg"},
+    )
+    assert result.returncode != 0
+    assert "cross sections must be positive" in result.stderr
+
+
+def test_plot_rejects_out_of_range_efficiencies(tmp_path: Path) -> None:
+    input_root = tmp_path / "invalid_efficiency"
+    input_root.mkdir()
+    shutil.copy2(RESULTS / "generation_summary.json", input_root / "generation_summary.json")
+    cutflow = (RESULTS / "cutflow.csv").read_text(encoding="utf-8")
+    (input_root / "cutflow.csv").write_text(cutflow.replace("99.87405", "101"), encoding="utf-8")
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts/plot_strong_bm1.py"), "--input-root", str(input_root)],
+        capture_output=True,
+        text=True,
+        env={**os.environ, "MPLBACKEND": "Agg"},
+    )
+    assert result.returncode != 0
+    assert "within [0, 100]" in result.stderr

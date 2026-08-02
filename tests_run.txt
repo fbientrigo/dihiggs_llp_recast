@@ -78,3 +78,10 @@ PASS: all 35 portable canonical entries match in a clone-compatible manifest.
 (cd benchmarks/upstream/strong-bm1 && sha256sum -c source_checksums.sha256)
 PASS: all 15 optional immutable workspace-source entries match when the archived
 source paths are available.
+
+Final review-remediation update, 2026-08-02 UTC:
+
+PYTHONPATH=src MPLBACKEND=Agg python3 -m pytest -q
+PASS: 50 tests. Added physical positive-cross-section and 0–100% efficiency
+range rejection; historical reports are explicitly superseded by the canonical
+baseline documentation.

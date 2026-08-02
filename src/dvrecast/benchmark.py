@@ -44,8 +44,8 @@ def _canonical_result_readiness(root: Path, benchmark: Mapping[str, object]) -> 
     if not isinstance(result_dir, str):
         return {"state": "NOT_CONFIGURED", "blockers": ["canonical result directory is missing"]}
     missing = [name for name in required if not (root / result_dir / name).is_file()]
-    if benchmark.get("verdict") != "UPSTREAM_STRONG_BM1_VALIDATED":
-        missing.append("benchmark verdict is not validated")
+    if benchmark.get("status") != "VALIDATED":
+        missing.append("benchmark status is not validated")
     return {
         "state": "VALIDATED" if not missing else "BLOCKED",
         "result_dir": result_dir,

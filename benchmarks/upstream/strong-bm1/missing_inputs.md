@@ -16,11 +16,10 @@ reference log confirms that its original inputs were author-local files under
 `pp2gogo_{0,1,2}/Events/run_01/unweighted_events.lhe.gz`.
 
 MadGraph 3.5.3 is installed locally and its readiness probe passes. The exact parameter
-or SLHA card used to generate run 01 is still not supplied. The filenames and reference
-event record identify a 2000 GeV gluino, 850 GeV neutralino, and lifetime label `0p01`.
-The only supplied strong-production SLHA card is
-`GG_qqn1_2800_10_rpvLF_p01ns.slha`, which instead specifies 2800 GeV and 10 GeV.
-It must not be substituted silently.
+or SLHA card used to generate run 01 is still not supplied. The only supplied upstream
+source card is `GG_qqn1_2800_10_rpvLF_p01ns.slha`, which instead specifies 2800 GeV
+and 10 GeV. The tracked 2000/850 GeV card is an independent reconstruction, not a
+recovery of that private author input.
 
 The canonical result freeze does not require these LHE files: it imports compact
 run outputs, records the independent reconstruction card and seeds 201/202/203,

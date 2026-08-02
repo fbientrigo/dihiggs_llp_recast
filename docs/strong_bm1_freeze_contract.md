@@ -1,5 +1,9 @@
 # strong-bm1 baseline freeze contract (partial -- BLOCKED)
 
+> Historical pre-freeze record. It does not describe the canonical compact
+> result freeze; use `benchmarks/upstream/strong-bm1/README.md` and
+> `CONSOLIDATION_REPORT.md` for the current benchmark-specific verdict.
+
 This mission did not reach a full baseline freeze. The following artifacts are the
 durable, verified output of this run and are safe to rely on in a follow-up mission;
 everything downstream of MadGraph 1j/2j generation is explicitly **not** produced.

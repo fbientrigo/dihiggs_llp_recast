@@ -21,8 +21,10 @@ outputs without claiming recovery of the authors' private LHE files.
 - `gluino_run01.txt` confirms Pythia 8.308, FastJet 3.4.0, author-local LHE
   paths, 2000 GeV gluinos, 850 GeV neutralinos, imported gluino/neutralino
   decay tables, and the distributed reference cutflow.
-- The only supplied strong SLHA is `GG_qqn1_2800_10_rpvLF_p01ns.slha`. It is
-  evidence for conventions only and is not the bm1 parameter card.
+- The only supplied upstream/source strong SLHA is
+  `GG_qqn1_2800_10_rpvLF_p01ns.slha`. It is evidence for conventions only and
+  is not the authors' bm1 parameter card; the tracked 2000/850 GeV SLHA is the
+  separately documented independent reconstruction.
 
 ## History and remote investigation
 

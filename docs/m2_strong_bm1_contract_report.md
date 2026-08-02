@@ -1,5 +1,9 @@
 # M2 strong-bm1 generation-contract report
 
+> Historical pre-freeze record. Its generation-input status does not supersede
+> the canonical compact strong-bm1 result freeze described in
+> `benchmarks/upstream/strong-bm1/README.md` and `CONSOLIDATION_REPORT.md`.
+
 Status: `TOOLCHAIN_READY_BENCHMARK_INPUTS_BLOCKED`. Generation contract: `INCOMPLETE`.
 
 ## Recovered exactly

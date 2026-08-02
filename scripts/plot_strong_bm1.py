@@ -47,11 +47,16 @@ def load_rows(root: Path) -> list[dict[str, str]]:
     if not rows:
         raise ValueError("cutflow.csv has no stages")
     for row in rows:
-        for key in ("our_weighted_events", "our_efficiency_pct", "authors_recast_efficiency_pct"):
-            if number(row, key) is None:
+        if (events := number(row, "our_weighted_events")) is None or events < 0:
+            raise ValueError("cutflow.csv requires non-negative weighted events")
+        for key in ("our_efficiency_pct", "authors_recast_efficiency_pct"):
+            if (value := number(row, key)) is None:
                 raise ValueError(f"cutflow.csv missing numeric {key!r}")
+            if not 0 <= value <= 100:
+                raise ValueError(f"cutflow.csv {key!r} must be within [0, 100]")
         for key in ("atlas_full_sim_pct", "atlas_parametric_pct"):
-            number(row, key)
+            if (value := number(row, key)) is not None and not 0 <= value <= 100:
+                raise ValueError(f"cutflow.csv {key!r} must be within [0, 100]")
         row["our_pct"] = row["our_efficiency_pct"]
         row["authors_pct"] = row["authors_recast_efficiency_pct"]
     return rows
@@ -80,6 +85,8 @@ def load_generation_summary(root: Path) -> dict[str, object]:
     ):
         if not isinstance(merged.get(key), (int, float)) or not math.isfinite(merged[key]):
             raise ValueError(f"merged_cross_section.{key} must be numeric")
+    if merged["authors_recast"] <= 0 or merged["our_reproduction"] <= 0:
+        raise ValueError("merged cross sections must be positive")
     expected = (merged["our_reproduction"] / merged["authors_recast"] - 1) * 100
     if abs(merged["relative_difference_pct"] - expected) > 1e-8:
         raise ValueError("merged_cross_section relative difference is inconsistent")
@@ -100,6 +107,10 @@ def load_generation_summary(root: Path) -> dict[str, object]:
         mb = source_values.get(source)
         if not isinstance(mb, (int, float)) or not math.isfinite(mb):
             raise ValueError(f"generation_summary.json source mb value for {source} is missing")
+        if mb <= 0:
+            raise ValueError(
+                f"generation_summary.json source mb value for {source} must be positive"
+            )
         if not math.isclose(mb * 1e12, fb, rel_tol=1e-10, abs_tol=1e-12):
             raise ValueError(
                 f"generation_summary.json mb-to-fb conversion is inconsistent for {source}"
