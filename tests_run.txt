@@ -38,3 +38,6 @@ PASS.
 
 git diff --check
 PASS before commit; rerun after each commit.
+
+(cd benchmarks/upstream/strong-bm1 && sha256sum -c checksums.sha256)
+PASS: all source, card, machine-readable, and plot checksums match.
