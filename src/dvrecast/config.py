@@ -11,6 +11,55 @@ from typing import Any
 
 _COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 
+#: Canonical default LLP PDG id (neutralino), matching the strong-bm1 baseline.
+DEFAULT_LLP_PDG_ID = 1000022
+
+
+def resolve_llp_pdg_id(
+    explicit: int | str | None = None,
+    *,
+    config: Mapping[str, Any] | None = None,
+) -> int:
+    """Resolve the single canonical LLP PDG id.
+
+    Precedence: ``explicit`` (e.g. a CLI flag) overrides ``config["llp_pdg_id"]``
+    (e.g. a loaded reproduction config), which overrides :data:`DEFAULT_LLP_PDG_ID`.
+    This is the only place LLP identity is resolved; callers must not maintain a
+    parallel default.
+    """
+    value = explicit
+    if value is None and config is not None:
+        value = config.get("llp_pdg_id")
+    if value is None:
+        return DEFAULT_LLP_PDG_ID
+    try:
+        pdg_id = int(value)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"invalid LLP PDG id: {value!r}") from exc
+    if pdg_id == 0:
+        raise ValueError("LLP PDG id must be a nonzero integer")
+    return pdg_id
+
+
+def render_llp_pdg_cmnd_line(
+    explicit: int | str | None = None,
+    *,
+    config: Mapping[str, Any] | None = None,
+) -> str | None:
+    """Render the Pythia cmnd line that points the real recast at the
+    configured LLP, via :func:`resolve_llp_pdg_id` (the single source of
+    truth for LLP identity).
+
+    Returns ``None`` when the resolved id is :data:`DEFAULT_LLP_PDG_ID`: the
+    frozen upstream cmnd cards already default ``Recast:llpPdgIds`` to the
+    original neutralino/chargino triplet, so nothing needs to be appended to
+    reproduce the baseline behaviour exactly.
+    """
+    pdg_id = resolve_llp_pdg_id(explicit, config=config)
+    if pdg_id == DEFAULT_LLP_PDG_ID:
+        return None
+    return f"Recast:llpPdgIds = {{{pdg_id}}}"
+
 
 @dataclass(frozen=True)
 class UpstreamLock:

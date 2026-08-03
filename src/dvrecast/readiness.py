@@ -173,6 +173,10 @@ def selected_benchmark_readiness(
                 match = re.match(r"\s*100002([12])\s+([-+0-9.eE]+)", line)
                 if match:
                     masses[1000020 + int(match.group(1))] = float(match.group(2))
+            # Asserts the frozen strong-bm1 point identity (gluino/neutralino
+            # masses), not the configurable LLP id from dvrecast.config;
+            # strong-bm1 stays pinned to PDG 1000022 regardless of what LLP
+            # identity a caller configures elsewhere.
             if abs(masses.get(1000021, float("nan")) - 2000.0) > 1e-6:
                 blockers.append("SLHA lacks MASS 1000021 = 2000 GeV")
             if abs(masses.get(1000022, float("nan")) - 850.0) > 1e-6:

@@ -1,0 +1,53 @@
+--- a/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/recast_2301_13866.cc	2026-08-02 22:17:17.647669538 -0400
++++ b/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/recast_2301_13866.cc	2026-08-02 22:19:33.248065442 -0400
+@@ -34,15 +34,24 @@
+ 
+ 	Pythia pythia;
+ 	pythia.settings.addMode("LHEFInputs:nSubruns", 0, true, false, 0, 100); //allows LHEFInputs:nSubruns
++	// R4/R5: configurable LLP identity. Defaults to the original hardcoded
++	// neutralino/chargino triplet so an unmodified cmnd card reproduces the
++	// upstream behaviour exactly; set Recast:llpPdgIds in the cmnd card to
++	// follow a different LLP (e.g. a 2HDM scalar) instead.
++	pythia.settings.addMVec("Recast:llpPdgIds", {1000022, 1000023, 1000024}, false, false, 0, 0);
+ 	Event& event = pythia.event;
+ 
+ 	std::string pathToCMND = argv[1];
+ 	pythia.readFile(pathToCMND);
+ 
++	std::vector<int> llpPdgIds = pythia.settings.mvec("Recast:llpPdgIds");
++
+ 	int nEvent = pythia.mode("Main:numberOfEvents");
+ 	int nAbort = pythia.mode("Main:timesAllowErrors");
+ 	int iAbort = 0;
+ 
++	double nNoConfiguredLLP = 0.;
++
+ 	double nHighPTJetSelection = 0.;
+ 	double nFiducialHighPT = 0.;
+ 	double nTransverseDistanceHighPT = 0.;
+@@ -134,10 +143,14 @@
+ 			motherIndex.clear();
+ 			for (int iTrack = 0; iTrack < event.size(); iTrack++)
+ 			{
+-				if ((event[iTrack].idAbs() == 1000022) || (event[iTrack].idAbs() == 1000023) || (event[iTrack].idAbs() == 1000024))
+-				//if (event[iTrack].idAbs() == 9900035)
++				if (std::find(llpPdgIds.begin(), llpPdgIds.end(), event[iTrack].idAbs()) != llpPdgIds.end())
+ 					motherIndex.push_back(iTrack);
+ 			}
++			// R4/R5 diagnostic only (does not affect any selection decision):
++			// explicit accounting of events where the configured LLP was not
++			// found, rather than letting them fall through as a silent zero.
++			if (motherIndex.empty())
++				nNoConfiguredLLP += weight;
+ 
+ 			//Jet selection
+ 
+@@ -382,6 +395,8 @@
+ 	cout << endl;
+ 	cout << std::setw(50) << "All Events: " << allevents / sigmaTotal << endl;
+ 	cout << endl;
++	cout << std::setw(50) << "Events with zero configured LLP found [%]: " << nNoConfiguredLLP / allevents * 100 << endl;
++	cout << endl;
+ 	cout << std::setw(50) << "High-pT Jet Selection [%]: " << nHighPTJetSelection / allevents * 100 << endl;
+ 	cout << std::setw(50) << "Event has >= 1 DV passing [%]: " << endl;
+ 	cout << std::setw(50) << "High-pT Fiducial [%]: " << nFiducialHighPT / allevents * 100 << endl;

@@ -2,9 +2,9 @@
   "campaign": "upstream_validation",
   "stage": "upstream",
   "analysis_mode": "original",
-  "llp_pdg_ids": [1000022, 1000023, 1000024],
+  "llp_pdg_id": 1000022,
   "input_cmnd": null,
   "input_lhe": null,
   "reference_cutflow": null,
-  "notes": "Copy this file outside version control for a concrete run. Scalar PDG IDs remain unset until upstream validation passes."
+  "notes": "Copy this file outside version control for a concrete run. llp_pdg_id is the single canonical LLP identity, resolved by dvrecast.config.resolve_llp_pdg_id (default 1000022, the strong-bm1 neutralino); an explicit override always wins over this file. Alternate scalar PDG IDs remain unset until upstream validation passes."
 }
