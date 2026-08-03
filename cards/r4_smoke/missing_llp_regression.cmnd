@@ -1,0 +1,35 @@
+! R4/R5 real-path regression sample: internal Pythia8 SUSY production using
+! the pinned strong-bm1 SLHA spectrum, bypassing the (externally blocked)
+! LHE files so the real recast binary's default LLP path can be exercised
+! end to end without MadGraph.
+Main:numberOfEvents = 300
+Main:timesAllowErrors = 3
+Random:setSeed = on
+Random:seed = 42
+
+Init:showChangedSettings = off
+Init:showChangedParticleData = off
+Next:numberCount = 0
+Next:numberShowInfo = 0
+Next:numberShowProcess = 0
+Next:numberShowEvent = 0
+
+Beams:frameType = 1
+Beams:eCM = 13000.
+
+PartonLevel:MPI = off
+PartonLevel:ISR = on
+PartonLevel:FSR = on
+HadronLevel:Hadronize = on
+
+SLHA:file = @@REPO_ROOT@@/cards/r4_smoke/GG_qqn1_2000_850_rpvLF_p01ns.modsel.slha
+SUSY:all = off
+SUSY:gg2gluinogluino = on
+
+! No LHEF: keep the merging loop at exactly one pass (iMerge = 0).
+LHEFInputs:nSubruns = 1
+
+! R4/R5 criterion C: point at a PDG absent from this SUSY spectrum's decay
+! chain, to demonstrate the real path reports an explicit zero-with-reason
+! diagnostic rather than silently falling through.
+Recast:llpPdgIds = {999999}

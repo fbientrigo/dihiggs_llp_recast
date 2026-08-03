@@ -10,6 +10,7 @@ from dvrecast.config import (
     UpstreamLock,
     load_toolchain_config,
     load_upstream_lock,
+    render_llp_pdg_cmnd_line,
     resolve_llp_pdg_id,
 )
 
@@ -84,3 +85,16 @@ def test_resolve_llp_pdg_id_rejects_malformed_value() -> None:
         resolve_llp_pdg_id("not-a-pdg-id")
     with pytest.raises(ValueError, match="nonzero"):
         resolve_llp_pdg_id(0)
+
+
+def test_render_llp_pdg_cmnd_line_omits_default() -> None:
+    # The upstream cmnd cards already default Recast:llpPdgIds to the
+    # original triplet in the C++ patch, so the default case must not emit a
+    # line that could diverge from that baked-in baseline.
+    assert render_llp_pdg_cmnd_line() is None
+    assert render_llp_pdg_cmnd_line(DEFAULT_LLP_PDG_ID) is None
+
+
+def test_render_llp_pdg_cmnd_line_for_alternate_pdg() -> None:
+    assert render_llp_pdg_cmnd_line(35) == "Recast:llpPdgIds = {35}"
+    assert render_llp_pdg_cmnd_line(config={"llp_pdg_id": 35}) == "Recast:llpPdgIds = {35}"

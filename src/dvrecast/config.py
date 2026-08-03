@@ -41,6 +41,26 @@ def resolve_llp_pdg_id(
     return pdg_id
 
 
+def render_llp_pdg_cmnd_line(
+    explicit: int | str | None = None,
+    *,
+    config: Mapping[str, Any] | None = None,
+) -> str | None:
+    """Render the Pythia cmnd line that points the real recast at the
+    configured LLP, via :func:`resolve_llp_pdg_id` (the single source of
+    truth for LLP identity).
+
+    Returns ``None`` when the resolved id is :data:`DEFAULT_LLP_PDG_ID`: the
+    frozen upstream cmnd cards already default ``Recast:llpPdgIds`` to the
+    original neutralino/chargino triplet, so nothing needs to be appended to
+    reproduce the baseline behaviour exactly.
+    """
+    pdg_id = resolve_llp_pdg_id(explicit, config=config)
+    if pdg_id == DEFAULT_LLP_PDG_ID:
+        return None
+    return f"Recast:llpPdgIds = {{{pdg_id}}}"
+
+
 @dataclass(frozen=True)
 class UpstreamLock:
     repository: str

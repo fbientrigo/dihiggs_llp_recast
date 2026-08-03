@@ -47,14 +47,6 @@ def read_cutflow_csv(path: str | Path) -> list[CutflowRow]:
     return rows
 
 
-def write_cutflow_csv(path: str | Path, rows: list[CutflowRow]) -> None:
-    with Path(path).open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=["cut", "count"])
-        writer.writeheader()
-        for row in rows:
-            writer.writerow({"cut": row.cut, "count": row.count})
-
-
 def compare_cutflows(
     reference: list[CutflowRow],
     observed: list[CutflowRow],

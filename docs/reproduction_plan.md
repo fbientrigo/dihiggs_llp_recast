@@ -42,20 +42,47 @@ Implement only:
 
 Exit condition: upstream regression remains valid after the adaptation.
 
-### R4/R5 status — configurable LLP identity (compatibility layer only)
+### R4/R5 status — configurable LLP identity wired into the real recast path
 
-The LLP PDG id is now a single configurable parameter,
-`dvrecast.config.resolve_llp_pdg_id`, defaulting to `1000022` (the strong-bm1
-neutralino). strong-bm1 remains the validated baseline and is unaffected: it
-does not call this resolver and keeps its own frozen PDG assertions in
-`src/dvrecast/readiness.py`. `dvrecast.llp_event` adds fixture-driven,
-dependency-free LLP identification, descendant traversal and displaced-vertex
-reading (`scripts/run_llp_smoke.py`), exercised against a synthetic
-alternate-scalar fixture (`tests/fixtures/llp_scalar_smoke_event.json`). This
-is a **technical** smoke test, not a physics benchmark — it carries no
-physics-derived thresholds and does not constitute the M4 paper benchmark or
-any H2 physical interpretation, which remain later milestones blocked on
-upstream compilation (M1/M2).
+The LLP PDG id is a single configurable parameter,
+`dvrecast.config.resolve_llp_pdg_id` (default `1000022`, the strong-bm1
+neutralino), rendered into a Pythia cmnd setting by
+`dvrecast.config.render_llp_pdg_cmnd_line`. That setting is consumed
+directly by the frozen upstream C++ recast itself
+(`external/recastingCodes/.../recast_2301_13866.cc`) via a small, reviewable
+patch, `patches/0001-configurable-llp-pdg-ids.patch`, applied at build time
+by `scripts/build_patched_upstream.sh` — the read-only submodule is never
+edited in place. The patch replaces the original hardcoded
+`idAbs() == 1000022 || ... == 1000023 || ... == 1000024` mother-finding check
+with a lookup against a configurable `Recast:llpPdgIds` Pythia setting
+(defaulting to that same triplet), and adds an "Events with zero configured
+LLP found" diagnostic so a missing/misconfigured LLP is reported explicitly
+rather than falling through as a silent zero.
+
+`strong-bm1`'s own frozen PDG assertions in `src/dvrecast/readiness.py` are
+untouched — they validate that specific benchmark's identity, not the
+generic recast's LLP-following logic.
+
+Real-path validation, via `scripts/run_r4_smoke.sh` (see
+`results/r4_smoke/`): the default configuration was proven byte-identical
+(cutflow lines only, modulo the run timestamp and the new diagnostic line)
+between the patched and unpatched binaries on the same internally-generated
+Pythia8 SUSY sample (`cards/r4_smoke/neutralino_regression.cmnd`); an
+alternate scalar (PDG 35, a stand-in for a 2HDM H2-like LLP,
+`cards/r4_smoke/scalar_regression.cmnd`) was identified, its descendants
+traced, and its displaced vertex evaluated by the same real cutflow, which
+reports a real (non-tuned) zero at the jet-preselection stage; and a
+missing-PDG configuration (`cards/r4_smoke/missing_llp_regression.cmnd`)
+reports 100% "zero configured LLP found" rather than a silent empty cutflow.
+
+Exact reproduction of the full, frozen strong-bm1 campaign through this real
+path remains blocked: its original LHE inputs are an unavailable external
+artifact (`scripts/acquire_strong-bm1.sh` reports
+`BLOCKED_EXTERNAL_ARTIFACT`), so the byte-identical patched-vs-unpatched
+check above is the strongest regression evidence available in this
+environment. Any H2 physical interpretation (correct 2HDM couplings,
+branching ratios, and a validated benchmark point) remains a later
+milestone.
 
 ## M4 — Paper benchmark
 

@@ -1,0 +1,38 @@
+! R4/R5 real-path scalar sample: internal Pythia8 production of a heavy
+! neutral scalar (PDG 35, Pythia's H0 slot) as a stand-in for a 2HDM H2-like
+! LLP, decaying to b bbar with a displaced vertex. Technical demonstration of
+! the configurable-LLP path through the real recast binary; NOT a physics
+! benchmark and NOT tied to a specific validated 2HDM point.
+Main:numberOfEvents = 300
+Main:timesAllowErrors = 3
+Random:setSeed = on
+Random:seed = 42
+
+Init:showChangedSettings = off
+Init:showChangedParticleData = off
+Next:numberCount = 0
+Next:numberShowInfo = 0
+Next:numberShowProcess = 0
+Next:numberShowEvent = 0
+
+Beams:frameType = 1
+Beams:eCM = 13000.
+
+PartonLevel:MPI = off
+PartonLevel:ISR = on
+PartonLevel:FSR = on
+HadronLevel:Hadronize = on
+
+Higgs:useBSM = on
+HiggsBSM:gg2H2 = on
+35:m0 = 40.
+35:mMin = 20.
+35:tau0 = 30.
+35:onMode = off
+35:onIfMatch = 5 -5
+
+! No LHEF: keep the merging loop at exactly one pass (iMerge = 0).
+LHEFInputs:nSubruns = 1
+
+! R4/R5: point the real recast at the scalar instead of the neutralino triplet.
+Recast:llpPdgIds = {35}
