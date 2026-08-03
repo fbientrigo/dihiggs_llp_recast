@@ -32,6 +32,8 @@ results/*
 !results/upstream/
 !results/upstream/strong-bm1/
 !results/upstream/strong-bm1/**
+!results/r7_h2_pair_4b/
+!results/r7_h2_pair_4b/**
 
 # Local configuration
 .env
