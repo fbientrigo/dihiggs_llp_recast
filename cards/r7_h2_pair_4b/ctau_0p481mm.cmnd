@@ -44,13 +44,16 @@ Tune:pp = 21
 Higgs:useBSM = on
 35:m0 = 150.
 35:mMin = 100.
+35:tauCalc = off
 35:tau0 = 0.481
 35:onMode = off
 35:onIfMatch = 5 -5
 
 Recast:llpPdgIds = {35}
+Recast:llpTau0 = 0.481
+LesHouches:setLifetime = 2
 
 Beams:frameType = 4
 LHEFInputs:nSubruns = 1
 Main:subrun = 0
-Beams:LHEF = @@LHE_PATH@@
+Beams:LHEF = results/r7_h2_pair_4b/input/h2pair_m150_1000events.lhe.gz

@@ -1,0 +1,4 @@
+ctau_mm,number_llps,fraction_r_vertex_gt_4mm,fraction_fiducial_r_lt_300_absz_lt_300,median_r_vertex_mm,mean_r_vertex_mm,fraction_flight_length_gt_4mm,expected_fraction_flight_length_gt_4mm,highpt_llps,fraction_r_vertex_gt_4mm_after_highpt,trackless_llps,fraction_r_vertex_gt_4mm_after_trackless
+0.481,2000,0.002,1.0,0.1968325,0.3841772545705,0.049,0.04511109873713831,2,0.0,42,0.023809523809523808
+4.326,2000,0.2725,1.0,1.77027,3.455198993262,0.512,0.5293177776650578,2,1.0,42,0.4523809523809524
+48.070,2000,0.8465,0.9265,19.671,38.393762310065,0.9315,0.9330190582541843,2,1.0,42,0.9047619047619048

@@ -1,0 +1,16 @@
+Process source: copied read-only from the compiled MadEvent process in
+ufos/releases/pack_a/historical/pi_ufo_baseline_v1_runtimefix.zip.
+
+Scratch command:
+  ./bin/generate_events -f r7_h2pair_150
+
+Scratch cards:
+  Cards/param_card.dat: 9000006 mass = 150 GeV
+  Cards/run_card.dat: nevents = 1000, iseed = 24681357
+
+Generated output:
+  Events/r7_h2pair_150/unweighted_events.lhe.gz
+  1000 events, cross section 0.0304 +- 0.000148 pb
+
+The persisted recast input is a byte-identical copy with 9000006 relabelled
+as 35 only at the recast handoff, preserving all production kinematics.
