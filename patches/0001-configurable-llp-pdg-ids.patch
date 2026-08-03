@@ -1,6 +1,6 @@
 --- a/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/recast_2301_13866.cc	2026-08-02 22:17:17.647669538 -0400
 +++ b/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/recast_2301_13866.cc	2026-08-02 22:19:33.248065442 -0400
-@@ -34,15 +34,24 @@
+@@ -34,15 +34,27 @@
  
  	Pythia pythia;
  	pythia.settings.addMode("LHEFInputs:nSubruns", 0, true, false, 0, 100); //allows LHEFInputs:nSubruns
@@ -9,12 +9,15 @@
 +	// upstream behaviour exactly; set Recast:llpPdgIds in the cmnd card to
 +	// follow a different LLP (e.g. a 2HDM scalar) instead.
 +	pythia.settings.addMVec("Recast:llpPdgIds", {1000022, 1000023, 1000024}, false, false, 0, 0);
++	// Optional proper decay length override in mm; negative keeps card/model data.
++	pythia.settings.addParm("Recast:llpTau0", -1., false, false, 0., 0.);
  	Event& event = pythia.event;
  
  	std::string pathToCMND = argv[1];
  	pythia.readFile(pathToCMND);
  
 +	std::vector<int> llpPdgIds = pythia.settings.mvec("Recast:llpPdgIds");
++	double llpTau0 = pythia.parm("Recast:llpTau0");
 +
  	int nEvent = pythia.mode("Main:numberOfEvents");
  	int nAbort = pythia.mode("Main:timesAllowErrors");
@@ -25,7 +28,33 @@
  	double nHighPTJetSelection = 0.;
  	double nFiducialHighPT = 0.;
  	double nTransverseDistanceHighPT = 0.;
-@@ -134,10 +143,14 @@
+@@ -82,7 +94,24 @@
+ 		//Read in name of LHE file for current subrun and initialize.
+ 		pythia.readFile(pathToCMND, iMerge);
+ 
+-		pythia.init();
++		if (pythia.init())
++		{
++			for (int pdg : llpPdgIds)
++			{
++				if (llpTau0 > 0.)
++				{
++					pythia.particleData.tauCalc(pdg, false);
++					pythia.particleData.tau0(pdg, llpTau0);
++				}
++				std::cout << "R7_LLP_SETTINGS: pdg=" << pdg
++					<< " m0=" << pythia.particleData.m0(pdg)
++					<< " mWidth=" << pythia.particleData.mWidth(pdg)
++					<< " tau0=" << pythia.particleData.tau0(pdg)
++					<< " tauCalc=" << pythia.particleData.tauCalc(pdg)
++					<< " mayDecay=" << pythia.particleData.mayDecay(pdg)
++					<< " isResonance=" << pythia.particleData.isResonance(pdg) << std::endl;
++			}
++		}
+ 
+ 
+ 		//Event loop begin
+@@ -134,10 +163,14 @@
  			motherIndex.clear();
  			for (int iTrack = 0; iTrack < event.size(); iTrack++)
  			{
@@ -42,7 +71,7 @@
  
  			//Jet selection
  
-@@ -382,6 +395,8 @@
+@@ -382,6 +415,8 @@
  	cout << endl;
  	cout << std::setw(50) << "All Events: " << allevents / sigmaTotal << endl;
  	cout << endl;

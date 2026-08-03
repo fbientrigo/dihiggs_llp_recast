@@ -1,0 +1,59 @@
+! R7: pp -> H2 H2 -> b b~ b b~, m_H2 = 150 GeV, ctau = 48.070 mm.
+!
+! Production kinematics come from a genuine MadGraph pp -> h2 h2 pair-
+! production LHE sample (LLscalar_v3_UFO pack, PDG 9000006, m_h2 = 150 GeV;
+! see docs/R7_H2_PAIR_4B_RESULT.md), generated once and reused unchanged for
+! all three R7 lifetime cards.
+!
+! The LHE's stable final-state PDG has been relabelled 9000006 -> 35 (a pure
+! text substitution of the LHE PDG code; mass, momenta and event kinematics
+! are byte-identical). This is required because Pythia8's ResonanceDecays
+! machinery -- needed to shower the b b~ decay products into real jets, as
+! opposed to the simple/non-showered "particle decay" treatment used for low
+! -mass hadron decays -- requires a registered ResonanceWidths object for the
+! decaying PDG. Pythia only auto-registers this for its own built-in
+! resonance slots (e.g. PDG 35, "H0"); a fully custom PDG (9000006) has none,
+! and registering one requires bespoke C++ code, which is out of scope for a
+! cmnd-only patch and would go beyond the R4 patch boundary. R4 already
+! established and validated PDG 35 as the stand-in slot for a bb~-decaying
+! 2HDM-like heavy scalar LLP (see cards/r4_smoke/scalar_regression.cmnd in
+! the r4 work); this card reuses that same validated mechanism, now fed by
+! genuine H2-H2 pair-production kinematics instead of single-resonance
+! internal production.
+!
+! Recast:llpPdgIds and the 35:... particle-data lines are placed before the
+! Main:subrun block deliberately: settings placed after a "Main:subrun = N"
+! marker are subrun-scoped and only take effect when Pythia processes that
+! subrun (i.e. at pythia.init() for subrun 0), but the recast binary reads
+! Recast:llpPdgIds immediately after pythia.readFile(), before init() runs.
+Main:numberOfEvents = 1000
+Main:timesAllowErrors = 3
+Init:showChangedSettings = on
+Init:showChangedParticleData = off
+Next:numberCount = 5000
+Next:numberShowInfo = 0
+Next:numberShowProcess = 0
+Next:numberShowEvent = 0
+
+PartonLevel:MPI = off
+PartonLevel:ISR = on
+PartonLevel:FSR = on
+HadronLevel:Hadronize = on
+Tune:pp = 21
+
+Higgs:useBSM = on
+35:m0 = 150.
+35:mMin = 100.
+35:tauCalc = off
+35:tau0 = 48.070
+35:onMode = off
+35:onIfMatch = 5 -5
+
+Recast:llpPdgIds = {35}
+Recast:llpTau0 = 48.070
+LesHouches:setLifetime = 2
+
+Beams:frameType = 4
+LHEFInputs:nSubruns = 1
+Main:subrun = 0
+Beams:LHEF = results/r7_h2_pair_4b/input/h2pair_m150_1000events.lhe.gz
