@@ -23,6 +23,32 @@
 #                                                    committed artifacts
 #                                                    only; does not fetch,
 #                                                    compile, or run Pythia
+#   scripts/run_r8_reproduction.sh --regenerate-inputs-only
+#                                                    focused, toolchain-free
+#                                                    mode: fetch/verify both
+#                                                    canonical LHE inputs,
+#                                                    deterministically
+#                                                    relabel them, verify
+#                                                    the result's content
+#                                                    identity against the
+#                                                    committed provenance,
+#                                                    then compare a fresh
+#                                                    artifact manifest
+#                                                    against the preserved
+#                                                    reference. Never
+#                                                    compiles or runs the
+#                                                    recast/geometry driver.
+#   scripts/run_r8_reproduction.sh --check-manifest-scratch
+#                                                    focused test of the
+#                                                    reference-manifest
+#                                                    scratch-dir mechanism
+#                                                    alone: snapshot, then
+#                                                    regenerate + compare
+#                                                    against the already-
+#                                                    committed result tree
+#                                                    unchanged. Fetches
+#                                                    nothing and touches no
+#                                                    result file.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -44,12 +70,14 @@ RUN02_CANONICAL_PATH="artifacts/h2_first_physical/madgraph/run_02/unweighted_eve
 RUN01_SHA256="1c580b7a590f9bbfbf213eeef0e54fdcc4b6c1dce3f13bc0ed5278f6f3aec202"
 RUN02_SHA256="385faebf45403c224ce374488c3e51a06be56b13ec6b095f92393d0c8f4b1bfa"
 
-VERIFY_ONLY=0
+MODE="full"
 for arg in "$@"; do
   case "${arg}" in
-    --verify-existing) VERIFY_ONLY=1 ;;
+    --verify-existing) MODE="verify" ;;
+    --regenerate-inputs-only) MODE="regenerate-inputs" ;;
+    --check-manifest-scratch) MODE="check-manifest-scratch" ;;
     -h|--help)
-      sed -n '2,25p' "${BASH_SOURCE[0]}"
+      sed -n '2,46p' "${BASH_SOURCE[0]}"
       exit 0
       ;;
     *)
@@ -86,19 +114,42 @@ verify_event_count() {
 }
 
 # --------------------------------------------------------------------------
-if [[ "${VERIFY_ONLY}" == "1" ]]; then
+if [[ "${MODE}" == "verify" ]]; then
   step "Validate committed artifacts (--verify-existing; no Pythia/recast run)"
   exec python3 scripts/verify_r8_artifacts.py
 fi
 
 # --------------------------------------------------------------------------
-REFERENCE_MANIFEST="${RESULTS_DIR}/artifact_manifest.reference.json"
-step "1/15 Snapshot the previously committed reference manifest"
+# The reference manifest snapshot must live outside RESULTS_DIR: anything
+# under RESULTS_DIR is recursively hashed into the fresh manifest by
+# build_r8_artifact_manifest.py, so a snapshot placed inside that tree would
+# itself become a tracked artifact -- and then be reported "missing" once
+# cleaned up, or "unexpectedly new" if left behind. A scratch directory
+# under $TMPDIR (or /tmp), removed on every exit path via `trap`, keeps the
+# snapshot fully outside the walked tree and guarantees it never leaks.
+SCRATCH_DIR="$(mktemp -d "${TMPDIR:-/tmp}/r8-reproduction.XXXXXX")"
+REFERENCE_MANIFEST="${SCRATCH_DIR}/artifact_manifest.reference.json"
+cleanup() {
+  rm -rf "${SCRATCH_DIR}"
+}
+trap cleanup EXIT INT TERM
+
+step "1/15 Snapshot the previously committed reference manifest (outside RESULTS_DIR)"
 if [[ -f "${RESULTS_DIR}/artifact_manifest.json" ]]; then
   cp "${RESULTS_DIR}/artifact_manifest.json" "${REFERENCE_MANIFEST}"
-  echo "[OK] preserved the committed manifest for post-run comparison (${REFERENCE_MANIFEST})"
+  echo "[OK] preserved the committed manifest for post-run comparison (${REFERENCE_MANIFEST}, outside ${RESULTS_DIR})"
 else
   echo "[INFO] no committed artifact_manifest.json found; nothing to compare the fresh run against"
+fi
+
+if [[ "${MODE}" == "check-manifest-scratch" ]]; then
+  step "Regenerate the artifact manifest from the untouched committed result tree and compare"
+  python3 scripts/build_r8_artifact_manifest.py
+  if [[ -f "${REFERENCE_MANIFEST}" ]]; then
+    python3 scripts/compare_r8_manifests.py "${REFERENCE_MANIFEST}" "${RESULTS_DIR}/artifact_manifest.json"
+  fi
+  echo "[OK] --check-manifest-scratch complete: reference manifest lived outside ${RESULTS_DIR} throughout."
+  exit 0
 fi
 
 step "2/15 Fetch or locate both canonical LHE inputs"
@@ -131,6 +182,21 @@ python3 scripts/relabel_lhe_pdg.py \
 python3 scripts/relabel_lhe_pdg.py \
   "${CACHE_DIR}/canonical_run_02.lhe.gz" "${DATA_DIR}/relabelled_run_02.lhe.gz" \
   --from-pdg 9000006 --to-pdg 35 --expected-events 1000 --expected-relabelled 2000
+
+if [[ "${MODE}" == "regenerate-inputs" ]]; then
+  step "Verify LHE content identity against the committed provenance (no recast run)"
+  python3 scripts/verify_r8_artifacts.py --only canonical_lhe_hashes,relabel_script_hash,lhe_content_identity
+
+  step "Regenerate artifact manifest and compare against the preserved reference"
+  python3 scripts/build_r8_artifact_manifest.py
+  if [[ -f "${REFERENCE_MANIFEST}" ]]; then
+    python3 scripts/compare_r8_manifests.py "${REFERENCE_MANIFEST}" "${RESULTS_DIR}/artifact_manifest.json"
+  fi
+  echo "[OK] --regenerate-inputs-only complete: canonical LHE -> deterministic relabel -> content"
+  echo "     hash -> gzip hash -> checksum-artifact consistency -> manifest comparison, all"
+  echo "     without compiling or running the recast/geometry driver."
+  exit 0
+fi
 
 step "6/15 Bootstrap and verify the locked upstream revision"
 # build_patched_upstream.sh only checks that the submodule working tree is
@@ -208,10 +274,11 @@ step "14/15 Generate artifact manifest and compare against the preserved referen
 python3 scripts/build_r8_artifact_manifest.py
 if [[ -f "${REFERENCE_MANIFEST}" ]]; then
   python3 scripts/compare_r8_manifests.py "${REFERENCE_MANIFEST}" "${RESULTS_DIR}/artifact_manifest.json"
-  rm -f "${REFERENCE_MANIFEST}"
 else
   echo "[WARN] no reference manifest was available; this run's manifest was not compared against a prior committed state."
 fi
+# REFERENCE_MANIFEST and SCRATCH_DIR are removed by the EXIT trap below,
+# regardless of whether the remaining steps succeed.
 
 step "15/15 Verify all hashes"
 python3 scripts/verify_r8_artifacts.py

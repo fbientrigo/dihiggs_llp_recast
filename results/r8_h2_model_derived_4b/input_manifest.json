@@ -53,14 +53,30 @@
       "canonical_sha256": "1c580b7a590f9bbfbf213eeef0e54fdcc4b6c1dce3f13bc0ed5278f6f3aec202",
       "n_events": 1000,
       "relabelled_local_path": "data/raw/r8_h2_model_derived_4b/relabelled_run_01.lhe.gz",
-      "relabelled_sha256": "547db2ddec2dfab31bd9383fa2be4bcfcc9773216ed88aec0b8ef4afb2e3b967"
+      "lhe_identity": {
+        "source_lhe_sha256": "1c580b7a590f9bbfbf213eeef0e54fdcc4b6c1dce3f13bc0ed5278f6f3aec202",
+        "historical_relabelled_gzip_sha256_at_pr6_run_time": "547db2ddec2dfab31bd9383fa2be4bcfcc9773216ed88aec0b8ef4afb2e3b967",
+        "canonical_uncompressed_sha256": "bb0ca25d9d242bba7234dd103a104333fe1bc9690bee098e70164c07e5506c60",
+        "deterministic_relabelled_gzip_sha256": "fb13e6998292e1b63d23d3b3cb30d58a6a2c9389e74bae29431635e6680577d6",
+        "relabel_script_sha256": "faf031a36fc328db1197b76301882f9b46f0e622850f04671355d0a0acf96d0e",
+        "gzip_contract": {"mtime": 0, "filename": ""},
+        "note": "canonical_uncompressed_sha256 is the physics-content identity (sha256 of the decompressed LHE byte stream) and is what any content-equivalence check must use. historical_relabelled_gzip_sha256_at_pr6_run_time is preserved, immutable provenance for the actual compressed bytes produced by PR #6's non-deterministic gzip.open writer and is not expected to be independently reproducible. deterministic_relabelled_gzip_sha256 is what the current scripts/relabel_lhe_pdg.py (fixed gzip mtime=0, empty embedded filename) produces today, confirmed stable across repeated runs; it differs from the historical hash by design (compressed-metadata only) while decompressing to byte-identical content -- verified via scripts/lhe_identity.py against the canonical input recorded above."
+      }
     },
     "run_02": {
       "canonical_path": "hep_cross:artifacts/h2_first_physical/madgraph/run_02/unweighted_events.lhe.gz",
       "canonical_sha256": "385faebf45403c224ce374488c3e51a06be56b13ec6b095f92393d0c8f4b1bfa",
       "n_events": 1000,
       "relabelled_local_path": "data/raw/r8_h2_model_derived_4b/relabelled_run_02.lhe.gz",
-      "relabelled_sha256": "3f0f2c37c2c72739b9bd10e6f4130f7fd71c8eb29b95c233a54180a9973386f4"
+      "lhe_identity": {
+        "source_lhe_sha256": "385faebf45403c224ce374488c3e51a06be56b13ec6b095f92393d0c8f4b1bfa",
+        "historical_relabelled_gzip_sha256_at_pr6_run_time": "3f0f2c37c2c72739b9bd10e6f4130f7fd71c8eb29b95c233a54180a9973386f4",
+        "canonical_uncompressed_sha256": "41673f11fd983c76668202161f8b42b9b43dfd0d143936bbc2a5a98cd213dbfe",
+        "deterministic_relabelled_gzip_sha256": "80b5e1f0044c00af8d97dc4138a56de3da4d6a86e74a44bcd9c624071148b3b7",
+        "relabel_script_sha256": "faf031a36fc328db1197b76301882f9b46f0e622850f04671355d0a0acf96d0e",
+        "gzip_contract": {"mtime": 0, "filename": ""},
+        "note": "canonical_uncompressed_sha256 is the physics-content identity (sha256 of the decompressed LHE byte stream) and is what any content-equivalence check must use. historical_relabelled_gzip_sha256_at_pr6_run_time is preserved, immutable provenance for the actual compressed bytes produced by PR #6's non-deterministic gzip.open writer and is not expected to be independently reproducible. deterministic_relabelled_gzip_sha256 is what the current scripts/relabel_lhe_pdg.py (fixed gzip mtime=0, empty embedded filename) produces today, confirmed stable across repeated runs; it differs from the historical hash by design (compressed-metadata only) while decompressing to byte-identical content -- verified via scripts/lhe_identity.py against the canonical input recorded above."
+      }
     },
     "relabel": {
       "from_pdg": 9000006,

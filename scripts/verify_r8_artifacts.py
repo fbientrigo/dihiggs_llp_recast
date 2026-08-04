@@ -2,9 +2,9 @@
 """Verify the committed R8 result artifacts (results/r8_h2_model_derived_4b/)
 without rerunning MadGraph, Pythia, or the C++ recast.
 
-This is the --verify-existing engine behind scripts/run_r8_reproduction.sh.
-It checks, purely from what is already on disk plus the fast Python test
-suite:
+This is the --verify-existing engine behind scripts/run_r8_reproduction.sh
+(also used, via --only, by its --regenerate-inputs-only mode). It checks,
+purely from what is already on disk plus the fast Python test suite:
 
   1. every file hash recorded in artifact_manifest.json matches disk;
   2. the canonical LHE input hashes/event-counts recorded in
@@ -12,18 +12,28 @@ suite:
      raw LHE happens to be cached locally under data/raw/, its live hash
      and event count too -- best effort, since raw LHE is intentionally not
      committed, see AGENTS.md);
-  3. both runs' committed recast.log report exactly 1000 processed events;
-  4. the normalization arithmetic recomputed from the committed recast.log
+  3. input_manifest.json's relabel.script_sha256 matches the live
+     scripts/relabel_lhe_pdg.py;
+  4. both runs' committed recast.log report exactly 1000 processed events;
+  5. the normalization arithmetic recomputed from the committed recast.log
      files matches the numeric fields stored in normalization.json (the
      validation-status vocabulary strings are excluded from this numeric
      comparison by design -- see docs/R8_H2_MODEL_DERIVED_4B_RESULT.md
      "Validation status");
-  5. the relabeller's atomic-publish contract (scripts/relabel_lhe_pdg.py)
-     holds, including its negative paths, via tests/test_relabel_lhe_pdg.py.
+  6. the relabeller's atomic-publish contract (scripts/relabel_lhe_pdg.py)
+     holds, including its negative paths, via tests/test_relabel_lhe_pdg.py;
+  7. if a cached relabelled LHE is present locally, its *decompressed*
+     content hash matches the canonical_uncompressed_sha256 recorded in
+     input_manifest.json's lhe_identity block -- the physics-content
+     identity check. A mismatch on the compressed (gzip) hash alone, with
+     matching decompressed content, is reported as informational, not a
+     failure: gzip header metadata (mtime, embedded filename) is not
+     physics content. An actual decompressed-content mismatch fails closed.
 
-Exits 0 only if every check passes.
+Exits 0 only if every requested check passes.
 """
 
+import argparse
 import gzip
 import hashlib
 import json
@@ -35,6 +45,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RESULTS_DIR = os.path.join(ROOT, "results", "r8_h2_model_derived_4b")
+DATA_DIR = os.path.join(ROOT, "data", "raw", "r8_h2_model_derived_4b")
 sys.path.insert(0, os.path.join(ROOT, "src"))
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 
@@ -48,6 +59,14 @@ REQUIRED_EVENTS_PER_RUN = 1000
 def sha256_of(path):
     h = hashlib.sha256()
     with open(path, "rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def sha256_of_decompressed(gz_path):
+    h = hashlib.sha256()
+    with gzip.open(gz_path, "rb") as fh:
         for chunk in iter(lambda: fh.read(1 << 20), b""):
             h.update(chunk)
     return h.hexdigest()
@@ -93,7 +112,7 @@ def check_canonical_lhe_hashes():
 
     # Best-effort: verify a locally cached copy of the raw canonical LHE, if
     # one happens to be present (it is not committed; see AGENTS.md).
-    cache_dir = os.path.join(ROOT, "data", "raw", "r8_h2_model_derived_4b")
+    cache_dir = DATA_DIR
     for run, expected in REQUIRED_LHE_SHA256.items():
         for candidate in (f"canonical_{run}.lhe.gz", f"{run}_unweighted_events.lhe.gz"):
             path = os.path.join(cache_dir, candidate)
@@ -129,6 +148,55 @@ def check_relabel_script_hash_matches_manifest():
         )
     print("[OK] input_manifest.json relabel.script_sha256 matches the live relabel_lhe_pdg.py")
     return True
+
+
+def check_lhe_content_identity():
+    """If a deterministically-relabelled LHE is cached locally
+    (data/raw/r8_h2_model_derived_4b/relabelled_run_0N.lhe.gz), verify its
+    *decompressed* content against input_manifest.json's
+    lhe_identity.canonical_uncompressed_sha256 for that run. This is the
+    physics-content identity check: it fails closed only on an actual
+    decompressed-content difference. A difference in the compressed (gzip)
+    hash alone -- e.g. a different gzip library/version producing different
+    header bytes for identical content -- is reported as informational, not
+    a failure, matching lhe_identity's documented gzip_contract.
+    """
+    with open(os.path.join(RESULTS_DIR, "input_manifest.json")) as fh:
+        manifest = json.load(fh)
+
+    ok = True
+    checked_any = False
+    for run in ("run_01", "run_02"):
+        identity = manifest["lhe_inputs"][run]["lhe_identity"]
+        path = os.path.join(DATA_DIR, f"relabelled_{run}.lhe.gz")
+        if not os.path.exists(path):
+            print(f"[INFO] {run}: no cached relabelled LHE at {path}; skipping this check")
+            continue
+        checked_any = True
+
+        actual_uncompressed = sha256_of_decompressed(path)
+        expected_uncompressed = identity["canonical_uncompressed_sha256"]
+        if actual_uncompressed != expected_uncompressed:
+            ok = fail(
+                f"{run}: DECOMPRESSED content differs from the recorded canonical identity "
+                f"(recorded {expected_uncompressed}, actual {actual_uncompressed}) -- this is "
+                "real physics-content drift, not a gzip-metadata difference"
+            ) and ok
+            continue
+
+        actual_gzip = sha256_of(path)
+        expected_gzip = identity["deterministic_relabelled_gzip_sha256"]
+        if actual_gzip != expected_gzip:
+            print(
+                f"[INFO] {run}: compressed gzip hash differs from the recorded deterministic "
+                f"hash (recorded {expected_gzip}, actual {actual_gzip}) but decompressed content "
+                "is identical -- gzip-metadata-only difference, not physics drift"
+            )
+        print(f"[OK] {run}: cached relabelled LHE decompressed content matches canonical hash")
+
+    if not checked_any:
+        print("[INFO] no cached relabelled LHE for either run; content-identity check skipped")
+    return ok
 
 
 def check_run_event_counts():
@@ -208,19 +276,40 @@ def check_relabel_atomicity():
     return True
 
 
+CHECKS = {
+    "artifact_manifest": check_artifact_manifest,
+    "canonical_lhe_hashes": check_canonical_lhe_hashes,
+    "relabel_script_hash": check_relabel_script_hash_matches_manifest,
+    "lhe_content_identity": check_lhe_content_identity,
+    "run_event_counts": check_run_event_counts,
+    "normalization_arithmetic": check_normalization_arithmetic,
+    "relabel_atomicity": check_relabel_atomicity,
+}
+
+
 def main():
-    checks = [
-        check_artifact_manifest(),
-        check_canonical_lhe_hashes(),
-        check_relabel_script_hash_matches_manifest(),
-        check_run_event_counts(),
-        check_normalization_arithmetic(),
-        check_relabel_atomicity(),
-    ]
-    if all(checks):
-        print("\n[PASS] all R8 --verify-existing checks passed")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--only",
+        help=f"comma-separated subset of checks to run: {','.join(CHECKS)} (default: all)",
+    )
+    args = parser.parse_args()
+
+    if args.only:
+        names = [n.strip() for n in args.only.split(",") if n.strip()]
+        unknown = [n for n in names if n not in CHECKS]
+        if unknown:
+            print(f"[ERROR] unknown check name(s): {', '.join(unknown)}", file=sys.stderr)
+            print(f"        available: {', '.join(CHECKS)}", file=sys.stderr)
+            return 2
+    else:
+        names = list(CHECKS)
+
+    results = [CHECKS[name]() for name in names]
+    if all(results):
+        print(f"\n[PASS] all requested R8 checks passed ({', '.join(names)})")
         return 0
-    print("\n[FAIL] one or more R8 --verify-existing checks failed", file=sys.stderr)
+    print("\n[FAIL] one or more R8 checks failed", file=sys.stderr)
     return 1
 
 
