@@ -255,7 +255,10 @@ run_recast() {
     printf '%q ' "${EXECUTABLE}" "${cmnd}"
     printf '\n'
   } | tee "${run_dir}/command.txt"
-  sha256sum "${EXECUTABLE}" "${cmnd}" "${lhe}" | tee "${run_dir}/input_checksums.txt"
+  {
+    python3 scripts/print_checksums_header.py "${run}"
+    sha256sum "${EXECUTABLE}" "${cmnd}" "${lhe}"
+  } | tee "${run_dir}/input_checksums.txt"
   "${EXECUTABLE}" "${cmnd}" 2>&1 | tee "${run_dir}/recast.log"
 }
 

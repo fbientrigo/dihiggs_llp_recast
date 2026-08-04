@@ -21,6 +21,7 @@ TRACKED_PATHS = [
     "scripts/verify_r8_artifacts.py",
     "scripts/compare_r8_manifests.py",
     "scripts/lhe_identity.py",
+    "scripts/print_checksums_header.py",
     "src/r8_geometry_driver.cc",
     "src/dvrecast/r8_cutflow.py",
     "src/dvrecast/r8_geometry.py",

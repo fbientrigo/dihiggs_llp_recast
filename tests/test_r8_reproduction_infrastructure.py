@@ -327,3 +327,44 @@ def test_missing_reference_checksums_copy_fails_closed(tmp_path, monkeypatch):
 
     monkeypatch.setattr(sys, "argv", ["compare_r8_manifests.py", str(reference_manifest), str(new_manifest)])
     assert compare_r8_manifests.main() == 1
+
+
+# ---------------------------------------------------------------------------
+# A full scripts/run_r8_reproduction.sh run's run_recast() rewrites
+# input_checksums.txt from scratch (sha256sum | tee); it must reproduce the
+# committed explanatory comment header via scripts/print_checksums_header.py
+# rather than silently dropping it.
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize("run", ["01", "02"])
+def test_checksums_header_matches_committed_file(run):
+    result = subprocess.run(
+        [sys.executable, "scripts/print_checksums_header.py", run],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
+    committed = (RESULTS_DIR / f"run_{run}" / "input_checksums.txt").read_text()
+    committed_header = "\n".join(
+        line for line in committed.splitlines() if line.startswith("#")
+    ) + "\n"
+    assert result.stdout == committed_header
+
+
+def test_checksums_header_references_correct_run_and_historical_hash():
+    manifest = json.loads(INPUT_MANIFEST.read_text())
+    for run in ("01", "02"):
+        result = subprocess.run(
+            [sys.executable, "scripts/print_checksums_header.py", run],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 0, result.stderr
+        historical = manifest["lhe_inputs"][f"run_{run}"]["lhe_identity"][
+            "historical_relabelled_gzip_sha256_at_pr6_run_time"
+        ]
+        assert f"run_{run}.lhe_identity" in result.stdout
+        assert historical[:8] in result.stdout
