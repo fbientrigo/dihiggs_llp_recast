@@ -150,16 +150,41 @@ def check_relabel_script_hash_matches_manifest():
     return True
 
 
+def _read_checksums_lhe_hash(run):
+    """Return the .lhe.gz-line digest recorded in the committed
+    run_0N/input_checksums.txt, or None if the file or that line is
+    absent."""
+    path = os.path.join(RESULTS_DIR, run, "input_checksums.txt")
+    if not os.path.exists(path):
+        return None
+    with open(path) as fh:
+        for line in fh:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            digest, recorded_path = line.split(None, 1)
+            if recorded_path.strip().endswith(".lhe.gz"):
+                return digest
+    return None
+
+
 def check_lhe_content_identity():
     """If a deterministically-relabelled LHE is cached locally
     (data/raw/r8_h2_model_derived_4b/relabelled_run_0N.lhe.gz), verify its
     *decompressed* content against input_manifest.json's
-    lhe_identity.canonical_uncompressed_sha256 for that run. This is the
-    physics-content identity check: it fails closed only on an actual
-    decompressed-content difference. A difference in the compressed (gzip)
+    lhe_identity.canonical_uncompressed_sha256 for that run, AND compare its
+    compressed hash against what run_0N/input_checksums.txt actually records
+    -- otherwise a mode that only checks input_manifest.json's identity
+    block (and never touches the committed checksum artifact) could report
+    "checksum-artifact consistency" without having verified the checksum
+    artifact at all.
+
+    This fails closed only on an actual decompressed-content difference
+    (real physics-content drift). A difference in the compressed (gzip)
     hash alone -- e.g. a different gzip library/version producing different
     header bytes for identical content -- is reported as informational, not
-    a failure, matching lhe_identity's documented gzip_contract.
+    a failure, matching lhe_identity's documented gzip_contract; but it is
+    always reported explicitly, never silently assumed to match.
     """
     with open(os.path.join(RESULTS_DIR, "input_manifest.json")) as fh:
         manifest = json.load(fh)
@@ -192,6 +217,22 @@ def check_lhe_content_identity():
                 f"hash (recorded {expected_gzip}, actual {actual_gzip}) but decompressed content "
                 "is identical -- gzip-metadata-only difference, not physics drift"
             )
+
+        committed_checksums_hash = _read_checksums_lhe_hash(run)
+        if committed_checksums_hash is None:
+            print(f"[INFO] {run}: no LHE line in the committed input_checksums.txt to compare")
+        elif committed_checksums_hash == actual_gzip:
+            print(f"[OK] {run}: freshly regenerated LHE matches committed input_checksums.txt hash")
+        else:
+            print(
+                f"[INFO] {run}: freshly regenerated LHE gzip hash ({actual_gzip}) differs from the "
+                f"committed input_checksums.txt hash ({committed_checksums_hash}); decompressed "
+                "content is identical (verified above), so this is a gzip-metadata difference on "
+                "this machine, not physics drift -- but the committed checksum artifact is stale "
+                "relative to this machine's gzip output and should be regenerated if that matters "
+                "for your use case"
+            )
+
         print(f"[OK] {run}: cached relabelled LHE decompressed content matches canonical hash")
 
     if not checked_any:

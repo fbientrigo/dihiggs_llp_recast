@@ -237,6 +237,76 @@ def test_gzip_header_only_difference_is_accepted_as_same_physics_content(tmp_pat
     assert verify_r8_artifacts.check_lhe_content_identity() is True
 
 
+def _setup_fake_r8_tree(tmp_path, src, run_01_checksums_lhe_hash):
+    """Build a minimal fake RESULTS_DIR/DATA_DIR pair for
+    check_lhe_content_identity(), with a real run_01/input_checksums.txt so
+    the checksum-artifact comparison branch is exercised. Both the
+    lhe_identity block and the DATA_DIR files are produced via the same
+    relabel() code path, since streaming DEFLATE output can otherwise
+    depend on the exact write-call pattern even for identical decompressed
+    content and identical gzip header metadata (mtime=0, filename="")."""
+    sys.path.insert(0, str(ROOT / "scripts"))
+    from relabel_lhe_pdg import relabel as _relabel  # noqa: E402
+
+    fake_data_dir = tmp_path / "data_dir"
+    fake_data_dir.mkdir()
+    fake_results_dir = tmp_path / "results_dir"
+    (fake_results_dir / "run_01").mkdir(parents=True)
+
+    identity = lhe_identity.compute_identity(str(src), 9000006, 35, 1, 2)
+    for run in ("run_01", "run_02"):
+        dest = fake_data_dir / f"relabelled_{run}.lhe.gz"
+        _relabel(str(src), str(dest), 9000006, 35, 1, 2)
+
+    manifest = {"lhe_inputs": {"run_01": {"lhe_identity": identity}, "run_02": {"lhe_identity": identity}}}
+    (fake_results_dir / "input_manifest.json").write_text(json.dumps(manifest))
+    (fake_results_dir / "run_01" / "input_checksums.txt").write_text(
+        "# comment\n"
+        f"{'a' * 64}  results/upstream_build_patched/analysis/recast_2301_13866\n"
+        f"{'b' * 64}  cards/r8_h2_model_derived_4b/physical_run_01.cmnd\n"
+        f"{run_01_checksums_lhe_hash}  data/raw/r8_h2_model_derived_4b/relabelled_run_01.lhe.gz\n"
+    )
+    return fake_data_dir, fake_results_dir, identity
+
+
+def test_checksum_artifact_is_actually_compared_when_matching(tmp_path, monkeypatch, capsys):
+    """The mode must not report success without having compared the
+    freshly-regenerated LHE against what input_checksums.txt records."""
+    src = _write_gz(tmp_path / "in.lhe.gz", _MINI_LHE)
+    fake_data_dir, fake_results_dir, identity = _setup_fake_r8_tree(
+        tmp_path, src, run_01_checksums_lhe_hash=None
+    )
+    # Now that the real deterministic hash is known, rewrite the checksums
+    # file to match it exactly (the "no drift" case).
+    (fake_results_dir / "run_01" / "input_checksums.txt").write_text(
+        "# comment\n"
+        f"{'a' * 64}  results/upstream_build_patched/analysis/recast_2301_13866\n"
+        f"{'b' * 64}  cards/r8_h2_model_derived_4b/physical_run_01.cmnd\n"
+        f"{identity['deterministic_relabelled_gzip_sha256']}"
+        "  data/raw/r8_h2_model_derived_4b/relabelled_run_01.lhe.gz\n"
+    )
+    monkeypatch.setattr(verify_r8_artifacts, "RESULTS_DIR", str(fake_results_dir))
+    monkeypatch.setattr(verify_r8_artifacts, "DATA_DIR", str(fake_data_dir))
+    assert verify_r8_artifacts.check_lhe_content_identity() is True
+    assert "matches committed input_checksums.txt hash" in capsys.readouterr().out
+
+
+def test_checksum_artifact_mismatch_is_reported_not_silently_passed(tmp_path, monkeypatch, capsys):
+    """A stale committed input_checksums.txt (different gzip hash, same
+    decompressed content) must not silently pass unnoticed -- it should
+    still be an overall pass (gzip metadata is not physics drift), but the
+    mismatch must be explicitly reported."""
+    src = _write_gz(tmp_path / "in.lhe.gz", _MINI_LHE)
+    stale_hash = "f" * 64  # deliberately not the real deterministic hash
+    fake_data_dir, fake_results_dir, _identity = _setup_fake_r8_tree(tmp_path, src, stale_hash)
+    monkeypatch.setattr(verify_r8_artifacts, "RESULTS_DIR", str(fake_results_dir))
+    monkeypatch.setattr(verify_r8_artifacts, "DATA_DIR", str(fake_data_dir))
+    assert verify_r8_artifacts.check_lhe_content_identity() is True
+    out = capsys.readouterr().out
+    assert "differs from the committed input_checksums.txt hash" in out
+    assert stale_hash in out
+
+
 # ---------------------------------------------------------------------------
 # Fresh input_checksums reproducibility (uses the real cached canonical LHE
 # if a prior session has staged it under data/raw/; skips otherwise, since

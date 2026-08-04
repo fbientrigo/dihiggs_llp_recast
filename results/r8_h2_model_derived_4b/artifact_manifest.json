@@ -27,7 +27,7 @@
     "scripts/print_checksums_header.py": "586b5ba6f1716566b34cc92cb158de26299931cba860260257b8b1e028913d52",
     "scripts/relabel_lhe_pdg.py": "faf031a36fc328db1197b76301882f9b46f0e622850f04671355d0a0acf96d0e",
     "scripts/run_r8_reproduction.sh": "81a17721475d04f3fa7afc78406bcf3a1f9d7a9bcd96e31e80344888aabcc3b5",
-    "scripts/verify_r8_artifacts.py": "5fbb6479aaa4c6e62981a03fd337cd1ac4d7a995c6d04b05809c221711d885dc",
+    "scripts/verify_r8_artifacts.py": "ab1a58ccad589fbaef53e15bb7f154bd116f80bb65dd0b78de09b1562ef56707",
     "src/dvrecast/r8_cutflow.py": "48ca493fb5440fea1a199f26ba277329ac122119bba44059e8d7b794ad8e4441",
     "src/dvrecast/r8_geometry.py": "b2299feee7c07fd5c5aa85f91e1b4f021ed767c20d73c5702c690ed6904667a2",
     "src/dvrecast/r8_normalization.py": "12d54600addf0ea581eff5da9546911eb484ffc5df6347fc9ffc2da778d53360",
