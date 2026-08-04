@@ -141,6 +141,17 @@ if [[ -f "${RESULTS_DIR}/artifact_manifest.json" ]]; then
 else
   echo "[INFO] no committed artifact_manifest.json found; nothing to compare the fresh run against"
 fi
+# Also preserve the two input_checksums.txt files' actual content (not just
+# their hash, which the manifest above already carries): compare_r8_manifests.py
+# needs the reference *content* to confirm that only the LHE line differs on a
+# fresh run, rather than silently accepting a change to the recast-executable
+# or card line too.
+for run in 01 02; do
+  src="${RESULTS_DIR}/run_${run}/input_checksums.txt"
+  if [[ -f "${src}" ]]; then
+    cp "${src}" "${SCRATCH_DIR}/run_${run}_input_checksums.reference.txt"
+  fi
+done
 
 if [[ "${MODE}" == "check-manifest-scratch" ]]; then
   step "Regenerate the artifact manifest from the untouched committed result tree and compare"

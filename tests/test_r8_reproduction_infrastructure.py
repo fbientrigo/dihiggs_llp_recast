@@ -40,6 +40,7 @@ def _load_module(name, path):
 
 lhe_identity = _load_module("lhe_identity", ROOT / "scripts" / "lhe_identity.py")
 verify_r8_artifacts = _load_module("verify_r8_artifacts", ROOT / "scripts" / "verify_r8_artifacts.py")
+compare_r8_manifests = _load_module("compare_r8_manifests", ROOT / "scripts" / "compare_r8_manifests.py")
 
 
 _MINI_LHE = """<LesHouchesEvents version="3.0">
@@ -271,3 +272,58 @@ def test_fresh_input_checksums_reproducible(run):
         if path.strip().endswith(".lhe.gz"):
             committed_lhe_hash = digest
     assert committed_lhe_hash == fresh["deterministic_relabelled_gzip_sha256"]
+
+
+# ---------------------------------------------------------------------------
+# compare_r8_manifests.py: input_checksums.txt line-by-line comparison must
+# allow only the .lhe.gz line to differ and fail closed on anything else.
+# ---------------------------------------------------------------------------
+
+
+def _write_checksums(path, exe_hash, cmnd_hash, lhe_hash):
+    path.write_text(
+        "# comment line, must be skipped\n"
+        f"{exe_hash}  results/upstream_build_patched/analysis/recast_2301_13866\n"
+        f"{cmnd_hash}  cards/r8_h2_model_derived_4b/physical_run_01.cmnd\n"
+        f"{lhe_hash}  data/raw/r8_h2_model_derived_4b/relabelled_run_01.lhe.gz\n"
+    )
+
+
+def test_checksums_lhe_only_drift_is_accepted(tmp_path):
+    reference = tmp_path / "reference.txt"
+    new = tmp_path / "new.txt"
+    _write_checksums(reference, "a" * 64, "b" * 64, "c" * 64)
+    _write_checksums(new, "a" * 64, "b" * 64, "d" * 64)  # only the LHE line differs
+    assert compare_r8_manifests._compare_checksums_line_by_line("path", reference, new) is True
+
+
+def test_checksums_executable_drift_is_rejected(tmp_path):
+    reference = tmp_path / "reference.txt"
+    new = tmp_path / "new.txt"
+    _write_checksums(reference, "a" * 64, "b" * 64, "c" * 64)
+    _write_checksums(new, "z" * 64, "b" * 64, "c" * 64)  # executable line differs
+    assert compare_r8_manifests._compare_checksums_line_by_line("path", reference, new) is False
+
+
+def test_checksums_card_drift_is_rejected(tmp_path):
+    reference = tmp_path / "reference.txt"
+    new = tmp_path / "new.txt"
+    _write_checksums(reference, "a" * 64, "b" * 64, "c" * 64)
+    _write_checksums(new, "a" * 64, "z" * 64, "c" * 64)  # card line differs
+    assert compare_r8_manifests._compare_checksums_line_by_line("path", reference, new) is False
+
+
+def test_missing_reference_checksums_copy_fails_closed(tmp_path, monkeypatch):
+    """If a checksums file's hash differs but no preserved reference copy is
+    present to compare line-by-line, main() must fail closed rather than
+    silently accepting the difference (it cannot confirm the drift is
+    confined to the LHE line without the reference content)."""
+    reference_manifest = tmp_path / "reference_manifest.json"
+    new_manifest = tmp_path / "new_manifest.json"
+    checksums_path = "results/r8_h2_model_derived_4b/run_01/input_checksums.txt"
+    reference_manifest.write_text(json.dumps({"files": {checksums_path: "a" * 64}}))
+    new_manifest.write_text(json.dumps({"files": {checksums_path: "b" * 64}}))
+    # No run_01_input_checksums.reference.txt written alongside reference_manifest.
+
+    monkeypatch.setattr(sys, "argv", ["compare_r8_manifests.py", str(reference_manifest), str(new_manifest)])
+    assert compare_r8_manifests.main() == 1
