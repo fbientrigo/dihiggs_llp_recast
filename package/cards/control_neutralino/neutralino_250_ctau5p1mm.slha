@@ -1,0 +1,12 @@
+# Neutralino-PDG plumbing control. This is not strong-bm1.
+BLOCK MASS
+  1000022  2.50000000E+02  # chi10
+
+DECAY 1000022 3.86915648E-14
+  1.00000000E+00  2   5  -5
+
+BLOCK QNUMBERS 1000022
+  1 0
+  2 2  # fermion
+  3 1
+  4 0

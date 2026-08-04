@@ -1,0 +1,116 @@
+diff --git a/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/recast_2301_13866.cc b/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/recast_2301_13866.cc
+index 8ad1699..ce2055c 100644
+--- a/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/recast_2301_13866.cc
++++ b/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/recast_2301_13866.cc
+@@ -25,12 +25,26 @@ using namespace Pythia8;
+ int main(int argc, char* argv[])
+ {
+ 
+-	if (argc != 2) {
+-        	std::cout << "./recast_2301_13866 pathToCMND" << std::endl;
+-        	std::cout << "   - pathToCMND is the path to the Pythia input cmnd card" << std::endl;
+-        	exit(1);
+-    	}
+-    
++	if (argc < 2 || argc > 4) {
++		std::cout << "./recast_2301_13866 pathToCMND [original|modified] [llpPdg]" << std::endl;
++		std::cout << "   - pathToCMND is the path to the Pythia input cmnd card" << std::endl;
++		std::cout << "   - default behavior remains the original SUSY-PDG analysis" << std::endl;
++		exit(1);
++	}
++
++	std::string analysisMode = (argc >= 3) ? argv[2] : "original";
++	bool modifiedAnalysis = analysisMode == "modified";
++	if (!modifiedAnalysis && analysisMode != "original") {
++		std::cerr << "Unknown analysis mode: " << analysisMode << std::endl;
++		return 2;
++	}
++	bool configuredSinglePdg = argc >= 4;
++	int llpPdg = configuredSinglePdg ? std::abs(std::stoi(argv[3])) : 1000022;
++	std::cout << "AB analysis mode: " << analysisMode << std::endl;
++	if (configuredSinglePdg)
++		std::cout << "Configured LLP PDG: " << llpPdg << std::endl;
++	else
++		std::cout << "Using original SUSY LLP PDG set" << std::endl;
+ 
+ 	Pythia pythia;
+ 	pythia.settings.addMode("LHEFInputs:nSubruns", 0, true, false, 0, 100); //allows LHEFInputs:nSubruns
+@@ -134,8 +148,12 @@ int main(int argc, char* argv[])
+ 			motherIndex.clear();
+ 			for (int iTrack = 0; iTrack < event.size(); iTrack++)
+ 			{
+-				if ((event[iTrack].idAbs() == 1000022) || (event[iTrack].idAbs() == 1000023) || (event[iTrack].idAbs() == 1000024))
+-				//if (event[iTrack].idAbs() == 9900035)
++				bool isConfiguredLlp = configuredSinglePdg && event[iTrack].idAbs() == llpPdg;
++				bool isOriginalSusyLlp = !configuredSinglePdg &&
++					((event[iTrack].idAbs() == 1000022) ||
++					 (event[iTrack].idAbs() == 1000023) ||
++					 (event[iTrack].idAbs() == 1000024));
++				if (isConfiguredLlp || isOriginalSusyLlp)
+ 					motherIndex.push_back(iTrack);
+ 			}
+ 
+@@ -206,25 +224,38 @@ int main(int argc, char* argv[])
+ 			if ((detector.jets.size() >= 7) && (detector.jets[6].pT() > 90.))
+ 				passHighPTJetSelection = true;
+ 
+-			if ((detector.jets.size() >= 4) && (detector.jets[3].pT() > 137.))
+-				passTracklessJetSelection = true;
+-			if ((detector.jets.size() >= 5) && (detector.jets[4].pT() > 101.))
+-				passTracklessJetSelection = true;
+-			if ((detector.jets.size() >= 6) && (detector.jets[5].pT() > 83.))
+-				passTracklessJetSelection = true;
+-			if ((detector.jets.size() >= 7) && (detector.jets[6].pT() > 55.))
+-				passTracklessJetSelection = true;
++			if (!modifiedAnalysis) {
++				if ((detector.jets.size() >= 4) && (detector.jets[3].pT() > 137.))
++					passTracklessJetSelection = true;
++				if ((detector.jets.size() >= 5) && (detector.jets[4].pT() > 101.))
++					passTracklessJetSelection = true;
++				if ((detector.jets.size() >= 6) && (detector.jets[5].pT() > 83.))
++					passTracklessJetSelection = true;
++				if ((detector.jets.size() >= 7) && (detector.jets[6].pT() > 55.))
++					passTracklessJetSelection = true;
++			} else {
++				if ((detector.jets.size() >= 4) && (detector.jets[3].pT() > 90.))
++					passTracklessJetSelection = true;
++				if ((detector.jets.size() >= 5) && (detector.jets[4].pT() > 65.))
++					passTracklessJetSelection = true;
++				if ((detector.jets.size() >= 6) && (detector.jets[5].pT() > 55.))
++					passTracklessJetSelection = true;
++			}
+ 
+ 			bool passTracklessAdditional = false;
+ 
+-			std::sort(displacedJetsPT.begin(), displacedJetsPT.end(), std::greater<double>());
+-			if ((displacedJetsPT.size() >= 1) && (displacedJetsPT[0] > 70.))
+-				passTracklessAdditional = true;
+-			if ((displacedJetsPT.size() >= 2) && (displacedJetsPT[1] > 50.))
++			if (modifiedAnalysis) {
+ 				passTracklessAdditional = true;
++			} else {
++				std::sort(displacedJetsPT.begin(), displacedJetsPT.end(), std::greater<double>());
++				if ((displacedJetsPT.size() >= 1) && (displacedJetsPT[0] > 70.))
++					passTracklessAdditional = true;
++				if ((displacedJetsPT.size() >= 2) && (displacedJetsPT[1] > 50.))
++					passTracklessAdditional = true;
++			}
+ 
+ 
+-			bool passJetSelection = passHighPTJetSelection || passTracklessJetSelection && passTracklessAdditional;
++			bool passJetSelection = passHighPTJetSelection || (passTracklessJetSelection && passTracklessAdditional);
+ 			if (!passJetSelection)
+ 				continue; //run faster!
+ 
+@@ -357,7 +388,10 @@ int main(int argc, char* argv[])
+ 				if (passVertexAcc)
+ 				{
+ 					nTracklessAcc += weight;
+-					nTracklessAccEff += weight * eventEff_Trackless(rMax, sumPT) * vEff;
++					if (modifiedAnalysis)
++						nTracklessAccEff += weight * vEff;
++					else
++						nTracklessAccEff += weight * eventEff_Trackless(rMax, sumPT) * vEff;
+ 				}
+ 			}
+ 		}

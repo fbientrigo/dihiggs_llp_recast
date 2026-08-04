@@ -1,0 +1,24 @@
+# scalar-recast-v0 — RECONSTRUCTED, NOT_RUN, deliberately incomplete.
+
+Beams:frameType = 4
+Beams:LHEF = TODO_LHE_PATH
+
+# Read model/decay information carried by the approved LHE/SLHA setup.
+SLHA:readFrom = 2
+TODO_SCALAR_PDG:mayDecay = on
+TODO_SCALAR_PDG:tau0 = TODO_CTAU_MM
+
+# Every production run must record an explicit seed.
+Random:setSeed = on
+Random:seed = TODO_RECORDED_SEED
+
+Main:numberOfEvents = TODO_EVENTS_PER_SUBRUN
+Main:numberOfSubruns = TODO_NUMBER_OF_SUBRUNS
+
+# Repeat a block like this only when merged multiplicities are approved.
+Main:subrun = 0
+Beams:LHEF = TODO_SUBRUN_0_LHE_PATH
+# Main:subrun = 1
+# Beams:LHEF = TODO_SUBRUN_1_LHE_PATH
+
+# TODO: add the approved matching/merging settings; none are inferred here.

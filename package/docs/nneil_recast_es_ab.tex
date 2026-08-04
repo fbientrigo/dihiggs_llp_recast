@@ -1,0 +1,392 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{ragged2e}
+\definecolor{deepblue}{RGB}{45,78,160}
+\definecolor{ok}{RGB}{25,125,70}
+\definecolor{warn}{RGB}{175,105,10}
+\definecolor{muted}{RGB}{95,95,95}
+\definecolor{softblue}{RGB}{235,241,252}
+\setbeamercolor{structure}{fg=deepblue}
+\setbeamercolor{frametitle}{fg=deepblue}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{\hfill\insertframenumber\hspace{1em}\vspace{0.55em}}
+\setbeamersize{text margin left=0.65cm,text margin right=0.65cm}
+\newcommand{\pill}[1]{\colorbox{softblue}{\strut\textcolor{deepblue}{\textbf{#1}}}}
+\newcommand{\evidence}[1]{\textcolor{ok}{\textbf{#1}}}
+\newcommand{\pending}[1]{\textcolor{warn}{\textbf{#1}}}
+\newcommand{\repo}[1]{\texttt{#1}}
+\ifdefined\PRESENTER
+  \usepackage{pgfpages}
+  \setbeamertemplate{note page}{%
+    \pagecolor{black!8}%
+    \vspace*{0.55cm}%
+    {\Large\color{deepblue}\insertframetitle\par}%
+    \vspace{0.45cm}%
+    \small\insertnote%
+  }
+  \setbeameroption{show notes on second screen=right}
+\else
+  \setbeameroption{hide notes}
+\fi
+
+\begin{document}
+
+\begin{frame}{¿Puede una búsqueda DV+jets restringir nuestro escalar de larga vida?}
+  \vspace{0.25em}
+  {\Large\textbf{Reutilizar una búsqueda pública de ATLAS para $gg\to h^*\to SS$}}\\[0.4em]
+  {\large Estado real de la reproducción y camino hacia el 2HDM}
+  \vspace{1.0em}
+  \begin{columns}[T]
+    \column{0.47\textwidth}
+      \textbf{Señal}
+      \begin{itemize}
+        \item $S$ se produce en pares mediante un Higgs SM-like fuera de masa.
+        \item Si $S$ decae dentro del tracker, sus productos cargados pueden formar un vértice desplazado (DV).
+      \end{itemize}
+    \column{0.47\textwidth}
+      \textbf{Pregunta}
+      \begin{itemize}
+        \item ¿Qué fracción de nuestros eventos pasa una selección DV+jets?
+        \item ¿En qué canales y vidas medias puede aportar una restricción?
+      \end{itemize}
+  \end{columns}
+  \vfill
+  \centering\textbf{Hoy: entendemos y ejecutamos la infraestructura; aún no reproducimos el cutflow con eventos propios.}
+  \note{\textbf{Idea:} abrir con la pregunta física, no con el estado del repositorio.\\
+  \textbf{Evidencia:} arXiv:2606.01681, resumen y Secs. II--III; repo \repo{dihiggs\_llp\_recast}, README.\\
+  \textbf{Advertencia:} no afirmar que el 2HDM ya fue reinterpretado.\\
+  \textbf{Pregunta probable:} ¿por qué esta búsqueda? \textbf{Respuesta:} porque un escalar hadrónico que decae en el tracker produce justamente un DV multitrack acompañado por jets.}
+\end{frame}
+
+\begin{frame}{Qué significa hacer un recast aquí}
+  \centering
+  \vspace{0.3em}
+  \pill{eventos de señal}\ $\longrightarrow$ \pill{recast público}\ $\longrightarrow$ \pill{$A\times\epsilon$}\ $\longrightarrow$ \pill{rendimiento}
+  \vspace{1.2em}
+  \begin{columns}[T]
+    \column{0.46\textwidth}
+      \textbf{Sí permite}
+      \begin{itemize}
+        \item estimar aceptación y eficiencia para una señal nueva;
+        \item comparar cutflows contra referencias publicadas;
+        \item combinar después con $\sigma$, luminosidad y BR.
+      \end{itemize}
+    \column{0.46\textwidth}
+      \textbf{No equivale a}
+      \begin{itemize}
+        \item la reconstrucción completa de ATLAS;
+        \item validar física solo porque el código compila;
+        \item corregir un cutflow con un factor $K$.
+      \end{itemize}
+  \end{columns}
+  \vfill
+  \centering La tasa normaliza el resultado; no mueve eventos entre cortes.
+  \note{\textbf{Evidencia:} contrato de validación del repo; arXiv:2606.01681, Sec. III.\\
+  \textbf{Definición:} $A\times\epsilon$ es la fracción que satisface geometría/cortes y luego las eficiencias parametrizadas.\\
+  \textbf{Pregunta probable:} ¿un $K$-factor arregla el desacuerdo? \textbf{Respuesta:} no; solo escala el número total.}
+\end{frame}
+
+\begin{frame}{Cómo aparece el vértice desplazado}
+  \begin{columns}[T]
+    \column{0.39\textwidth}
+      \centering\vspace{0.6em}
+      \pill{Pythia: posición de decaimiento}\\[1.0em]
+      $\downarrow$\\[0.8em]
+      \pill{tracks cargados y $d_0$}\\[1.0em]
+      $\downarrow$\\[0.8em]
+      \pill{DV: $R_{xy}$, $n_{\rm trk}$, $m_{\rm DV}$}
+    \column{0.56\textwidth}
+      El análisis exige al menos un DV que cumpla:
+      \begin{enumerate}
+        \item región fiducial y $R_{xy}>4$ mm;
+        \item al menos un track con $|d_0|>2$ mm;
+        \item $\geq5$ productos cargados seleccionados;
+        \item $m_{\rm DV}>10$ GeV;
+        \item eficiencias parametrizadas de ATLAS.
+      \end{enumerate}
+      La población radial depende de $\beta\gamma c\tau$.
+  \end{columns}
+  \vfill
+  \centering\textbf{Los tracks y la posición de decaimiento forman el DV.}
+  \note{\textbf{Evidencia:} arXiv:2606.01681, Sec. III; arXiv:2301.13866; código upstream congelado.\\
+  \textbf{Precisión:} la región fiducial completa también incluye el límite longitudinal; la slide destaca los umbrales que aparecen en el cutflow.\\
+  \textbf{Pregunta probable:} ¿dónde entra la vida media? \textbf{Respuesta:} determina, junto al boost, si el decaimiento cae dentro del volumen sensible.}
+\end{frame}
+
+\begin{frame}{Qué función cumplen los jets}
+  \begin{columns}[T]
+    \column{0.46\textwidth}
+      \textbf{A nivel de evento}
+      \begin{itemize}
+        \item activan el trigger y definen las regiones de señal;
+        \item pueden venir de ISR;
+        \item pueden venir de $S\to b\bar b$, $gg$ o bosones hadrónicos.
+      \end{itemize}
+    \column{0.46\textwidth}
+      \textbf{A nivel de vértice}
+      \begin{itemize}
+        \item el desplazamiento no está ``dentro del jet'';
+        \item lo prueban la posición del decaimiento y los tracks;
+        \item muchos jets no garantizan un DV aceptado.
+      \end{itemize}
+  \end{columns}
+  \vspace{1.2em}
+  \centering\Large\textbf{Los jets permiten registrar y seleccionar el evento; los tracks forman el DV.}
+  \note{\textbf{Evidencia:} arXiv:2606.01681, Sec. III; ATLAS arXiv:2301.13866.\\
+  \textbf{Pregunta probable:} ¿por qué ISR? \textbf{Respuesta:} puede rescatar eventos donde la producción o el decaimiento no entrega jets suficientemente duros para el trigger.}
+\end{frame}
+
+\begin{frame}{Qué hicimos hasta ahora}
+  \begin{enumerate}
+    \item \evidence{Congelamos} una versión identificable del recast público.
+    \item \evidence{Instalamos y verificamos} Pythia, FastJet y MadGraph.
+    \item \evidence{Compilamos y ejecutamos} las comprobaciones técnicas del análisis.
+    \item \evidence{Convertimos} el resultado upstream distribuido en un cutflow estructurado y comparable.
+  \end{enumerate}
+  \vspace{1.0em}
+  \begin{block}{Interpretación correcta}
+    La infraestructura está lista para producir una reproducción, pero todavía no hemos generado las tres muestras ni obtenido un cutflow local.
+  \end{block}
+  \vspace{0.4em}
+  Compilar, parsear y verificar la referencia son logros técnicos; \textbf{no son todavía un resultado físico reproducido}.
+  \note{\textbf{Evidencia local adjunta:} \repo{technical\_status\_es.md}; reportes M1/M2 citados por el paquete; cutflow CSV.\\
+  \textbf{GitHub:} el último commit visible consultado fue 220f719 (11-07-2026), anterior a la evidencia local del paquete (15-07-2026). No mostrar esta diferencia al público salvo que pregunten por qué no está todo en remoto.\\
+  \textbf{Pregunta probable:} ¿ya corrió el benchmark? \textbf{Respuesta:} no con nuestros eventos; solo corrió el ejecutable y se estructuró la referencia distribuida.}
+\end{frame}
+
+\begin{frame}{Por qué usamos primero \texttt{strong-bm1}}
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+      \textbf{Qué significa el nombre}
+      \begin{itemize}
+        \item \texttt{bm1}: benchmark 1;
+        \item \texttt{strong}: producción fuerte de pares de gluinos;
+        \item el neutralino es el LLP de la referencia SUSY.
+      \end{itemize}
+    \column{0.48\textwidth}
+      \textbf{Por qué nos sirve}
+      \begin{itemize}
+        \item está distribuido con el recast público;
+        \item comprueba la cadena antes de cambiar el LLP;
+        \item gluino y neutralino \textbf{no pertenecen} a nuestro modelo.
+      \end{itemize}
+  \end{columns}
+  \vspace{0.9em}
+  \centering
+  $pp\to\tilde g\tilde g+0/1/2$ partones $\rightarrow$ neutralinos LLP $\rightarrow$ DV+jets
+  \vspace{0.7em}
+
+  \textbf{La referencia SUSY es un test de control; después la señal física será el escalar $S$.}
+  \note{\textbf{Evidencia:} contrato strong-bm1 del paquete local y resultado distribuido \repo{gluino\_run01.txt}.\\
+  \textbf{Valores recuperados:} masas 2000/850 GeV, 10.000 eventos por multiplicidad, CKKW--L a 500 GeV. El lifetime de 0,01 ns permanece inferido, no recuperado desde un SLHA exacto.\\
+  \textbf{Pregunta probable:} ¿el benchmark escalar contiene neutralinos? \textbf{Respuesta:} no; SUSY solo protege la línea base del recast.}
+\end{frame}
+
+\begin{frame}{Tres objetivos relacionados, pero distintos}
+  \begin{columns}[T]
+    \column{0.31\textwidth}
+      \centering\pill{1. Validar el recast}\\[0.7em]
+      Reproducir estadísticamente \texttt{strong-bm1} con la implementación pública intacta.
+    \column{0.31\textwidth}
+      \centering\pill{2. Reproducir el paper}\\[0.7em]
+      Ejecutar un benchmark escalar documentado de arXiv:2606.01681.
+    \column{0.31\textwidth}
+      \centering\pill{3. Reinterpretar el 2HDM}\\[0.7em]
+      Usar nuestros puntos, eventos, $\sigma$, vidas medias y BR para calcular $A\times\epsilon$.
+  \end{columns}
+  \vspace{1.1em}
+  \centering
+  \textbf{Cada etapa valida una pregunta nueva; ninguna puede sustituir a la anterior.}
+  \note{\textbf{Evidencia:} README y plan de reproducción del repo \repo{dihiggs\_llp\_recast}.\\
+  \textbf{Advertencia:} no mezclar el cutflow SUSY upstream con los cutflows escalares de Table 2 del paper.}
+\end{frame}
+
+\begin{frame}{Qué podemos y qué no podemos reproducir}
+  \small
+  \begin{tabular}{>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.70\textwidth}}
+    \toprule
+    \evidence{Validado localmente} & Checkout congelado; compilación, linking y smoke técnico; parser y arquitectura de comparación.\\
+    \midrule
+    \textbf{Referencia extraída} & Cutflow y $A\times\epsilon$ de \texttt{strong-bm1}; configuración parcialmente documentada. No son números producidos localmente.\\
+    \midrule
+    \textbf{Reconstruible} & SLHA propio y explícito; nuevas semillas; 0/1/2 partones; lifetime, decays y BR documentados; reproducción estadística.\\
+    \midrule
+    \pending{No recuperable exactamente} & SLHA histórico, tres LHE y seeds originales si no fueron publicados; activos privados; identidad bit a bit.\\
+    \bottomrule
+  \end{tabular}
+  \vspace{0.9em}
+  \centering\textbf{No podemos repetir bit a bit la ejecución histórica, pero sí construir una reproducción estadística independiente y auditable.}
+  \note{\textbf{Evidencia:} \repo{technical\_status\_es.md}, \repo{decisions\_required\_es.md}, contratos del repo.\\
+  \textbf{Pregunta probable:} ¿eso sigue siendo una reproducción? \textbf{Respuesta:} sí, si fijamos explícitamente la configuración nueva, comparamos distribuciones/cutflow y no la llamamos recuperación exacta.}
+\end{frame}
+
+\begin{frame}{Qué significa el resultado upstream}
+  \centering
+  \includegraphics[width=0.91\textwidth,height=0.69\textheight,keepaspectratio]{reference_cutflow_summary.pdf}
+  \vspace{0.15em}
+
+  \small Cada barra es acumulativa. Ambas ramas llegan a $\sim30\%$ de aceptación; la gran diferencia aparece al aplicar las eficiencias finales.
+  \note{\textbf{Valores completos upstream:} high-$p_T$: $A=29.71822\%$, $A\epsilon=26.60133\%$ (2520.908 ponderados); trackless: $A=29.74913\%$, $A\epsilon=0.02165427\%$ (2.052094 ponderados). Total inicial: 9476.625 ponderados.\\
+  \textbf{Lectura:} high-$p_T$ exige jets duros; trackless explota jets con poca asociación a tracks prompt. Las curvas completas se superponen hasta aceptación; ver \repo{reference\_cutflow\_upstream.pdf}.\\
+  \textbf{Advertencia:} 2.052 eventos ponderados exige cautela; no inventar incertidumbre.\\
+  \textbf{Pregunta probable:} ¿este gráfico es nuestro resultado? \textbf{Respuesta:} no; es la meta numérica que compararemos con un segundo cutflow generado localmente.}
+\end{frame}
+
+\begin{frame}{Qué aporta el paper escalar y qué falta}
+  \small
+  \begin{columns}[T]
+    \column{0.32\textwidth}
+      \textbf{El paper especifica}
+      \begin{itemize}
+        \item $gg\to h^*\to SS$ y el modelo fenomenológico;
+        \item rango y benchmarks de masa/lifetime;
+        \item MG5 $\to$ Pythia $\to$ recast;
+        \item selección DV, cutflows y límites.
+      \end{itemize}
+    \column{0.32\textwidth}
+      \textbf{Podemos reconstruir}
+      \begin{itemize}
+        \item un UFO equivalente desde las ecuaciones;
+        \item cards propias y versionadas;
+        \item widths/BR y muestras nuevas;
+        \item un benchmark estadístico independiente.
+      \end{itemize}
+    \column{0.32\textwidth}
+      \textbf{Necesitaremos decidir}
+      \begin{itemize}
+        \item implementación exacta del modelo;
+        \item versión/configuración y seeds;
+        \item benchmark inicial y tolerancia;
+        \item tratamiento de piezas no publicadas.
+      \end{itemize}
+  \end{columns}
+  \vspace{0.7em}
+  \centering\textbf{La metodología y los puntos documentados son reproducibles; los archivos privados y la ejecución exacta no están garantizados.}
+  \note{\textbf{Fuente primaria:} arXiv:2606.01681v1, Eqs. (1), (27)--(28), Figs. 1--5 y Tables 1--2.\\
+  \textbf{Publicado:} modelo fenomenológico con parámetros $m_S$, mixing y acoplamiento $hSS$; rango 65--250 GeV; BR/width calculados con 2HDMC modificado; UFO construido con FeynRules+NLOCT; LO MG5, $K=1.6$, Pythia8, anti-$k_t$ $R=0.4$; Table 2 con benchmarks 100/170/250 GeV y análisis original/modificado.\\
+  \textbf{No encontrado como activo público enlazado:} UFO/FeynRules/NLOCT, cards MG5/Pythia, versiones exactas, seeds y LHE. Los BR aparecen gráficamente, no como tabla numérica completa.\\
+  \textbf{Advertencia:} el HTML de arXiv omite parte del math; extraer valores exactos desde PDF/TeX antes de generar.}
+\end{frame}
+
+\begin{frame}{Paquete A/B que puede correrse desde ahora}
+  \small
+  \begin{columns}[T]
+    \column{0.31\textwidth}
+      \centering\pill{Input común}\\[0.6em]
+      $m_S=250$ GeV\\
+      $c\tau=5.1$ mm\\
+      PDG $9900035$\\
+      mismo SLHA y mismo LHE toy
+    \column{0.31\textwidth}
+      \centering\pill{A: original}\\[0.6em]
+      Umbrales trackless publicados\\
+      requisito de jets desplazados\\
+      eficiencia de evento $\times$ vértice
+    \column{0.31\textwidth}
+      \centering\pill{B: modificada}\\[0.6em]
+      Umbrales $90/65/55$ GeV\\
+      sin requisito adicional de jet desplazado\\
+      sólo eficiencia de vértice
+  \end{columns}
+  \vspace{0.9em}
+  \begin{block}{Qué está listo}
+    Cards SLHA/Pythia, generador LHE determinista, parche configurable del C++, proxy de Table II y comandos A/B reproducibles.
+  \end{block}
+  \centering\textbf{El LHE toy valida conexiones y formatos; no representa todavía la cinemática física de $gg\to h^*\to SS$.}
+  \note{\textbf{Artefactos locales:} paquete \repo{recast\_ab\_demo}; \repo{configs/ab\_scenarios.json}; cards A/B; \repo{generate\_toy\_lhe.py}; parche \repo{recast\_scalar\_ab.patch}.\\
+  \textbf{Control técnico adicional:} se incluye un neutralino PDG 1000022 con la misma masa/vida para comprobar el camino upstream, pero no se mezcla con la comparación visible A/B.\\
+  \textbf{Advertencia:} el modelo de decaimiento del SLHA es ilustrativo y el LHE es dos-cuerpos a $\sqrt{\hat s}=1$ TeV. No llamarlo MadGraph ni benchmark del paper.}
+\end{frame}
+
+\begin{frame}{A/B de orden de magnitud anclado al paper}
+  \small
+  \centering
+  \begin{tabular}{lrrr}
+    \toprule
+    Benchmark escalar & $\epsilon_A$ original & $\epsilon_B$ modificada & $\sigma_A$ para 3 eventos\\
+    \midrule
+    100 GeV, $c\tau=290$ mm & $2.1\times10^{-3}$ & $1.5\times10^{-2}$ & 10.3 fb\\
+    170 GeV, $c\tau=55$ mm & $1.2\times10^{-2}$ & $5.5\times10^{-2}$ & 1.80 fb\\
+    250 GeV, $c\tau=5.1$ mm & $2.9\times10^{-2}$ & $1.1\times10^{-1}$ & 0.74 fb\\
+    \bottomrule
+  \end{tabular}
+  \vspace{0.9em}
+
+  Con $\mathcal L=139$ fb$^{-1}$ y $N_{\rm sig}=3$:
+  \[
+    \sigma_{3}\simeq\frac{0.0216}{\epsilon}\ {\rm fb}.
+  \]
+  \begin{block}{Lectura}
+    El proxy identifica qué masas, vidas y tasas merecen simulación completa. A usa la búsqueda Run 2; B es una estrategia prospectiva, no una exclusión de ATLAS.
+  \end{block}
+  \note{\textbf{Fuente:} arXiv:2606.01681v1, Table II; criterio de 3 eventos descrito en Sec. IV.\\
+  \textbf{Valores B para 3 eventos:} 1.44, 0.392 y 0.196 fb, respectivamente.\\
+  \textbf{Salida local:} \repo{results/ab\_proxy.csv} y \repo{results/ab\_summary.md}.\\
+  \textbf{Advertencia:} estas eficiencias ya incluyen la mezcla de decaimientos del paper; no volver a multiplicarlas por un BR. Para puntos del scan se usa por ahora el ancla más cercana en masa y $\log c\tau$, etiquetada como proxy.}
+\end{frame}
+
+\begin{frame}{Aplicación a nuestros canales}
+  \small
+  \begin{tabular}{lccc}
+    \toprule
+    Canal de $S$ & Actividad hadrónica & DV multitrack & Utilidad esperada\\
+    \midrule
+    $b\bar b$ & alta & sí & \evidence{alta}\\
+    $gg$ & alta tras hadronización & sí & \evidence{alta}\\
+    $WW/ZZ$ hadrónico & alta & sí & \evidence{alta}\\
+    $Z\gamma$, $Z\to q\bar q$ & media & condicional & \pending{posible, no validada}\\
+    $\gamma\gamma$ & baja & no natural & baja\\
+    \bottomrule
+  \end{tabular}
+  \vspace{0.8em}
+  \begin{itemize}
+    \item El fotón no forma el DV; en $Z\gamma$ lo formaría el componente hadrónico del $Z$.
+    \item El toy detector puede tratar fotones de forma problemática.
+    \item Este recast no reemplaza una búsqueda dedicada de fotones no prompt.
+  \end{itemize}
+  \note{\textbf{Estado:} evaluación de compatibilidad de topología, no eficiencia medida.\\
+  \textbf{Pregunta probable:} ¿sirve para $\gamma\gamma$? \textbf{Respuesta:} no como canal principal DV multitrack; la oportunidad real está en decaimientos hadrónicos.}
+\end{frame}
+
+\begin{frame}{Cómo encaja en el proyecto y cuál es el próximo resultado}
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+      \centering
+      \pill{\repo{dihiggs} / \repo{dihiggs\_boundary}}\\[-0.1em]
+      {\small puntos permitidos: masa, width, $c\tau$, BR}\\[0.35em]
+      $\downarrow$\\[0.35em]
+      \pill{\repo{dihiggs\_hep\_cross}}\\[-0.1em]
+      {\small proceso, UFO, LHE, $\sigma$}\\[0.35em]
+      $\downarrow$\\[0.35em]
+      \pill{\repo{dihiggs\_llp\_recast}}\\[-0.1em]
+      {\small cutflow, $A$, $\epsilon$}\\[0.35em]
+      $\downarrow$\\[0.35em]
+      \pill{paper}\\[-0.1em]
+      {\small rendimientos, figuras y límites}
+    \column{0.48\textwidth}
+      \textbf{Próximo resultado verificable}
+      \begin{enumerate}
+        \item reconstruir \texttt{strong-bm1} con configuración documentada;
+        \item generar las tres muestras;
+        \item obtener un cutflow local;
+        \item compararlo explícitamente con la referencia.
+      \end{enumerate}
+      \vspace{0.5em}
+      \textbf{Tres decisiones}
+      \begin{enumerate}
+        \item ¿aprobamos la reconstrucción documentada?
+        \item ¿qué tolerancia define una reproducción suficiente?
+        \item ¿cuál será el primer benchmark escalar completo?
+      \end{enumerate}
+  \end{columns}
+  \note{\textbf{Evidencia de roles:} README de \repo{dihiggs}, \repo{dihiggs\_boundary}, \repo{dihiggs\_llp\_recast}; estado conocido de \repo{dihiggs\_hep\_cross}.\\
+  \textbf{Límite:} el recast no hace el scan 2HDM, no calcula por sí solo $\sigma$ y no produce el paper.\\
+  \textbf{Respuesta final recomendada:} el siguiente resultado no es un límite 2HDM; es el segundo cutflow local de \texttt{strong-bm1} comparado con upstream.}
+\end{frame}
+
+\end{document}

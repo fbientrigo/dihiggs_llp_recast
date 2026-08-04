@@ -1,0 +1,101 @@
+# Mission 01B: LLP proper-lifetime propagation.
+# Applies on top of patches/recast_scalar_ab.patch, against upstream
+# llprecasting/recastingCodes @ d4047c744062094c9f88e507bb1ccf69e9fe88d6.
+#
+# Adds a 4th argument: lifetimeMode = baseline|setlifetime|staged.
+# baseline reproduces the upstream single-call path unchanged (default).
+--- a/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/recast_2301_13866.cc
++++ b/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin/recast_code/1_analysis/recast_2301_13866.cc
+@@ -25,10 +25,11 @@
+ int main(int argc, char* argv[])
+ {
+ 
+-	if (argc < 2 || argc > 4) {
+-		std::cout << "./recast_2301_13866 pathToCMND [original|modified] [llpPdg]" << std::endl;
++	if (argc < 2 || argc > 5) {
++		std::cout << "./recast_2301_13866 pathToCMND [original|modified] [llpPdg] [lifetimeMode]" << std::endl;
+ 		std::cout << "   - pathToCMND is the path to the Pythia input cmnd card" << std::endl;
+ 		std::cout << "   - default behavior remains the original SUSY-PDG analysis" << std::endl;
++		std::cout << "   - lifetimeMode is baseline|setlifetime|staged (default baseline)" << std::endl;
+ 		exit(1);
+ 	}
+ 
+@@ -46,6 +47,22 @@
+ 	else
+ 		std::cout << "Using original SUSY LLP PDG set" << std::endl;
+ 
++	// Mission 01B: LLP proper-lifetime propagation.
++	// baseline    = upstream single-call path. LHE VTIMUP is 0 and
++	//               LesHouches:setLifetime defaults to 1 (tau leptons only), so a
++	//               QNUMBERS/SLHA LLP reaches ResonanceDecays with tau = 0 and every
++	//               decay lands on the primary vertex.
++	// setlifetime = let PYTHIA sample tau from tau0 for LHE particles.
++	// staged      = suppress hadron level, sample tau explicitly on the final LLPs,
++	//               then force the hadron level.
++	std::string lifetimeMode = (argc >= 5) ? argv[4] : "baseline";
++	if (lifetimeMode != "baseline" && lifetimeMode != "setlifetime" && lifetimeMode != "staged") {
++		std::cerr << "Unknown lifetime mode: " << lifetimeMode << std::endl;
++		return 2;
++	}
++	bool stagedLifetime = lifetimeMode == "staged";
++	std::cout << "Lifetime mode: " << lifetimeMode << std::endl;
++
+ 	Pythia pythia;
+ 	pythia.settings.addMode("LHEFInputs:nSubruns", 0, true, false, 0, 100); //allows LHEFInputs:nSubruns
+ 	Event& event = pythia.event;
+@@ -96,8 +113,26 @@
+ 		//Read in name of LHE file for current subrun and initialize.
+ 		pythia.readFile(pathToCMND, iMerge);
+ 
++		//Lifetime repair, applied after the card is read but before init.
++		if (lifetimeMode == "setlifetime")
++			pythia.settings.mode("LesHouches:setLifetime", 2);
++		if (stagedLifetime)
++			pythia.settings.flag("HadronLevel:all", false);
++
+ 		pythia.init();
+ 
++		//The LLP only exists once the SLHA reader has run inside init(), so the
++		//resonance flag can only be cleared here, not from the cmnd card.
++		if (stagedLifetime)
++		{
++			pythia.particleData.isResonance(llpPdg, false);
++			pythia.particleData.mayDecay(llpPdg, true);
++			std::cout << "Staged lifetime: pdg " << llpPdg
++				<< " tau0 " << pythia.particleData.tau0(llpPdg) << " mm"
++				<< " isResonance " << pythia.particleData.isResonance(llpPdg)
++				<< " mayDecay " << pythia.particleData.mayDecay(llpPdg) << std::endl;
++		}
++
+ 
+ 		//Event loop begin
+ 		for (int iEvent = 0; iEvent < nEvent; iEvent++)
+@@ -115,6 +150,28 @@
+ 				return 1;
+ 			}
+ 
++			//Staged lifetime: pythia.next() has stopped after the parton level, so
++			//the LLPs are still final. Give each a sampled proper lifetime, then let
++			//the hadron level decay them from the displaced vertex.
++			if (stagedLifetime)
++			{
++				int nFinalLlp = 0;
++				for (int iLlp = 0; iLlp < pythia.event.size(); iLlp++)
++				{
++					if (pythia.event[iLlp].idAbs() != llpPdg || !pythia.event[iLlp].isFinal())
++						continue;
++					pythia.event[iLlp].tau(pythia.event[iLlp].tau0() * pythia.rndm.exp());
++					nFinalLlp++;
++				}
++				if (nFinalLlp != 2 && iEvent < 10)
++					std::cout << "Staged lifetime warning: event " << iEvent
++						<< " has " << nFinalLlp << " final LLPs (expected 2)" << std::endl;
++				if (!pythia.forceHadronLevel())
++				{
++					std::cout << "forceHadronLevel failed on event " << iEvent << std::endl;
++					continue;
++				}
++			}
+ 
+ 			//Get CKKWL weight of current event.
+ 			double evtweight = pythia.info.weight();

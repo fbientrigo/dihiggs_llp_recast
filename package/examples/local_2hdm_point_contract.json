@@ -1,0 +1,48 @@
+{
+  "status": "FIELDS_REQUIRED_BEFORE_MADGRAPH",
+  "point_id": "replace_me",
+  "masses_gev": {
+    "h125": 125.0,
+    "phi": null,
+    "A": null,
+    "Hpm": null
+  },
+  "mixing": {
+    "sin_beta_minus_alpha": null,
+    "tan_beta": null
+  },
+  "potential": {
+    "lambda1": null,
+    "lambda2": null,
+    "lambda3": null,
+    "lambda4": null,
+    "lambda5": null,
+    "lambda6": null,
+    "lambda7": null,
+    "m12_squared_gev2": null
+  },
+  "production": {
+    "g_h125_phi_phi": null,
+    "g_h125_phi_phi_convention": "must be stated",
+    "kappa_top_h125": null,
+    "gluon_fusion_scheme": "full_loop_or_HEFT_must_be_stated"
+  },
+  "phi_decay": {
+    "total_width_gev": null,
+    "BR_bb": null,
+    "BR_tautau": null,
+    "BR_WW": null,
+    "BR_ZZ": null,
+    "BR_gammagamma": null,
+    "BR_Zgamma": null,
+    "BR_gg": null,
+    "BR_hh": null
+  },
+  "provenance": {
+    "scan_csv": null,
+    "scan_row": null,
+    "2hdmc_version": "1.8.0",
+    "ufo_name": null,
+    "ufo_hash": null
+  }
+}

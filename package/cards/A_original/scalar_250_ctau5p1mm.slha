@@ -1,0 +1,15 @@
+# TOY scalar card for plumbing tests. Not the paper UFO/param card.
+BLOCK MASS
+  9900035  2.50000000E+02  # S
+
+DECAY 9900035 3.86915648E-14  # ctau = 5.1 mm
+  2.50000000E-01  2   5  -5   # S -> b b~
+  5.00000000E-01  2  24 -24   # S -> W+ W-
+  2.00000000E-01  2  23  23   # S -> Z Z
+  5.00000000E-02  2  21  21   # S -> g g
+
+BLOCK QNUMBERS 9900035  # S
+  1 0  # 3 times electric charge
+  2 1  # 2S+1: scalar
+  3 1  # colour singlet
+  4 0  # self-conjugate

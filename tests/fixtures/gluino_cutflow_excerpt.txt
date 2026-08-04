@@ -1,0 +1,29 @@
+All Events:                                       9.476625e+03
+
+High-pT Jet Selection [%]:                        9.981456e+01
+Event has >= 1 DV passing [%]:
+High-pT Fiducial [%]:                             9.981456e+01
+High-pT R_vertex > 4 mm [%]:                      2.971822e+01
+High-pT Have track with |d_0| > 2 mm [%]:         2.971822e+01
+High-pT Selected Decay Product >= 5 [%]:          2.971822e+01
+High-pT Invariant Mass > 10 GeV [%]:              2.971822e+01
+
+Trackless Jet Selection [%]:                      1.000000e+02
+Event has >= 1 DV passing [%]:
+Trackless Fiducial [%]:                           1.000000e+02
+Trackless R_vertex > 4 mm [%]:                    2.974913e+01
+Trackless Have track with |d_0| > 2 mm [%]:       2.974913e+01
+Trackless Selected Decay Product >= 5 [%]:        2.974913e+01
+Trackless Invariant Mass > 10 GeV [%]:            2.974913e+01
+
+High-pT Acc:                                      2.816284e+03
+High-pT Acc x Eff:                                2.520908e+03
+Trackless Acc:                                    2.819213e+03
+Trackless Acc x Eff:                              2.052094e+00
+
+High-pT Acc [%]:                                  2.971822e+01
+High-pT Acc x Eff [%]:                            2.660133e+01
+Trackless Acc [%]:                                2.974913e+01
+Trackless Acc x Eff [%]:                          2.165427e-02
+
+The inclusive cross section after merging is:     4.949932e-13 mb

@@ -1,0 +1,45 @@
+schema_version: 1
+benchmark: scalar-recast-v0
+channels:
+  bb:
+    products: [b, bbar]
+    charged_tracks_expected: HIGH
+    jets_expected: "two hadronic jets before showering/hadronization effects"
+    displaced_vertex_possible: true
+    dv_jets_utility: HIGH
+    main_risk: "b-hadron secondary decays and topology-dependent vertex efficiency"
+  gg:
+    products: [g, g]
+    charged_tracks_expected: HIGH_AFTER_HADRONIZATION
+    jets_expected: "two hadronic jets before showering/hadronization effects"
+    displaced_vertex_possible: true
+    dv_jets_utility: HIGH
+    main_risk: "hadronization and applicability of efficiencies derived for the SUSY topology"
+  gammagamma:
+    products: [gamma, gamma]
+    charged_tracks_expected: LOW
+    jets_expected: "no natural hadronic jets from the LLP decay"
+    displaced_vertex_possible: false
+    dv_jets_utility: LOW
+    main_risk: "no natural multitrack hadronic DV; photons may be clustered by the toy detector"
+  Zgamma_hadronic_Z:
+    products: [Z, gamma]
+    charged_tracks_expected: MEDIUM_IF_Z_HADRONIC
+    jets_expected: "hadronic Z jets plus one photon"
+    displaced_vertex_possible: CONDITIONAL
+    dv_jets_utility: MEDIUM
+    main_risk: "depends on Z decay and unresolved photon/jet treatment"
+  WW_hadronic:
+    products: [W_plus, W_minus]
+    charged_tracks_expected: HIGH_IF_HADRONIC
+    jets_expected: "multiple jets for fully hadronic decays"
+    displaced_vertex_possible: true
+    dv_jets_utility: HIGH
+    main_risk: "W decay mode, off-shell effects and topology-dependent efficiency"
+  ZZ_hadronic:
+    products: [Z, Z]
+    charged_tracks_expected: HIGH_IF_HADRONIC
+    jets_expected: "multiple jets for fully hadronic decays"
+    displaced_vertex_possible: true
+    dv_jets_utility: HIGH
+    main_risk: "Z decay mode, off-shell effects and topology-dependent efficiency"

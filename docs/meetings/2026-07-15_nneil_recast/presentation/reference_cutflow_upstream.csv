@@ -1,0 +1,9 @@
+stage,label_es,high_pt_percent,high_pt_count,trackless_percent,trackless_count
+jet_selection,Selección de jets,99.81456,9459.0515466,100.0,9476.625
+fiducial,Fiducial,99.81456,9459.0515466,100.0,9476.625
+r_vertex_gt_4_mm,$R_{xy}$ > 4 mm,29.71822,2816.284266075,29.74913,2819.2134908625
+track_d0_gt_2_mm,$|d_0|$ > 2 mm,29.71822,2816.284266075,29.74913,2819.2134908625
+selected_decay_products_ge_5,$\geq$5 productos cargados,29.71822,2816.284266075,29.74913,2819.2134908625
+invariant_mass_gt_10_gev,$m_{DV}$ > 10 GeV,29.71822,2816.284266075,29.74913,2819.2134908625
+acceptance,Aceptación,29.71822,2816.284,29.74913,2819.213
+acceptance_times_efficiency,Aceptación × eficiencia,26.60133,2520.908,0.02165427,2.052094

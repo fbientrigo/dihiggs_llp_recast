@@ -1,0 +1,43 @@
+# check_readiness.sh — captured 2026-07-15T12:39:02-04:00
+
+## Run 1: bare login PATH (no toolchain.env sourced)
+```
+=== Stage 0: package tools ===
+[OK]   python3      /home/fabi/anaconda3/bin/python3
+[OK]   make         /usr/bin/make
+=== Stage 1: recast stack ===
+[OK]   g++          /usr/bin/g++
+[MISS] fastjet-config not found
+[MISS] pythia8-config not found
+=== Stage 2: event generation ===
+[MISS] mg5_aMC      not found
+[MISS] Mathematica  not found
+[MISS] UPSTREAM_ROOT is unset or not a directory
+[PARTIAL] 5 component(s) missing. Stage 0 may still run.
+rc=0
+```
+
+## Run 2: with configs/toolchain.env prefixes on PATH + UPSTREAM_ROOT set
+PYTHIA8=$HOME/.local/pythia8308  FASTJET3=$HOME/.local/fastjet-3.4.0  MG5_HOME=$HOME/.local/mg5amcnlo/3.5.3
+UPSTREAM_ROOT=/home/fabi/atlas_dihiggs/llp_recast/.local/upstream_ab_work (work copy of external/recastingCodes @ d4047c74)
+```
+=== Stage 0: package tools ===
+[OK]   python3      /home/fabi/anaconda3/bin/python3
+[OK]   make         /usr/bin/make
+=== Stage 1: recast stack ===
+[OK]   g++          /usr/bin/g++
+[OK]   fastjet-config /home/fabi/.local/fastjet-3.4.0/bin/fastjet-config
+[OK]   pythia8-config /home/fabi/.local/pythia8308/bin/pythia8-config
+=== Stage 2: event generation ===
+[OK]   mg5_aMC      /home/fabi/.local/mg5amcnlo/3.5.3/bin/mg5_aMC
+[MISS] Mathematica  not found
+[OK]   UPSTREAM_ROOT /home/fabi/atlas_dihiggs/llp_recast/.local/upstream_ab_work
+[PARTIAL] 1 component(s) missing. Stage 0 may still run.
+rc=0
+```
+
+## Note
+check_readiness.sh probes PATH only. Pythia8, FastJet and MadGraph are installed under
+prefixes recorded in configs/toolchain.env and are NOT on the default login PATH, so Run 1
+reports them as [MISS]. Run 2 is the accurate picture of this machine. Mathematica is
+genuinely absent (only needed for a FeynRules/NLOCT UFO build, i.e. Mission 02 Track P-full-loop).

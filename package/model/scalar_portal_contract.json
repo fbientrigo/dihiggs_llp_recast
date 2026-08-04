@@ -1,0 +1,35 @@
+{
+  "status": "MODEL_CONTRACT_REQUIRES_REAL_UFO",
+  "process": "g g > h_offshell > s s",
+  "sqrt_s_TeV": 13.0,
+  "llp": {
+    "name": "S",
+    "pdg": 9900035,
+    "spin_states": 1,
+    "color_representation": 1,
+    "self_conjugate": true
+  },
+  "required_per_point": [
+    "point_id",
+    "mass_gev",
+    "total_width_gev",
+    "ctau_mm",
+    "BR_bb",
+    "BR_WW",
+    "BR_ZZ",
+    "BR_gg",
+    "sigma_production_fb",
+    "ufo_model_name",
+    "generator_version",
+    "random_seed"
+  ],
+  "identity_checks": {
+    "ctau_formula": "ctau_mm = 1.973269804e-13 / total_width_gev",
+    "branching_ratio_sum_tolerance": 1e-06
+  },
+  "forbidden_mappings": [
+    "paper sin(theta) is not 2HDM sin(beta-alpha)",
+    "paper lambda is not automatically 2HDM lambda6 or lambda7",
+    "production cross section cannot be inferred from total width"
+  ]
+}

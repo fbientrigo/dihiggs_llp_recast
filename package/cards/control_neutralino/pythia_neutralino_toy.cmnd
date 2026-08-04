@@ -1,0 +1,24 @@
+Main:numberOfEvents = 500
+Main:timesAllowErrors = 20
+Init:showChangedSettings = on
+Init:showChangedParticleData = off
+Next:numberCount = 100
+Next:numberShowInfo = 0
+Next:numberShowProcess = 0
+Next:numberShowEvent = 0
+
+Beams:frameType = 4
+LHEFInputs:nSubruns = 1
+Main:subrun = 0
+Beams:LHEF = events/neutralino_pair_toy.lhe
+
+SLHA:readFrom = 2
+SLHA:file = cards/control_neutralino/neutralino_250_ctau5p1mm.slha
+ParticleDecays:limitTau0 = off
+
+Merging:doKTMerging = off
+PartonLevel:MPI = off
+PartonLevel:ISR = on
+PartonLevel:FSR = on
+HadronLevel:Hadronize = on
+Tune:pp = 21

@@ -1,0 +1,30 @@
+{
+  "source": "arXiv:2606.01681v1 Table II",
+  "luminosity_fb_inv": 139.0,
+  "exclusion_event_anchor": 3.0,
+  "cross_sections_fb": [0.1, 1.0, 10.0, 100.0],
+  "benchmarks": [
+    {
+      "point_id": "paper_S100_ctau290mm",
+      "mass_gev": 100.0,
+      "ctau_mm": 290.0,
+      "eff_original": 0.0021,
+      "eff_modified": 0.015
+    },
+    {
+      "point_id": "paper_S170_ctau55mm",
+      "mass_gev": 170.0,
+      "ctau_mm": 55.0,
+      "eff_original": 0.012,
+      "eff_modified": 0.055
+    },
+    {
+      "point_id": "paper_S250_ctau5p1mm",
+      "mass_gev": 250.0,
+      "ctau_mm": 5.1,
+      "eff_original": 0.029,
+      "eff_modified": 0.11
+    }
+  ],
+  "quality_flag": "PAPER_TABLE_PROXY_NOT_EXCLUSION"
+}

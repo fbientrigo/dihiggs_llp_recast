@@ -1,0 +1,20 @@
+schema_version: 1
+benchmark: scalar-recast-v0
+classification: RECONSTRUCTED
+assumptions:
+  - id: heft_scope
+    statement: "HEFT may be used only for an infrastructure smoke test, never for final scalar production."
+  - id: production_model
+    statement: "Physical production requires the correct treatment of gg -> h* -> S S in an approved UFO/model setup."
+  - id: hardcoded_llp
+    statement: "The original recast identifies neutralino-like LLPs through hardcoded PDG IDs 1000022, 1000023 and 1000024."
+  - id: scalar_pdg
+    statement: "The LLP PDG ID must be parameterized before the scalar can be analyzed."
+  - id: jet_algorithm
+    statement: "The paper describes anti-kt R=0.4, while Simpler_ToyDetector.cc uses kt R=0.4."
+  - id: visible_photons
+    statement: "Visible photons are not explicitly removed from the generic FastJet inputs and may therefore be clustered into jets."
+  - id: immutable_baseline
+    statement: "The SUSY baseline and its upstream physics logic must not be modified."
+  - id: efficiency_domain
+    statement: "ATLAS efficiency parameterizations are approximate and topology dependent; scalar channels may lie outside their validated domain."

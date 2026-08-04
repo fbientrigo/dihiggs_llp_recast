@@ -1,0 +1,25 @@
+{
+  "status": "EXAMPLE_CONTRACT_NOT_MADGRAPH_PARAM_CARD",
+  "point_id": "paper_S250_sintheta1e-7",
+  "model_track": "paper_phenomenological_scalar",
+  "mass_gev": 250.0,
+  "sin_theta": 1e-7,
+  "lambda_dimensionless": 1.0,
+  "hss_vertex_convention": "L_int = -(lambda/2)*v*h*S*S; vertex = -i*lambda*v",
+  "total_width_gev": 3.86915648e-14,
+  "ctau_mm": 5.1,
+  "decays": {
+    "note": "Replace with validated paper-model branching fractions; values below are only the package plumbing example.",
+    "BR_bb": 0.25,
+    "BR_WW": 0.50,
+    "BR_ZZ": 0.20,
+    "BR_gg": 0.05
+  },
+  "generation": {
+    "sqrt_s_tev": 13.0,
+    "events_smoke": 10000,
+    "events_cutflow_target": 1000000,
+    "random_seed": 13001,
+    "k_factor": 1.6
+  }
+}

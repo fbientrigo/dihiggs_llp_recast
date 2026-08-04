@@ -1,0 +1,305 @@
+{
+  "label": "TOY_LIFETIME_PLUMBING_TEST",
+  "mission": "01B",
+  "root_cause": "LesHouches:setLifetime defaults to 1 (tau leptons only), so a QNUMBERS/SLHA LLP arriving final-state from an LHE takes its decay time from VTIMUP, which the toy generator writes as 0. The isResonance flag was never the cause: ResonanceDecays displaces daughters correctly whenever tau > 0.",
+  "recommended_repair": "setlifetime",
+  "recommendation_reason": "The staged path decays the LLP at hadron level, where PYTHIA cannot decay W/Z resonances. For this benchmark BR(WW)+BR(ZZ)=0.70, so 70% of decays leave stable W/Z bosons, yielding zero reconstructable tracks and zero DV acceptance.",
+  "verdicts": {
+    "baseline": {
+      "failed_criteria": [
+        1,
+        3,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "verdict": "FAIL"
+    },
+    "setlifetime": {
+      "failed_criteria": [
+        1
+      ],
+      "verdict": "FAIL"
+    },
+    "staged": {
+      "failed_criteria": [
+        8,
+        9
+      ],
+      "verdict": "FAIL"
+    }
+  },
+  "modes": {
+    "baseline": {
+      "label": "TOY_LIFETIME_PLUMBING_TEST",
+      "mode": "baseline",
+      "llp_pdg": 9900035,
+      "particle_data": {
+        "known_pre_init": false,
+        "m0_gev": 250,
+        "mWidth_gev": 3.8691565e-14,
+        "tau0_mm": 5.1,
+        "isResonance": true,
+        "mayDecay": true,
+        "n_decay_channels": 4,
+        "les_houches_set_lifetime": 1
+      },
+      "counts": {
+        "events_processed": 500,
+        "terminal_llps": 1000,
+        "events_with_two_final_llps": 0,
+        "terminal_llps_status_minus22": 0,
+        "llps_with_displaced_daughters": 0,
+        "llps_Rxy_gt_4mm": 0
+      },
+      "distributions": {
+        "betaGamma_mean": 1.8227731,
+        "tau_mean_mm": 0,
+        "tau_std_mm": 0,
+        "L3D_mean_mm": 0,
+        "L3D_std_mm": 0,
+        "Rxy_mean_mm": 0,
+        "Rxy_std_mm": 0,
+        "n": 1000
+      },
+      "acceptance_criteria": [
+        {
+          "criterion": 1,
+          "requirement": "isResonance == false after initialization",
+          "pass": false,
+          "measured": "isResonance=True"
+        },
+        {
+          "criterion": 2,
+          "requirement": "exactly two final LLPs before hadron-level processing",
+          "pass": null,
+          "measured": "0/500 events (not separable: single-call path)",
+          "note": "not applicable: single-call path never exposes a pre-hadron phase"
+        },
+        {
+          "criterion": 3,
+          "requirement": "sampled tau values are nonzero",
+          "pass": false,
+          "measured": "mean tau=0.0000 mm"
+        },
+        {
+          "criterion": 4,
+          "requirement": "LLPs are not process-level status -22 decays",
+          "pass": true,
+          "measured": "terminal LLPs with status -22 in event record=0"
+        },
+        {
+          "criterion": 5,
+          "requirement": "daughters inherit displaced production vertices",
+          "pass": false,
+          "measured": "0/1000 LLPs"
+        },
+        {
+          "criterion": 6,
+          "requirement": "7.9 mm < mean L3D < 9.8 mm (500-event toy sample)",
+          "pass": false,
+          "measured": "mean L3D=0.0000 mm"
+        },
+        {
+          "criterion": 7,
+          "requirement": "at least one LLP with Rxy > 4 mm",
+          "pass": false,
+          "measured": "0/1000 LLPs"
+        },
+        {
+          "criterion": 8,
+          "requirement": "at least one event survives DV geometrical acceptance",
+          "pass": false,
+          "measured": "Trackless Invariant Mass > 10 GeV = 0.0%"
+        },
+        {
+          "criterion": 9,
+          "requirement": "recast reports nonzero Trackless acceptance before efficiency",
+          "pass": false,
+          "measured": "Trackless Acc = 0.0%"
+        }
+      ]
+    },
+    "setlifetime": {
+      "label": "TOY_LIFETIME_PLUMBING_TEST",
+      "mode": "setlifetime",
+      "llp_pdg": 9900035,
+      "particle_data": {
+        "known_pre_init": false,
+        "m0_gev": 250,
+        "mWidth_gev": 3.8691565e-14,
+        "tau0_mm": 5.1,
+        "isResonance": true,
+        "mayDecay": true,
+        "n_decay_channels": 4,
+        "les_houches_set_lifetime": 2
+      },
+      "counts": {
+        "events_processed": 500,
+        "terminal_llps": 1000,
+        "events_with_two_final_llps": 0,
+        "terminal_llps_status_minus22": 0,
+        "llps_with_displaced_daughters": 1000,
+        "llps_Rxy_gt_4mm": 590
+      },
+      "distributions": {
+        "betaGamma_mean": 1.834188,
+        "tau_mean_mm": 5.0266741,
+        "tau_std_mm": 5.041705,
+        "L3D_mean_mm": 9.3390004,
+        "L3D_std_mm": 9.9995654,
+        "Rxy_mean_mm": 7.9188148,
+        "Rxy_std_mm": 8.6431462,
+        "n": 1000
+      },
+      "acceptance_criteria": [
+        {
+          "criterion": 1,
+          "requirement": "isResonance == false after initialization",
+          "pass": false,
+          "measured": "isResonance=True"
+        },
+        {
+          "criterion": 2,
+          "requirement": "exactly two final LLPs before hadron-level processing",
+          "pass": null,
+          "measured": "0/500 events (not separable: single-call path)",
+          "note": "not applicable: single-call path never exposes a pre-hadron phase"
+        },
+        {
+          "criterion": 3,
+          "requirement": "sampled tau values are nonzero",
+          "pass": true,
+          "measured": "mean tau=5.0267 mm"
+        },
+        {
+          "criterion": 4,
+          "requirement": "LLPs are not process-level status -22 decays",
+          "pass": true,
+          "measured": "terminal LLPs with status -22 in event record=0"
+        },
+        {
+          "criterion": 5,
+          "requirement": "daughters inherit displaced production vertices",
+          "pass": true,
+          "measured": "1000/1000 LLPs"
+        },
+        {
+          "criterion": 6,
+          "requirement": "7.9 mm < mean L3D < 9.8 mm (500-event toy sample)",
+          "pass": true,
+          "measured": "mean L3D=9.3390 mm"
+        },
+        {
+          "criterion": 7,
+          "requirement": "at least one LLP with Rxy > 4 mm",
+          "pass": true,
+          "measured": "590/1000 LLPs"
+        },
+        {
+          "criterion": 8,
+          "requirement": "at least one event survives DV geometrical acceptance",
+          "pass": true,
+          "measured": "Trackless Invariant Mass > 10 GeV = 19.2%"
+        },
+        {
+          "criterion": 9,
+          "requirement": "recast reports nonzero Trackless acceptance before efficiency",
+          "pass": true,
+          "measured": "Trackless Acc = 19.2%"
+        }
+      ]
+    },
+    "staged": {
+      "label": "TOY_LIFETIME_PLUMBING_TEST",
+      "mode": "staged",
+      "llp_pdg": 9900035,
+      "particle_data": {
+        "known_pre_init": false,
+        "m0_gev": 250,
+        "mWidth_gev": 3.8691565e-14,
+        "tau0_mm": 5.1,
+        "isResonance": false,
+        "mayDecay": true,
+        "n_decay_channels": 4,
+        "les_houches_set_lifetime": 1
+      },
+      "counts": {
+        "events_processed": 500,
+        "terminal_llps": 1000,
+        "events_with_two_final_llps": 500,
+        "terminal_llps_status_minus22": 0,
+        "llps_with_displaced_daughters": 1000,
+        "llps_Rxy_gt_4mm": 578
+      },
+      "distributions": {
+        "betaGamma_mean": 1.8750222,
+        "tau_mean_mm": 4.6389325,
+        "tau_std_mm": 4.3780463,
+        "L3D_mean_mm": 8.6774609,
+        "L3D_std_mm": 8.8719808,
+        "Rxy_mean_mm": 7.1060337,
+        "Rxy_std_mm": 6.8878579,
+        "n": 1000
+      },
+      "acceptance_criteria": [
+        {
+          "criterion": 1,
+          "requirement": "isResonance == false after initialization",
+          "pass": true,
+          "measured": "isResonance=False"
+        },
+        {
+          "criterion": 2,
+          "requirement": "exactly two final LLPs before hadron-level processing",
+          "pass": true,
+          "measured": "500/500 events"
+        },
+        {
+          "criterion": 3,
+          "requirement": "sampled tau values are nonzero",
+          "pass": true,
+          "measured": "mean tau=4.6389 mm"
+        },
+        {
+          "criterion": 4,
+          "requirement": "LLPs are not process-level status -22 decays",
+          "pass": true,
+          "measured": "terminal LLPs with status -22 in event record=0"
+        },
+        {
+          "criterion": 5,
+          "requirement": "daughters inherit displaced production vertices",
+          "pass": true,
+          "measured": "1000/1000 LLPs"
+        },
+        {
+          "criterion": 6,
+          "requirement": "7.9 mm < mean L3D < 9.8 mm (500-event toy sample)",
+          "pass": true,
+          "measured": "mean L3D=8.6775 mm"
+        },
+        {
+          "criterion": 7,
+          "requirement": "at least one LLP with Rxy > 4 mm",
+          "pass": true,
+          "measured": "578/1000 LLPs"
+        },
+        {
+          "criterion": 8,
+          "requirement": "at least one event survives DV geometrical acceptance",
+          "pass": false,
+          "measured": "Trackless Invariant Mass > 10 GeV = 0.0%"
+        },
+        {
+          "criterion": 9,
+          "requirement": "recast reports nonzero Trackless acceptance before efficiency",
+          "pass": false,
+          "measured": "Trackless Acc = 0.0%"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,10 @@
+stage,A_original,B_modified,B_minus_A,label
+all_events,500.0,500.0,0.0,TOY_LHE_PLUMBING_TEST
+trackless_jet_selection_pct,25.0,51.6,26.6,TOY_LHE_PLUMBING_TEST
+trackless_fiducial_pct,25.0,51.6,26.6,TOY_LHE_PLUMBING_TEST
+trackless_rvertex_gt_4mm_pct,0.0,0.0,0.0,TOY_LHE_PLUMBING_TEST
+trackless_track_d0_gt_2mm_pct,0.0,0.0,0.0,TOY_LHE_PLUMBING_TEST
+trackless_selected_decay_products_ge_5_pct,0.0,0.0,0.0,TOY_LHE_PLUMBING_TEST
+trackless_invariant_mass_gt_10gev_pct,0.0,0.0,0.0,TOY_LHE_PLUMBING_TEST
+trackless_acc_pct,0.0,0.0,0.0,TOY_LHE_PLUMBING_TEST
+trackless_acc_x_eff_pct,0.0,0.0,0.0,TOY_LHE_PLUMBING_TEST

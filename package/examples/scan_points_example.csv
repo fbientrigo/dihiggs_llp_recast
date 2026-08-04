@@ -1,0 +1,4 @@
+point_id,m_phi,positivity_ok,unitarity_ok,perturbativity_ok,total_width,width_bb,width_tautau,width_WW,width_ZZ,width_gaga,width_Zga,width_gg,width_hh
+toy_scan_S100,100.0,1,1,1,6.80437863e-16,5.10328397e-16,3.40218932e-17,6.80437863e-17,3.40218932e-17,0.0,0.0,3.40218932e-17,0.0
+toy_scan_S170,170.0,1,1,1,3.58776328e-15,1.07632898e-15,0.0,1.79388164e-15,5.38164492e-16,0.0,0.0,1.79388164e-16,0.0
+toy_scan_S250,250.0,1,1,1,3.86915648e-14,9.67289120e-15,0.0,1.93457824e-14,7.73831296e-15,0.0,0.0,1.93457824e-15,0.0

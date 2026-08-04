@@ -1,0 +1,81 @@
+schema_version: 1
+benchmark: scalar-recast-v0
+classification: RECONSTRUCTED
+generation_status: NOT_RUN
+physics_validation: NOT_RUN
+generation_allowed: false
+
+fields:
+  process_description:
+    value: "gluon fusion through an off-shell Higgs-like mediator to two LLP scalars: gg -> h* -> S S"
+    state: EXACT
+  scalar_pdg_id:
+    value: TODO_SELECT
+    state: TODO
+  scalar_mass_gev:
+    value: TODO_SELECT
+    state: TODO
+  scalar_width_gev:
+    value: TODO_CALCULATE_OR_SELECT
+    state: TODO
+  scalar_proper_lifetime:
+    value: TODO_SELECT_WITH_UNIT
+    state: TODO
+  width_lifetime_relation:
+    value: "Gamma = hbar / tau"
+    hbar_gev_s: 6.582119569e-25
+    state: EXACT
+  production:
+    value: "gg -> h* -> S S"
+    implementation: TODO_DEFINE_WITH_CORRECT_UFO
+    state: TODO
+  ufo_model:
+    value: TODO_SELECT_CORRECT_UFO
+    state: TODO
+  numerical_couplings:
+    value: TODO_FROM_APPROVED_MODEL_POINT
+    state: TODO
+  input_formats:
+    value:
+      - "MG5 process card"
+      - "UFO model"
+      - "SLHA/param card with mass, width and complete decay table"
+      - "Pythia cmnd with LHE path, lifetime handling and recorded seed"
+    state: EXACT
+  output_formats:
+    value:
+      - "LHE (generation output; not stored in git)"
+      - "compact cutflow JSON/CSV with manifest"
+    state: EXACT
+  known_local_versions:
+    value:
+      madgraph: "3.5.3; help and non-generating MSSM_SLHA2 import only"
+      pythia: "8.308"
+      fastjet: "3.4.0"
+      compiler: "GCC/G++ 13.3.0"
+    state: EXACT
+  reference_analysis:
+    value: "ATLAS-SUSY-2018-13_GCottin upstream commit d4047c744062094c9f88e507bb1ccf69e9fe88d6"
+    state: EXACT
+  scalar_decay_branching_ratios:
+    value: TODO_DECLARE_COMPLETE_NORMALIZED_TABLE
+    state: TODO
+  baseline_to_scalar_mapping:
+    value: "replace the SUSY neutralino LLP conceptually with S after Gate B; do not modify the baseline path"
+    state: INFERRED
+
+conditions_to_start_generation:
+  - condition: "Gate B is closed and the SUSY baseline regression contract is defined"
+    state: TODO
+  - condition: "correct UFO and production implementation are selected"
+    state: TODO
+  - condition: "scalar PDG ID and mass are approved"
+    state: TODO
+  - condition: "width and proper lifetime are mutually consistent through Gamma = hbar / tau"
+    state: TODO
+  - condition: "complete decay modes and branching ratios are approved"
+    state: TODO
+  - condition: "LLP PDG is parameterized outside the immutable upstream source"
+    state: TODO
+  - condition: "commands, seeds, cards, versions and checksums will be recorded in a manifest"
+    state: TODO

@@ -1,0 +1,12 @@
+# scalar-recast-v0 — RECONSTRUCTED, NOT_RUN, deliberately incomplete.
+# This template is not executable until the correct UFO and particle names are approved.
+
+import model TODO_CORRECT_UFO
+define scalar_llp = TODO_SCALAR_PARTICLE_NAME
+generate g g > TODO_HIGGS_MEDIATOR > scalar_llp scalar_llp
+output TODO_OUTPUT_DIRECTORY
+
+# Infrastructure smoke only; HEFT does not define the final scalar signal contract:
+# import model heft
+# generate g g > h
+# Never label that smoke process as physical gg -> h* -> S S production.

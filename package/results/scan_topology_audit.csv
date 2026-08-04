@@ -1,0 +1,4 @@
+row_index,point_id,m_phi,total_width,hadronic_parent_fraction,photon_fraction,tau_fraction,hh_fraction,dv_jets_topology_screen,warning
+0,toy_scan_S100,100.0,6.80437863e-16,0.9499999997795537,0.0,0.0500000000734821,0.0,HIGH,topology screening only; still requires event simulation
+1,toy_scan_S170,170.0,3.58776328e-15,0.9999999988850994,0.0,0.0,0.0,HIGH,topology screening only; still requires event simulation
+2,toy_scan_S250,250.0,3.86915648e-14,1.0,0.0,0.0,0.0,HIGH,topology screening only; still requires event simulation

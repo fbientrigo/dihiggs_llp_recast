@@ -1,0 +1,75 @@
+\documentclass[9pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage[margin=1.2cm]{geometry}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlist{nosep,leftmargin=1.35em}
+\definecolor{ok}{RGB}{25,125,70}\definecolor{warn}{RGB}{190,125,15}\definecolor{stop}{RGB}{180,45,45}
+\newcommand{\head}[1]{\vspace{0.35em}\textbf{\large #1}\par\vspace{0.1em}}
+\begin{document}
+{\LARGE\bfseries Recast DV+jets: estado para N. Neil}\hfill 15-07-2026
+
+\head{Objetivo}
+Validar el recast público ATLAS DV+jets sobre la muestra strong-bm1 antes de reemplazar, conceptualmente, el LLP neutralino de la línea base por un escalar $S$ producido vía $gg\to h^*\to SS$.
+
+\head{Qué está listo y qué sigue bloqueado}
+\begin{tabular}{p{0.60\linewidth}l}
+\toprule
+Gate A / build upstream & \textcolor{ok}{\textbf{VALIDATED}}\\
+Stack Pythia/FastJet/MadGraph & \textcolor{ok}{\textbf{PASS}}\\
+A/B selección de jets (toy) & \textcolor{ok}{\textbf{PASS}}\\
+Transporte de vida del LLP & \textcolor{stop}{\textbf{BLOCKED}}\\
+UFO físico (2HDM) & \textcolor{stop}{\textbf{MISSING}}\\
+Gate B (strong-bm1) & \textcolor{stop}{\textbf{BLOCKED}}\\
+Adaptación escalar & \textbf{NOT STARTED}\\
+\bottomrule
+\end{tabular}
+
+Compilar valida el toolchain y el linking; no valida la física del cutflow.
+
+\head{Referencia upstream distribuida --- no reproducción local}
+strong-bm1 usa 0/1/2 partones, 10.000 eventos por multiplicidad, masas 2000/850 GeV y merging CKKW--L a 500 GeV. High-$p_T$: $A=29.71822\%$, aceptación $\times$ eficiencia $=26.60133\%$. Trackless: $A=29.74913\%$, aceptación $\times$ eficiencia $=0{,}02165427\%$ (2,05 eventos ponderados; baja estadística). Estas cifras son el objetivo que Gate B tendrá que igualar, no un resultado nuestro.
+
+\head{Qué significa el DV}
+Se parte de la posición de decaimiento del LLP. La selección exige región fiducial, $R_{xy}>4$ mm, al menos un track con $|d_0|>2$ mm, $\geq5$ productos cargados y $m_{DV}>10$ GeV. Dónde cae el vértice lo deciden el boost y la vida media ($\beta\gamma c\tau$). Los jets dan trigger y selección, pero no prueban desplazamiento: el DV lo forman los tracks.
+
+\head{Utilidad para nuestros canales (BR: branching ratio)}
+\begin{tabular}{llll}
+\toprule
+$b\bar b$, $gg$ & \textbf{HIGH} & $WW/ZZ$ hadrónico & \textbf{HIGH}\\
+$Z\gamma$ con $Z$ hadrónico & \textbf{MEDIUM} & $\gamma\gamma$ & \textbf{LOW}\\
+\bottomrule
+\end{tabular}
+
+$\gamma\gamma$ no produce naturalmente el DV hadrónico multitrack que exige esta búsqueda. La utilidad es potencial: aún no es eficiencia validada.
+
+\head{Relación con los demás repositorios}
+\begin{tabular}{@{}llp{0.46\linewidth}@{}}
+\toprule
+escaneos y puntos físicos & \texttt{dihiggs}, \texttt{dihiggs\_boundary} & 2HDM: masa, anchura, $c\tau$, BR; frontera teórica y HB/HS\\
+producción y $\sigma$ & \texttt{dihiggs\_hep\_cross} & MadGraph/UFO y contrato de punto de modelo\\
+aceptación $\times$ eficiencia & \textbf{\texttt{dihiggs\_llp\_recast}} & \textbf{este repo}: recast DV+jets y cutflows\\
+resultados y artículo & \texttt{paper} & manuscrito y figuras\\
+\bottomrule
+\end{tabular}
+
+Este repo recibe un punto físico y sus eventos, y devuelve cutflows. No explora el espacio 2HDM, no sustituye la producción MadGraph y no es el repositorio del artículo.
+
+\head{Blockers reales}
+Pythia, FastJet y MadGraph 3.5.3 ya están instalados; el único bloqueo de MadGraph para producción física es el UFO. La bifurcación A/B de jets funciona (trackless: 25,0\%$\to$51,6\% sobre el mismo input), pero el LLP decae como prompt dentro de Pythia ($\tau=0$, $r_{\rm dec}=0$): el transporte de vida está bloqueado y las etapas DV quedan en cero. Gate B sobre strong-bm1 sigue pendiente del SLHA exacto y los tres LHE. Para el escalar faltan además acoplamientos, PDG, masa, anchura/vida media y BR aprobados. El C++ conserva el PDG hardcoded, y quedan por resolver $k_t$ frente a anti-$k_t$, los fotones y el dominio de las eficiencias.
+
+\head{Tres decisiones y siguiente acción}
+\begin{enumerate}
+\item Aprobar el UFO y el tratamiento físico de $gg\to h^*\to SS$.
+\item Fijar PDG, masa, vida media/anchura y tabla completa de BR del primer punto.
+\item Fijar el criterio de Gate B que habilita la parametrización escalar.
+\end{enumerate}
+Siguiente acción: cerrar Gate B sobre strong-bm1, parametrizar sólo PDG y modo de análisis, demostrar que la línea base SUSY no se mueve y sólo entonces ejecutar un smoke escalar.
+
+{\tiny Fuentes: M1 build report; M2 strong-bm1 contract report; contrato de validación; benchmarks/scalar/scalar-recast-v0; Mission 01 execution report (package/results/).}
+\end{document}

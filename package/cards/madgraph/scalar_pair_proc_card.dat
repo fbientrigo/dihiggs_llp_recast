@@ -1,0 +1,13 @@
+# TEMPLATE ONLY: replace SCALAR_UFO and particle names with a validated model.
+# The exact UFO used in arXiv:2606.01681 was not recovered.
+import model SCALAR_UFO
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+
+# For mS > mh/2 the SM-like h propagator is necessarily off shell.
+generate g g > h > s s [QCD]
+output scalar_pair_0j
+
+# Optional merged samples after the 0j process is validated:
+# add process g g > h > s s j [QCD]
+# add process g g > h > s s j j [QCD]

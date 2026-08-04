@@ -1,0 +1,7 @@
+channel,hadronic_activity,charged_tracks,dv_reconstructable,jet_trigger_relevance,expected_recast_value,main_limitation
+bb,HIGH,HIGH,YES,HIGH,HIGH,b-hadron secondary decays and topology-dependent vertex efficiency
+gg,HIGH,HIGH_AFTER_HADRONIZATION,YES,HIGH,HIGH,hadronization and efficiency-domain mismatch
+WW_hadronic,HIGH,HIGH_IF_HADRONIC,YES,HIGH,HIGH,W decay mode and possible off-shell effects
+ZZ_hadronic,HIGH,HIGH_IF_HADRONIC,YES,HIGH,HIGH,Z decay mode and possible off-shell effects
+Zgamma_hadronic_Z,MEDIUM,MEDIUM_IF_Z_HADRONIC,CONDITIONAL,MEDIUM,MEDIUM,depends on hadronic Z decay and photon treatment
+gammagamma,LOW,LOW,NO,LOW,LOW,no natural multitrack hadronic DV

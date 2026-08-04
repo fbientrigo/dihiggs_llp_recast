@@ -1,0 +1,16 @@
+# scalar-recast-v0 — RECONSTRUCTED, NOT_RUN.
+# Replace every TODO from an approved model point; do not invent BR values.
+
+BLOCK MASS
+  TODO_SCALAR_PDG  TODO_SCALAR_MASS_GEV  # S
+
+DECAY TODO_SCALAR_PDG  TODO_SCALAR_WIDTH_GEV  # Gamma = hbar / tau
+# TODO_BR_BB          2    5   -5   # S -> b bbar
+# TODO_BR_GG          2   21   21   # S -> g g
+# TODO_BR_GAMMAGAMMA  2   22   22   # S -> gamma gamma
+# TODO_BR_ZGAMMA      2   23   22   # S -> Z gamma
+# TODO_BR_WW          2   24  -24   # S -> W+ W-
+# TODO_BR_ZZ          2   23   23   # S -> Z Z
+
+# Required before use: complete normalized decay table, explicit units and
+# consistency between TODO_SCALAR_WIDTH_GEV and TODO_PROPER_LIFETIME.
