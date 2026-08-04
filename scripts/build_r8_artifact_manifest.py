@@ -19,6 +19,7 @@ TRACKED_PATHS = [
     "scripts/build_r8_results.py",
     "scripts/run_r8_reproduction.sh",
     "scripts/verify_r8_artifacts.py",
+    "scripts/compare_r8_manifests.py",
     "src/r8_geometry_driver.cc",
     "src/dvrecast/r8_cutflow.py",
     "src/dvrecast/r8_geometry.py",

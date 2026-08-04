@@ -92,7 +92,16 @@ if [[ "${VERIFY_ONLY}" == "1" ]]; then
 fi
 
 # --------------------------------------------------------------------------
-step "1/13 Fetch or locate both canonical LHE inputs"
+REFERENCE_MANIFEST="${RESULTS_DIR}/artifact_manifest.reference.json"
+step "1/15 Snapshot the previously committed reference manifest"
+if [[ -f "${RESULTS_DIR}/artifact_manifest.json" ]]; then
+  cp "${RESULTS_DIR}/artifact_manifest.json" "${REFERENCE_MANIFEST}"
+  echo "[OK] preserved the committed manifest for post-run comparison (${REFERENCE_MANIFEST})"
+else
+  echo "[INFO] no committed artifact_manifest.json found; nothing to compare the fresh run against"
+fi
+
+step "2/15 Fetch or locate both canonical LHE inputs"
 mkdir -p "${CACHE_DIR}"
 fetch_lhe() {
   local run="$1" canonical_path="$2" expected_sha="$3" dest="$4"
@@ -107,15 +116,15 @@ fetch_lhe() {
 fetch_lhe run_01 "${RUN01_CANONICAL_PATH}" "${RUN01_SHA256}" "${CACHE_DIR}/canonical_run_01.lhe.gz"
 fetch_lhe run_02 "${RUN02_CANONICAL_PATH}" "${RUN02_SHA256}" "${CACHE_DIR}/canonical_run_02.lhe.gz"
 
-step "2/13 Verify SHA-256 of both canonical LHE inputs"
+step "3/15 Verify SHA-256 of both canonical LHE inputs"
 sha256_check "${CACHE_DIR}/canonical_run_01.lhe.gz" "${RUN01_SHA256}"
 sha256_check "${CACHE_DIR}/canonical_run_02.lhe.gz" "${RUN02_SHA256}"
 
-step "3/13 Verify 1000 events per canonical LHE input"
+step "4/15 Verify 1000 events per canonical LHE input"
 verify_event_count "${CACHE_DIR}/canonical_run_01.lhe.gz" 1000
 verify_event_count "${CACHE_DIR}/canonical_run_02.lhe.gz" 1000
 
-step "4/13 PDG relabel (9000006 -> 35), atomic publish on validation pass only"
+step "5/15 PDG relabel (9000006 -> 35), atomic publish on validation pass only"
 python3 scripts/relabel_lhe_pdg.py \
   "${CACHE_DIR}/canonical_run_01.lhe.gz" "${DATA_DIR}/relabelled_run_01.lhe.gz" \
   --from-pdg 9000006 --to-pdg 35 --expected-events 1000 --expected-relabelled 2000
@@ -123,10 +132,19 @@ python3 scripts/relabel_lhe_pdg.py \
   "${CACHE_DIR}/canonical_run_02.lhe.gz" "${DATA_DIR}/relabelled_run_02.lhe.gz" \
   --from-pdg 9000006 --to-pdg 35 --expected-events 1000 --expected-relabelled 2000
 
-step "5/13 Compile the patched upstream recast (recast_2301_13866)"
+step "6/15 Bootstrap and verify the locked upstream revision"
+# build_patched_upstream.sh only checks that the submodule working tree is
+# clean, not that it is checked out at configs/upstream.lock.json's pinned
+# commit: a clean-but-wrong revision would otherwise build and report
+# results from the wrong upstream physics code without any error. Bootstrap
+# (sync + checkout the locked commit) and then verify it explicitly first.
+./scripts/bootstrap_upstream.sh
+python3 scripts/check_upstream_layout.py --root external/recastingCodes
+
+step "7/15 Compile the patched upstream recast (recast_2301_13866)"
 ./scripts/build_patched_upstream.sh
 
-step "6/13 Compile r8_geometry_driver"
+step "8/15 Compile r8_geometry_driver"
 [[ -f "${TOOLCHAIN}" ]] || {
   echo "[ERROR] Missing ${TOOLCHAIN}. Copy configs/toolchain.env.example and edit it." >&2
   exit 5
@@ -171,25 +189,31 @@ run_geometry() {
   "${GEOMETRY_BIN}" "${cmnd}" 1000 "${run_dir}/geometry.csv" 2>&1 | tee "${run_dir}/geometry_driver.log"
 }
 
-step "7/13 Run recast run_01"
+step "9/15 Run recast run_01"
 run_recast 01
 
-step "8/13 Run geometry run_01"
+step "10/15 Run geometry run_01"
 run_geometry 01
 
-step "9/13 Run recast run_02"
+step "11/15 Run recast run_02"
 run_recast 02
 
-step "10/13 Run geometry run_02"
+step "12/15 Run geometry run_02"
 run_geometry 02
 
-step "11/13 Parse cutflows, generate geometry summaries, compatibility and normalization results"
+step "13/15 Parse cutflows, generate geometry summaries, compatibility and normalization results"
 python3 scripts/build_r8_results.py
 
-step "12/13 Generate artifact manifest"
+step "14/15 Generate artifact manifest and compare against the preserved reference"
 python3 scripts/build_r8_artifact_manifest.py
+if [[ -f "${REFERENCE_MANIFEST}" ]]; then
+  python3 scripts/compare_r8_manifests.py "${REFERENCE_MANIFEST}" "${RESULTS_DIR}/artifact_manifest.json"
+  rm -f "${REFERENCE_MANIFEST}"
+else
+  echo "[WARN] no reference manifest was available; this run's manifest was not compared against a prior committed state."
+fi
 
-step "13/13 Verify all hashes"
+step "15/15 Verify all hashes"
 python3 scripts/verify_r8_artifacts.py
 
 echo

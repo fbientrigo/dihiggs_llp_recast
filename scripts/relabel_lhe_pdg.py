@@ -20,7 +20,9 @@ existing destination is never replaced by a rejected result).
 """
 
 import argparse
+import contextlib
 import gzip
+import io
 import os
 import sys
 
@@ -29,8 +31,24 @@ def _open_read(path):
     return gzip.open(path, "rt") if path.endswith(".gz") else open(path)
 
 
+@contextlib.contextmanager
 def _open_write(path, gzip_it):
-    return gzip.open(path, "wt") if gzip_it else open(path, "w")
+    """Open path for text writing. When gzip_it, use a fixed mtime=0 and an
+    empty embedded filename so two relabel runs on identical input produce a
+    byte-identical (and thus identically-hashed) .gz output: gzip.open's
+    default header embeds the current wall-clock time and the temporary
+    sibling filename, which would otherwise make the published hash
+    non-reproducible run to run.
+    """
+    if not gzip_it:
+        with open(path, "w") as fh:
+            yield fh
+        return
+    with open(path, "wb") as raw:
+        with gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as gz:
+            text = io.TextIOWrapper(gz, encoding="utf-8")
+            yield text
+            text.flush()
 
 
 def relabel(in_path, out_path, from_pdg, to_pdg, expected_events=None, expected_relabelled=None):
@@ -50,6 +68,7 @@ def relabel(in_path, out_path, from_pdg, to_pdg, expected_events=None, expected_
 
     in_event = False
     n_events = 0
+    n_events_closed = 0
     n_relabelled = 0
     pre_existing_target = 0
 
@@ -64,6 +83,7 @@ def relabel(in_path, out_path, from_pdg, to_pdg, expected_events=None, expected_
                     continue
                 if stripped == "</event>":
                     in_event = False
+                    n_events_closed += 1
                     fout.write(line)
                     continue
                 if in_event and stripped and not stripped.startswith("<"):
@@ -83,6 +103,11 @@ def relabel(in_path, out_path, from_pdg, to_pdg, expected_events=None, expected_
                 fout.write(line)
             fout.flush()
 
+        if in_event or n_events_closed != n_events:
+            raise ValueError(
+                f"refusing to relabel: malformed/truncated LHE, {n_events} <event> tag(s) "
+                f"opened but only {n_events_closed} closed"
+            )
         if pre_existing_target:
             raise ValueError(
                 f"refusing to relabel: {pre_existing_target} particle line(s) already "

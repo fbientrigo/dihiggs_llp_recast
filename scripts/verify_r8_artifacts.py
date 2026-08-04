@@ -113,6 +113,24 @@ def check_canonical_lhe_hashes():
     return ok
 
 
+def check_relabel_script_hash_matches_manifest():
+    """input_manifest.json's lhe_inputs.relabel.script_sha256 must track the
+    live scripts/relabel_lhe_pdg.py, so provenance never silently drifts
+    from the script that would actually run on a fresh reproduction."""
+    with open(os.path.join(RESULTS_DIR, "input_manifest.json")) as fh:
+        manifest = json.load(fh)
+    recorded = manifest["lhe_inputs"]["relabel"]["script_sha256"]
+    live = sha256_of(os.path.join(ROOT, "scripts", "relabel_lhe_pdg.py"))
+    if recorded != live:
+        return fail(
+            "input_manifest.json lhe_inputs.relabel.script_sha256 "
+            f"({recorded}) does not match the live scripts/relabel_lhe_pdg.py ({live}); "
+            "update the manifest (see script_sha256_note) to match the current script"
+        )
+    print("[OK] input_manifest.json relabel.script_sha256 matches the live relabel_lhe_pdg.py")
+    return True
+
+
 def check_run_event_counts():
     ok = True
     for run in ("01", "02"):
@@ -194,6 +212,7 @@ def main():
     checks = [
         check_artifact_manifest(),
         check_canonical_lhe_hashes(),
+        check_relabel_script_hash_matches_manifest(),
         check_run_event_counts(),
         check_normalization_arithmetic(),
         check_relabel_atomicity(),

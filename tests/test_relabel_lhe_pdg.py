@@ -5,6 +5,7 @@ import gzip
 import importlib.util
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import pytest
@@ -37,6 +38,12 @@ _TRUNCATED_LHE = """<LesHouchesEvents version="3.0">
  4      1 +2.2986000e-04 6.82333700e+02 7.81860800e-03 9.74793000e-02
        21 -1    0    0  502  501 +0.0000000000e+00 +0.0000000000e+00 +2.9507588988e+02 2.9507588988e+02 0.0000000000e+00 0.0000e+00 -1.0000e+00
 """
+
+# Deliberately truncated AFTER the particle lines that would satisfy
+# expected_events/expected_relabelled, but missing </event> and the
+# document trailer: without an explicit balanced-tag check, this fixture
+# would satisfy both count checks and be published anyway.
+_TRUNCATED_AFTER_PARTICLES_LHE = _MINI_LHE.rsplit("</event>", 1)[0]
 
 
 def _write_gz(path, text):
@@ -234,3 +241,27 @@ def test_cli_success_exits_zero_and_publishes_output(tmp_path):
     assert result.returncode == 0
     assert dst.exists()
     assert not _tmp_leftovers(tmp_path)
+
+
+def test_relabel_rejects_particle_lines_without_closing_event_tag(tmp_path):
+    # This fixture satisfies expected_events=1 and expected_relabelled=2 on
+    # its own (both counting checks would pass), but is missing </event> and
+    # the document trailer -- the balanced-tag check must still reject it.
+    src = _write_gz(tmp_path / "in.lhe.gz", _TRUNCATED_AFTER_PARTICLES_LHE)
+    dst = tmp_path / "out.lhe.gz"
+    with pytest.raises(ValueError, match="opened but only"):
+        relabel_lhe_pdg.relabel(
+            str(src), str(dst), 9000006, 35, expected_events=1, expected_relabelled=2
+        )
+    assert not dst.exists()
+    assert not _tmp_leftovers(tmp_path)
+
+
+def test_relabel_gzip_output_is_deterministic_across_runs(tmp_path):
+    src = _write_gz(tmp_path / "in.lhe.gz", _MINI_LHE)
+    dst1 = tmp_path / "out1.lhe.gz"
+    dst2 = tmp_path / "out2.lhe.gz"
+    relabel_lhe_pdg.relabel(str(src), str(dst1), 9000006, 35)
+    time.sleep(1.1)  # gzip's default header would embed a different mtime
+    relabel_lhe_pdg.relabel(str(src), str(dst2), 9000006, 35)
+    assert dst1.read_bytes() == dst2.read_bytes()
