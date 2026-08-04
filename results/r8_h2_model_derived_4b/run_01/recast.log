@@ -1,0 +1,195 @@
+
+ *------------------------------------------------------------------------------------* 
+ |                                                                                    | 
+ |  *------------------------------------------------------------------------------*  | 
+ |  |                                                                              |  | 
+ |  |                                                                              |  | 
+ |  |   PPP   Y   Y  TTTTT  H   H  III    A      Welcome to the Lund Monte Carlo!  |  | 
+ |  |   P  P   Y Y     T    H   H   I    A A     This is PYTHIA version 8.308      |  | 
+ |  |   PPP     Y      T    HHHHH   I   AAAAA    Last date of change: 16 Nov 2022  |  | 
+ |  |   P       Y      T    H   H   I   A   A                                      |  | 
+ |  |   P       Y      T    H   H  III  A   A    Now is 04 Aug 2026 at 01:10:58    |  | 
+ |  |                                                                              |  | 
+ |  |   Program documentation and an archive of historic versions is found on:     |  | 
+ |  |                                                                              |  | 
+ |  |                               https://pythia.org/                            |  | 
+ |  |                                                                              |  | 
+ |  |   PYTHIA is authored by a collaboration consisting of:                       |  | 
+ |  |                                                                              |  | 
+ |  |   Christian Bierlich, Nishita Desai, Leif Gellersen, Ilkka Helenius, Philip  |  | 
+ |  |   Ilten, Leif Lonnblad, Stephen Mrenna, Stefan Prestel, Christian Preuss,    |  | 
+ |  |   Torbjorn Sjostrand, Peter Skands, Marius Utheim and Rob Verheyen.          |  | 
+ |  |                                                                              |  | 
+ |  |   The complete list of authors, including contact information and            |  | 
+ |  |   affiliations, can be found on https://pythia.org/.                         |  | 
+ |  |   Problems or bugs should be reported on email at authors@pythia.org.        |  | 
+ |  |                                                                              |  | 
+ |  |   The main program reference is C. Bierlich et al,                           |  | 
+ |  |   'A comprehensive guide to the physics and usage of Pythia 8.3',            |  | 
+ |  |   SciPost Phys. Codebases 8-r8.3 (2022) [arXiv:2203.11601 [hep-ph]]          |  | 
+ |  |                                                                              |  | 
+ |  |   PYTHIA is released under the GNU General Public Licence version 2 or later.|  | 
+ |  |   Please respect the MCnet Guidelines for Event Generator Authors and Users. |  | 
+ |  |                                                                              |  | 
+ |  |   Disclaimer: this program comes without any guarantees.                     |  | 
+ |  |   Beware of errors and use common sense when interpreting results.           |  | 
+ |  |                                                                              |  | 
+ |  |   Copyright (C) 2022 Torbjorn Sjostrand                                      |  | 
+ |  |                                                                              |  | 
+ |  |                                                                              |  | 
+ |  *------------------------------------------------------------------------------*  | 
+ |                                                                                    | 
+ *------------------------------------------------------------------------------------* 
+
+ *-----------------------  SusyLesHouches SUSY/BSM Interface  ------------------------*
+ | Last Change 12 Apr 2017 - P. Skands
+ | Parsing: data/raw/r8_h2_model_derived_4b/relabelled_run_01.lhe.gz
+ | (SLHA::readFile) line 288 - storing non-SLHA(2) block: ckmblock
+ | (SLHA::readFile) line 294 - storing non-SLHA(2) block: frblock
+ | (SLHA::readFile) line 338 - storing non-SLHA(2) block: yukawa
+ | (SLHA::readFile) line 379 - storing QNUMBERS for id = 9000005 h1 
+ | (SLHA::readFile) line 384 - storing QNUMBERS for id = 9000006 h2 
+ *------------------------------------------------------------------------------------*
+ PYTHIA Info from SLHAinterface::initSLHA: No MODSEL found, keeping internal SUSY switched off  
+ PYTHIA Info from SLHAinterface::initSLHA: importing MASS entries for id = {9000005,9000006}
+ PYTHIA Warning in SLHAinterface::initSLHA: ignoring MASS entries for id = {1,2,3,4,5,11,12,13,14,15,16,21,22,23,24} (m0 < SLHA:minMassSM)
+ PYTHIA Warning in SLHAinterface::initSLHA: ignoring DECAY tables for id = {23,24,1,2,3,4,5,11,12,13,14,15,16,21,22} (m0 < SLHA:minMassSM)
+ PYTHIA Warning in SLHAinterface::initSLHA: ignoring empty DECAY tables for id = {6,25,9000005,9000006} (total width provided but no Branching Ratios)
+
+ *-------  PYTHIA Process Initialization  --------------------------*
+ |                                                                  |
+ | We collide p+ with p+ at a CM energy of 1.300e+04 GeV            |
+ |                                                                  |
+ |------------------------------------------------------------------|
+ |                                                    |             |
+ | Subprocess                                    Code |   Estimated |
+ |                                                    |    max (mb) |
+ |                                                    |             |
+ |------------------------------------------------------------------|
+ |                                                    |             |
+ | Les Houches User Process(es)                  9999 |   1.000e-09 |
+ |                                                                  |
+ *-------  End PYTHIA Process Initialization -----------------------*
+
+ *-------  PYTHIA Flag + Mode + Parm + Word + FVec + MVec + PVec + WVec Settings (changes only)  ------------------* 
+ |                                                                                                                 | 
+ | Name                                          |                      Now |      Default         Min         Max | 
+ |                                               |                          |                                      | 
+ | BeamRemnants:primordialKThard                 |                  1.88000 |      1.80000         0.0             | 
+ | Beams:frameType                               |                        4 |            1           1           5 | 
+ | Beams:LHEF                                    | data/raw/r8_h2_model_derived_4b/relabelled_run_01.lhe.gz |         void | 
+ | ColourReconnection:range                      |                  1.71000 |      1.80000         0.0    10.00000 | 
+ | Higgs:useBSM                                  |                       on |          off                         | 
+ | Init:showChangedParticleData                  |                      off |           on                         | 
+ | LesHouches:setLifetime                        |                        2 |            1           0           2 | 
+ | LHEFInputs:nSubruns                           |                        1 |            0           0             | 
+ | Main:subrun                                   |                        0 |         -999           0             | 
+ | Main:timesAllowErrors                         |                        3 |           10           0             | 
+ | MultipartonInteractions:alphaSvalue           |                  0.12600 |      0.13000   0.0600000     0.25000 | 
+ | MultipartonInteractions:pT0Ref                |                  2.09000 |      2.28000     0.50000    10.00000 | 
+ | Next:numberCount                              |                     5000 |         1000           0             | 
+ | Next:numberShowEvent                          |                        0 |            1           0             | 
+ | Next:numberShowInfo                           |                        0 |            1           0             | 
+ | Next:numberShowProcess                        |                        0 |            1           0             | 
+ | PartonLevel:MPI                               |                      off |           on                         | 
+ | Random:seed                                   |                    81001 |           -1               900000000 | 
+ | Random:setSeed                                |                       on |          off                         | 
+ | Recast:llpPdgIds                              |                       35 |      1000022                         | 
+ |                                               |                          |      1000023                         | 
+ |                                               |                          |      1000024                         | 
+ | Recast:llpTau0                                |                  4.32622 |     -1.00000                         | 
+ | SigmaProcess:alphaSvalue                      |                  0.14000 |      0.13000   0.0600000     0.25000 | 
+ | SpaceShower:alphaSvalue                       |                  0.12700 |      0.13650   0.0600000     0.25000 | 
+ | SpaceShower:pT0Ref                            |                  1.56000 |      2.00000     0.50000    10.00000 | 
+ | SpaceShower:pTdampFudge                       |                  1.05000 |      1.00000     0.25000     4.00000 | 
+ | SpaceShower:pTmaxFudge                        |                  0.91000 |      1.00000     0.25000     2.00000 | 
+ | TimeShower:alphaSvalue                        |                  0.12700 |      0.13650   0.0600000     0.25000 | 
+ | Tune:pp                                       |                       21 |           14          -1          34 | 
+ |                                                                                                                 | 
+ *-------  End PYTHIA Flag + Mode + Parm + Word + FVec + MVec + PVec + WVec Settings  -----------------------------* 
+R7_LLP_SETTINGS: pdg=35 m0=150.00000 mWidth=0.01636 tau0=4.32622 tauCalc=0 mayDecay=1 isResonance=1
+
+ --------  LHA event information and listing  ---------------------------------------------------------------------- 
+
+    process =        1    weight =   2.2986e-04     scale =   6.8233e+02 (GeV) 
+                        alpha_em =   7.8186e-03    alpha_strong =   9.7479e-02
+
+    Participating Particles 
+    no        id stat     mothers     colours      p_x        p_y        p_z         e          m        tau    spin 
+     1        21   -1     0     0   502   501      0.000      0.000    295.076    295.076      0.000   0.000  -1.000
+     2        21   -1     0     0   501   502     -0.000     -0.000   -394.457    394.457      0.000   0.000  -1.000
+     3        35    1     1     2     0     0   -306.379     -4.393    -46.976    344.375    150.000   0.000   0.000
+     4        35    1     1     2     0     0    306.379      4.393    -52.405    345.158    150.000   0.000   0.000
+
+ --------  End LHA event information and listing  ------------------------------------------------------------------ 
+#--------------------------------------------------------------------------
+#                         FastJet release 3.4.0
+#                 M. Cacciari, G.P. Salam and G. Soyez                  
+#     A software package for jet finding and analysis at colliders      
+#                           http://fastjet.fr                           
+#	                                                                      
+# Please cite EPJC72(2012)1896 [arXiv:1111.6097] if you use this package
+# for scientific work and optionally PLB641(2006)57 [hep-ph/0512210].   
+#                                                                       
+# FastJet is provided without warranty under the GNU GPL v2 or higher.  
+# It uses T. Chan's closest pair algorithm, S. Fortune's Voronoi code
+# and 3rd party plugin jet algorithms. See COPYING file for details.
+#--------------------------------------------------------------------------
+
+ *-------  PYTHIA Event and Cross Section Statistics  -------------------------------------------------------------*
+ |                                                                                                                 |
+ | Subprocess                                    Code |            Number of events       |      sigma +- delta    |
+ |                                                    |       Tried   Selected   Accepted |     (estimated) (mb)   |
+ |                                                    |                                   |                        |
+ |-----------------------------------------------------------------------------------------------------------------|
+ |                                                    |                                   |                        |
+ | Les Houches User Process(es)                  9999 |        1000       1000       1000 |   2.299e-13  0.000e+00 |
+ |    ... whereof user classification code          1 |        1000       1000       1000 |                        | 
+ |                                                    |                                   |                        |
+ | sum                                                |        1000       1000       1000 |   2.299e-13  0.000e+00 |
+ |                                                                                                                 |
+ *-------  End PYTHIA Event and Cross Section Statistics ----------------------------------------------------------*
+
+ *-------  PYTHIA Error and Warning Messages Statistics  ----------------------------------------------------------* 
+ |                                                                                                                 | 
+ |  times   message                                                                                                | 
+ |                                                                                                                 | 
+ |      1   Info from SLHAinterface::initSLHA: No MODSEL found, keeping internal SUSY switched off                 | 
+ |      1   Info from SLHAinterface::initSLHA: importing MASS entries                                              | 
+ |      1   Warning in SLHAinterface::initSLHA: ignoring DECAY tables                                              | 
+ |      1   Warning in SLHAinterface::initSLHA: ignoring MASS entries                                              | 
+ |      1   Warning in SLHAinterface::initSLHA: ignoring empty DECAY tables                                        | 
+ |                                                                                                                 | 
+ *-------  End PYTHIA Error and Warning Messages Statistics  ------------------------------------------------------* 
+
+All Events:                                       1.000000e+03
+
+Events with zero configured LLP found [%]:        0.000000e+00
+
+High-pT Jet Selection [%]:                        2.000000e-01
+Event has >= 1 DV passing [%]:                    
+High-pT Fiducial [%]:                             2.000000e-01
+High-pT R_vertex > 4 mm [%]:                      1.000000e-01
+High-pT Have track with |d_0| > 2 mm [%]:         1.000000e-01
+High-pT Selected Decay Product >= 5 [%]:          1.000000e-01
+High-pT Invariant Mass > 10 GeV [%]:              1.000000e-01
+
+Trackless Jet Selection [%]:                      2.100000e+00
+Event has >= 1 DV passing [%]:                    
+Trackless Fiducial [%]:                           2.100000e+00
+Trackless R_vertex > 4 mm [%]:                    1.700000e+00
+Trackless Have track with |d_0| > 2 mm [%]:       1.700000e+00
+Trackless Selected Decay Product >= 5 [%]:        1.700000e+00
+Trackless Invariant Mass > 10 GeV [%]:            1.700000e+00
+
+High-pT Acc:                                      1.000000e+00
+High-pT Acc x Eff:                                1.014900e+00
+Trackless Acc:                                    1.700000e+01
+Trackless Acc x Eff:                              1.187817e+01
+
+High-pT Acc [%]:                                  1.000000e-01
+High-pT Acc x Eff [%]:                            1.014900e-01
+Trackless Acc [%]:                                1.700000e+00
+Trackless Acc x Eff [%]:                          1.187817e+00
+
+The inclusive cross section after merging is:     2.298600e-13 mb

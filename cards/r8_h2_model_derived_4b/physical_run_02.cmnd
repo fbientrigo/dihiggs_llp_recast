@@ -1,0 +1,79 @@
+! R8: pp -> H2 H2 -> b b~ b b~, m_H2 = 150 GeV, physical ctau = 4.32622152973311191 mm.
+! benchmark_id = H2scan_mH150_tb300000
+!
+! Production kinematics come from the CANONICAL physical MadGraph 3.5.3 LHE
+! sample (g g > H > h2 h2, sqrt(s) = 13 TeV), materialized and merged in
+! fbientrigo/dihiggs_hep_cross PR #10 (merge commit
+! f601e318c57f780d21e8dbee4dcccd7ec1b7b88a):
+!   run_02: artifacts/h2_first_physical/madgraph/run_02/unweighted_events.lhe.gz
+!   sha256 = 385faebf45403c224ce374488c3e51a06be56b13ec6b095f92393d0c8f4b1bfa
+! This is NOT the R7 simplified stand-in LHE
+! (results/r7_h2_pair_4b/input/h2pair_m150_1000events.lhe.gz); its cross
+! section must never be used for physical normalization.
+!
+! The LHE's stable final-state PDG has been relabelled 9000006 -> 35 (a pure
+! text substitution of the LHE PDG code via scripts/relabel_lhe_pdg.py; mass,
+! momenta and event kinematics are byte-identical -- verified: 2000 IDUP
+! fields changed, 0 mismatches elsewhere). This reuses the same validated
+! mechanism as cards/r7_h2_pair_4b/ctau_4p326mm.cmnd in the R7 recast
+! (fbientrigo/dihiggs_llp_recast PR #5): Pythia8's ResonanceDecays machinery,
+! needed to shower the b b~ decay products into real jets, requires a
+! registered ResonanceWidths object that only exists for Pythia's own
+! built-in resonance slots (e.g. PDG 35, "H0"); a fully custom PDG (9000006)
+! has none.
+!
+! Shower configuration (FSR on, ISR on, MPI off, hadronization on, Tune:pp =
+! 21) is reused unchanged from the R7 real-recast path: it is the config
+! validated to process this same gg -> H -> h2h2 topology through the real
+! DV+jets analysis, as opposed to the standalone hep_cross full-Pythia sample
+! (ISR/FSR/MPI off), which validates lifetime/decay bookkeeping only and is
+! not evidence for jet acceptance.
+!
+! The physical PDG 35 width (mWidth, printed by R7_LLP_SETTINGS below) is
+! Pythia's default H0 width, NOT the physical H2 width
+! (4.56118529862185007e-14 GeV per the hep_cross production manifest). It
+! does not affect the generated lifetime because 35:tauCalc = off and tau0 is
+! forced via Recast:llpTau0 below, but it is a real divergence between the
+! simulated particle and the physical model point.
+!
+! Recast:llpPdgIds and the 35:... particle-data lines are placed before the
+! Main:subrun block deliberately (see R7 card): the recast binary reads
+! Recast:llpPdgIds immediately after pythia.readFile(), before init() runs.
+!
+! Random:seed is independent per run (Phase 4 requirement); R7's card set no
+! seed at all (both R7 lifetime runs implicitly shared Pythia's default
+! seed), which R8 must not repeat.
+Main:numberOfEvents = 1000
+Main:timesAllowErrors = 3
+Init:showChangedSettings = on
+Init:showChangedParticleData = off
+Next:numberCount = 5000
+Next:numberShowInfo = 0
+Next:numberShowProcess = 0
+Next:numberShowEvent = 0
+
+Random:setSeed = on
+Random:seed = 81002
+
+PartonLevel:MPI = off
+PartonLevel:ISR = on
+PartonLevel:FSR = on
+HadronLevel:Hadronize = on
+Tune:pp = 21
+
+Higgs:useBSM = on
+35:m0 = 150.
+35:mMin = 100.
+35:tauCalc = off
+35:tau0 = 4.32622152973311191
+35:onMode = off
+35:onIfMatch = 5 -5
+
+Recast:llpPdgIds = {35}
+Recast:llpTau0 = 4.32622152973311191
+LesHouches:setLifetime = 2
+
+Beams:frameType = 4
+LHEFInputs:nSubruns = 1
+Main:subrun = 0
+Beams:LHEF = data/raw/r8_h2_model_derived_4b/relabelled_run_02.lhe.gz

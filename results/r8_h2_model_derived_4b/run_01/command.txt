@@ -1,0 +1,2 @@
+pwd=/home/fabi/atlas_dihiggs/_worktrees/r8-h2-model-derived-recast
+results/upstream_build_patched/analysis/recast_2301_13866 cards/r8_h2_model_derived_4b/physical_run_01.cmnd

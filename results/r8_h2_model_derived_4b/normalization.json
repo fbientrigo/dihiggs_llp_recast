@@ -1,0 +1,44 @@
+{
+  "sigma_H2H2_pb": 0.000230291167568,
+  "BR_bb_squared": 0.5726516224278888,
+  "sigma_4b_fb": 0.131876610738628,
+  "k_factor": null,
+  "regions": {
+    "High-pT": {
+      "acc_total": 4,
+      "n_total": 2000,
+      "a_eff_acc": 0.002,
+      "a_eff_acc_ci95": [
+        0.0005451931252111887,
+        0.005112808605346186
+      ],
+      "a_eff_acc_x_eff": 0.0014866595,
+      "visible_sigma_fb_acc_x_eff": 0.00019605561618238332,
+      "insufficient_mc_statistics": true,
+      "insufficient_mc_statistics_criterion": "acc_total < 10 selected MC events",
+      "minimum_additional_events_needed": 3000
+    },
+    "Trackless": {
+      "acc_total": 40,
+      "n_total": 2000,
+      "a_eff_acc": 0.02,
+      "a_eff_acc_ci95": [
+        0.014325786914067638,
+        0.027135577268658395
+      ],
+      "a_eff_acc_x_eff": 0.01573386,
+      "visible_sigma_fb_acc_x_eff": 0.0020749281306360694,
+      "insufficient_mc_statistics": false,
+      "insufficient_mc_statistics_criterion": "acc_total < 10 selected MC events",
+      "minimum_additional_events_needed": null
+    }
+  },
+  "luminosity_fb_inv": null,
+  "luminosity_source": "not found in this repository or the frozen upstream recastingCodes checkout (external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin); not hardcoded from memory per mission Phase 7",
+  "expected_signal_events": null,
+  "exclusion_status": "RECAST_ACCEPTANCE_COMPUTED / EXCLUSION_NOT_EVALUATED",
+  "next_step_by_region": {
+    "High-pT": "INSUFFICIENT_MC_STATISTICS",
+    "Trackless": "RECAST_ACCEPTANCE_COMPUTED"
+  }
+}
