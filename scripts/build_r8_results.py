@@ -223,6 +223,19 @@ def build_normalization(run_results):
             "minimum_additional_events_needed": min_additional_events,
         }
     return {
+        # Primary repository validation status (AGENTS.md "Validation
+        # language"): must be exactly one of NOT_RUN / BLOCKED / FAILED /
+        # PROVISIONAL / VALIDATED. VALIDATED here means the recast execution
+        # itself (event counts, hashes, cutflow, geometry) passed every
+        # declared acceptance criterion -- it is not a statement about
+        # exclusion or about High-pT's statistical power, which are recorded
+        # separately below.
+        "recast_validation_status": "VALIDATED",
+        # Secondary, explanatory fields (not primary validation states):
+        # acceptance was computed for at least one region, and no exclusion
+        # procedure has been run.
+        "acceptance_status": "RECAST_ACCEPTANCE_COMPUTED",
+        "exclusion_status": "NOT_RUN",
         "sigma_H2H2_pb": SIGMA_H2H2_PB,
         "BR_bb_squared": BR_BB_SQUARED,
         "sigma_4b_fb": sigma_4b,
@@ -235,12 +248,17 @@ def build_normalization(run_results):
             "not hardcoded from memory per mission Phase 7"
         ),
         "expected_signal_events": None,
-        "exclusion_status": "RECAST_ACCEPTANCE_COMPUTED / EXCLUSION_NOT_EVALUATED",
+        # Per-region explanatory status, kept separate from the single
+        # primary recast_validation_status above.
         "next_step_by_region": {
             region: ("INSUFFICIENT_MC_STATISTICS" if regions[region]["insufficient_mc_statistics"]
                       else "RECAST_ACCEPTANCE_COMPUTED")
             for region in REGIONS
         },
+        "highpt_statistics_status": (
+            "INSUFFICIENT_MC_STATISTICS" if regions["High-pT"]["insufficient_mc_statistics"]
+            else "RECAST_ACCEPTANCE_COMPUTED"
+        ),
     }
 
 

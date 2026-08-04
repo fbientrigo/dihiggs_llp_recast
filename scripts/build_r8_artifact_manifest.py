@@ -17,6 +17,8 @@ TRACKED_PATHS = [
     "cards/r8_h2_model_derived_4b/physical_run_02.cmnd",
     "scripts/relabel_lhe_pdg.py",
     "scripts/build_r8_results.py",
+    "scripts/run_r8_reproduction.sh",
+    "scripts/verify_r8_artifacts.py",
     "src/r8_geometry_driver.cc",
     "src/dvrecast/r8_cutflow.py",
     "src/dvrecast/r8_geometry.py",
