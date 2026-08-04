@@ -66,7 +66,9 @@
       "from_pdg": 9000006,
       "to_pdg": 35,
       "script": "scripts/relabel_lhe_pdg.py",
-      "script_sha256": "6ef22a516240e02a5b28eb0dfc11e9a6aa3817177cbcd877db3187a514328237",
+      "script_sha256_at_pr6_run_time": "6ef22a516240e02a5b28eb0dfc11e9a6aa3817177cbcd877db3187a514328237",
+      "script_sha256": "faf031a36fc328db1197b76301882f9b46f0e622850f04671355d0a0acf96d0e",
+      "script_sha256_note": "script_sha256 tracks the current scripts/relabel_lhe_pdg.py (checked by scripts/verify_r8_artifacts.py against the live file on every --verify-existing run). PR #7 (post-merge closure) fixed atomic publish-on-validation, deterministic gzip output, and rejection of unclosed <event> blocks in this script; it did not rerun the relabel on the canonical LHE inputs, so relabelled_sha256 above remains the byte-for-byte output of script_sha256_at_pr6_run_time and must not be treated as having been produced by the current script version.",
       "n_relabelled_per_run": 2000,
       "verification": "2000 IDUP fields changed per run, 0 mismatches in any other particle-line field (momenta/status/mothers/colours/mass/tau/spin byte-identical)"
     },

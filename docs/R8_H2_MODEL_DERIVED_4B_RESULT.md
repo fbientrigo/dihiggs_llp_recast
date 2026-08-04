@@ -1,11 +1,25 @@
 # R8: first model-derived H2 -> 4b physical DV+jets recast
 
-Status: **RECAST_ACCEPTANCE_COMPUTED / EXCLUSION_NOT_EVALUATED**. This is the
-real, patched upstream DV+jets analysis (`recast_2301_13866`, frozen
-upstream commit `d4047c744062094c9f88e507bb1ccf69e9fe88d6`) run twice on the
-canonical, physically-normalized `H2scan_mH150_tb300000` MadGraph sample.
-Not an exclusion statement: luminosity was not found in this repository or
-the frozen upstream checkout and was not hardcoded from memory (Phase 7).
+## Validation status
+
+| Field | Value |
+|---|---|
+| `recast_validation_status` (primary; one of `NOT_RUN`/`BLOCKED`/`FAILED`/`PROVISIONAL`/`VALIDATED` per `AGENTS.md`) | **`VALIDATED`** |
+| `acceptance_status` (explanatory, not a primary state) | `RECAST_ACCEPTANCE_COMPUTED` |
+| `exclusion_status` (explanatory, not a primary state) | `NOT_RUN` |
+| `highpt_statistics_status` (explanatory, High-pT region only) | `INSUFFICIENT_MC_STATISTICS` |
+
+`recast_validation_status = VALIDATED` means the recast execution itself
+(event counts, hashes, cutflow, geometry) passed every declared acceptance
+criterion; it is not an exclusion claim and does not assert that every
+region has adequate statistics. This is the real, patched upstream DV+jets
+analysis (`recast_2301_13866`, frozen upstream commit
+`d4047c744062094c9f88e507bb1ccf69e9fe88d6`) run twice on the canonical,
+physically-normalized `H2scan_mH150_tb300000` MadGraph sample. Not an
+exclusion statement: luminosity was not found in this repository or the
+frozen upstream checkout and was not hardcoded from memory (Phase 7).
+Machine-readable copy of this table:
+`results/r8_h2_model_derived_4b/normalization.json`.
 
 ## What this result is, stage by stage
 
@@ -28,9 +42,8 @@ the frozen upstream checkout and was not hardcoded from memory (Phase 7).
    post-init lifetime configurable; it does not touch selection logic).
 5. **Visible cross section / expected yield**: visible sigma is reported;
    expected event count is not, because no luminosity source was found.
-6. **Exclusion status**: `EXCLUSION_NOT_EVALUATED` — no observed limit,
-   efficiency map, or statistical procedure from the ATLAS analysis was
-   consulted.
+6. **Exclusion status**: `NOT_RUN` — no observed limit, efficiency map, or
+   statistical procedure from the ATLAS analysis was consulted.
 
 ## Canonical input
 
@@ -267,7 +280,7 @@ and the exact source string recorded for the missing luminosity.
 
 ## Exclusion status
 
-**`EXCLUSION_NOT_EVALUATED`**. An exclusion claim requires the analysis's
+`exclusion_status = **NOT_RUN**`. An exclusion claim requires the analysis's
 observed/expected S95, efficiency maps, and statistical procedure, none of
 which have been consulted here — only acceptance and visible cross section
 were computed.

@@ -1,4 +1,7 @@
 {
+  "recast_validation_status": "VALIDATED",
+  "acceptance_status": "RECAST_ACCEPTANCE_COMPUTED",
+  "exclusion_status": "NOT_RUN",
   "sigma_H2H2_pb": 0.000230291167568,
   "BR_bb_squared": 0.5726516224278888,
   "sigma_4b_fb": 0.131876610738628,
@@ -36,9 +39,9 @@
   "luminosity_fb_inv": null,
   "luminosity_source": "not found in this repository or the frozen upstream recastingCodes checkout (external/recastingCodes/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin); not hardcoded from memory per mission Phase 7",
   "expected_signal_events": null,
-  "exclusion_status": "RECAST_ACCEPTANCE_COMPUTED / EXCLUSION_NOT_EVALUATED",
   "next_step_by_region": {
     "High-pT": "INSUFFICIENT_MC_STATISTICS",
     "Trackless": "RECAST_ACCEPTANCE_COMPUTED"
-  }
+  },
+  "highpt_statistics_status": "INSUFFICIENT_MC_STATISTICS"
 }

@@ -1,2 +1,15 @@
-pwd=/home/fabi/atlas_dihiggs/_worktrees/r8-h2-model-derived-recast
+# Canonical post-merge reproduction command chain:
+#   scripts/run_r8_reproduction.sh                    (full chain, reruns Pythia/recast)
+#   scripts/run_r8_reproduction.sh --verify-existing  (validates committed artifacts only)
+# This is the canonical post-merge reproduction command chain. The
+# original PR #6 artifacts were independently hash- and
+# arithmetic-verified before merge. See
+# docs/R8_H2_MODEL_DERIVED_4B_RESULT.md and
+# scripts/run_r8_reproduction.sh for the complete ordered chain (LHE
+# fetch, hash/event-count verification, PDG relabel, compilation,
+# both recast and geometry-driver runs, cutflow/geometry/
+# normalization/manifest generation) that this file's original
+# content -- only the final recast invocation below -- did not
+# record.
+pwd=<repository root>
 results/upstream_build_patched/analysis/recast_2301_13866 cards/r8_h2_model_derived_4b/physical_run_02.cmnd
