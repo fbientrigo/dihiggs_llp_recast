@@ -1,0 +1,73 @@
+{
+  "distribution_ks_tests": {
+    "rxy_mm": {
+      "ks_statistic": 0.02949999999999997,
+      "ks_critical_value_alpha_0.05": 0.04294689290274676,
+      "compatible_at_alpha_0.05": true,
+      "n_run_01": 2000,
+      "n_run_02": 2000
+    },
+    "l3d_mm": {
+      "ks_statistic": 0.01650000000000007,
+      "ks_critical_value_alpha_0.05": 0.04294689290274676,
+      "compatible_at_alpha_0.05": true,
+      "n_run_01": 2000,
+      "n_run_02": 2000
+    },
+    "leading_jet_pt_GeV": {
+      "ks_statistic": 0.03599999999999992,
+      "ks_critical_value_alpha_0.05": 0.06073607840484929,
+      "compatible_at_alpha_0.05": true,
+      "n_run_01": 1000,
+      "n_run_02": 1000
+    }
+  },
+  "jet_multiplicity": {
+    "mean_n_jets_run_01": 5.363,
+    "mean_n_jets_run_02": 5.363
+  },
+  "selected_count_compatibility": {
+    "High-pT": {
+      "run_01": {
+        "acc": 1,
+        "n": 1000,
+        "a_eff": 0.001,
+        "ci95": [
+          2.5317487491290575e-05,
+          0.005558924279825128
+        ]
+      },
+      "run_02": {
+        "acc": 3,
+        "n": 1000,
+        "a_eff": 0.003,
+        "ci95": [
+          0.0006190999316496386,
+          0.00874202323847778
+        ]
+      },
+      "ci95_overlap": true
+    },
+    "Trackless": {
+      "run_01": {
+        "acc": 17,
+        "n": 1000,
+        "a_eff": 0.017,
+        "ci95": [
+          0.009933512592717342,
+          0.027079496864849173
+        ]
+      },
+      "run_02": {
+        "acc": 23,
+        "n": 1000,
+        "a_eff": 0.023,
+        "ci95": [
+          0.014634582325176788,
+          0.03431233761285396
+        ]
+      },
+      "ci95_overlap": true
+    }
+  }
+}

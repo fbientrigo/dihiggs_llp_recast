@@ -1,0 +1,11 @@
+stage,high_pt_count,trackless_count
+events_processed,1000,1000
+zero_configured_llp_events,0,0
+jet_selection_pct,3,27
+fiducial_pct,3,27
+r_vertex_gt_4mm_pct,3,23
+track_d0_gt_2mm_pct,3,23
+selected_decay_products_ge5_pct,3,23
+invariant_mass_gt_10gev_pct,3,23
+acc,3,23
+acc_x_eff,1.958419,19.58955

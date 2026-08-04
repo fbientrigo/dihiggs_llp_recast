@@ -1,0 +1,140 @@
+{
+  "schema": "llp_recast.r8_h2_model_derived_4b.input_manifest.v1",
+  "benchmark_id": "H2scan_mH150_tb300000",
+  "physics": {
+    "m_H2_GeV": 150.0,
+    "ctau_mm": 4.326221529733112,
+    "total_width_GeV": 4.56118529862185e-14,
+    "BR_bb": 0.7567374858085787,
+    "BR_bb_squared": 0.5726516224278888,
+    "g_hH2H2_GeV": 63.59142520075966,
+    "GHphiphi_GeV": -63.59142520075966
+  },
+  "dihiggs_provenance": {
+    "repository": "fbientrigo/dihiggs",
+    "benchmark_commit": "92ad4d80f537bffd8663e42f1c6881e82849feab",
+    "coupling_artifact": {
+      "artifact_source_commit": "71dc775fe4b05e134e3a15a15a0f511aa5f24a25",
+      "merge_commit": "2502099e1c791cfb459b018dc63167775dc3ae1d",
+      "path": "benchmarks/H2scan_mH150_tb300000_production_coupling.json",
+      "sha256": "abb5dfbec1767fd004dda0362fe4ab07173b4f2c3202fa9be11f6c633678c5d0"
+    }
+  },
+  "dihiggs_ufo_provenance": {
+    "repository": "fbientrigo/dihiggs_ufo",
+    "artifact_source_commit": "06467714fbac1ad3d3f97d2a7a79245146dedb33",
+    "merge_commit": "51d953a53d5777c5caf594481a3fd4a0c5a8f9b5",
+    "path": "releases/pack_b/candidates/H2scan_mH150_tb300000_MODEL_DERIVED/h2_model_derived_ufo.zip",
+    "sha256": "9c685714f8840190cb08c34e4b804481564599619c1a3fa9a212256624951d33",
+    "coupling_mode": "MODEL_DERIVED"
+  },
+  "hep_cross_provenance": {
+    "repository": "fbientrigo/dihiggs_hep_cross",
+    "production_manifest_path": "artifacts/h2_first_physical/production_manifest.json",
+    "production_manifest_commit": "5914ac2cfa0509eb957ba3ff111238b725c20861",
+    "production_manifest_sha256": "2c79b5a1d9874f962ff394fbea2ed69d2d9bc8062dce02510063b51b34848c02",
+    "merge_commit_pr10": "f601e318c57f780d21e8dbee4dcccd7ec1b7b88a",
+    "driver_gate_fix_merge_commit_pr11": "7f8326265ced7614af67bbc843e9bb9bcafef7da",
+    "note": "production_manifest_commit/sha256 are the state AFTER the R8 Phase 0 driver-gate fix (PR #11) was merged on top of the PR #10 canonical merge; sigma/LHE/BR values below are unchanged by that fix (it only hardened event-count validation)."
+  },
+  "madgraph": {
+    "version": "3.5.3",
+    "process": "g g > H > h2 h2",
+    "sqrt_s_TeV": 13.0,
+    "sigma_run_01_pb": 0.00022986,
+    "sigma_run_01_error_pb": 7.49e-07,
+    "sigma_run_02_pb": 0.00023054,
+    "sigma_run_02_error_pb": 5.69e-07,
+    "combined_sigma_pb": 0.000230291167568
+  },
+  "lhe_inputs": {
+    "run_01": {
+      "canonical_path": "hep_cross:artifacts/h2_first_physical/madgraph/run_01/unweighted_events.lhe.gz",
+      "canonical_sha256": "1c580b7a590f9bbfbf213eeef0e54fdcc4b6c1dce3f13bc0ed5278f6f3aec202",
+      "n_events": 1000,
+      "relabelled_local_path": "data/raw/r8_h2_model_derived_4b/relabelled_run_01.lhe.gz",
+      "relabelled_sha256": "547db2ddec2dfab31bd9383fa2be4bcfcc9773216ed88aec0b8ef4afb2e3b967"
+    },
+    "run_02": {
+      "canonical_path": "hep_cross:artifacts/h2_first_physical/madgraph/run_02/unweighted_events.lhe.gz",
+      "canonical_sha256": "385faebf45403c224ce374488c3e51a06be56b13ec6b095f92393d0c8f4b1bfa",
+      "n_events": 1000,
+      "relabelled_local_path": "data/raw/r8_h2_model_derived_4b/relabelled_run_02.lhe.gz",
+      "relabelled_sha256": "3f0f2c37c2c72739b9bd10e6f4130f7fd71c8eb29b95c233a54180a9973386f4"
+    },
+    "relabel": {
+      "from_pdg": 9000006,
+      "to_pdg": 35,
+      "script": "scripts/relabel_lhe_pdg.py",
+      "script_sha256": "6ef22a516240e02a5b28eb0dfc11e9a6aa3817177cbcd877db3187a514328237",
+      "n_relabelled_per_run": 2000,
+      "verification": "2000 IDUP fields changed per run, 0 mismatches in any other particle-line field (momenta/status/mothers/colours/mass/tau/spin byte-identical)"
+    },
+    "not_reused_from_r7": "results/r7_h2_pair_4b/input/h2pair_m150_1000events.lhe.gz (simplified physics input; R7's cross section 0.0304 pb must never be used for R8 physical normalization)"
+  },
+  "toolchain": {
+    "pythia8_version": "8.308",
+    "pythia8_source_tag": "pythia8308",
+    "pythia8_source_commit": "38ebd86865e4f25e9cf461b610f5c82d475ab77a",
+    "fastjet_version": "3.4.0",
+    "compiler": "g++ (system), -std=c++17 for the geometry driver, -std=c++11 for the patched analysis"
+  },
+  "recast_infrastructure": {
+    "recastingCodes_repository": "https://github.com/llprecasting/recastingCodes.git",
+    "recastingCodes_commit": "d4047c744062094c9f88e507bb1ccf69e9fe88d6",
+    "analysis_path": "DisplacedVertices/ATLAS-SUSY-2018-13_GCottin",
+    "patch": "patches/0001-configurable-llp-pdg-ids.patch",
+    "patched_binary_path": "results/upstream_build_patched/analysis/recast_2301_13866",
+    "patched_binary_sha256": "f03a5cb6d94d8f3c5513c814f26036d38eddb180b35f91449ff74f83201e1331",
+    "jet_definition": "fastjet::kt_algorithm, R=0.4, E_scheme, Best strategy, inclusive pT > 20 GeV (Simpler_ToyDetector.cc ToyDetector::jetDef)",
+    "recast_repository_branch_point_commit": "3601175dee33326bc385c3fa02fa925e8288a62d",
+    "recast_repository_branch": "feat/r8-h2-model-derived-recast",
+    "r7_baseline_pr": "fbientrigo/dihiggs_llp_recast PR #5 (merge commit 3601175dee33326bc385c3fa02fa925e8288a62d)"
+  },
+  "cards": {
+    "run_01": {
+      "path": "cards/r8_h2_model_derived_4b/physical_run_01.cmnd",
+      "sha256": "c6c7ebd07633ef5f263f616228b71aea155eafcf9b5dcffdc28d812603f0d1a0",
+      "seed": 81001
+    },
+    "run_02": {
+      "path": "cards/r8_h2_model_derived_4b/physical_run_02.cmnd",
+      "sha256": "10f7ea494d418838541feaa4f3a1c8fca0fe1f867a9d0fea84713171c7545925",
+      "seed": 81002
+    },
+    "shower_config_reused_from_r7": {
+      "source_card": "cards/r7_h2_pair_4b/ctau_4p326mm.cmnd",
+      "reused_settings": [
+        "PartonLevel:MPI = off",
+        "PartonLevel:ISR = on",
+        "PartonLevel:FSR = on",
+        "HadronLevel:Hadronize = on",
+        "Tune:pp = 21"
+      ],
+      "not_reused": [
+        "35:tau0 = 4.326 (R7's truncated lifetime; R8 uses full-precision 4.32622152973311191)",
+        "Random:seed (R7 set none / shared Pythia default; R8 uses independent seeds 81001/81002)",
+        "Beams:LHEF (R7's simplified stand-in LHE; R8 uses the relabelled canonical LHE)"
+      ]
+    }
+  },
+  "geometry_driver": {
+    "source_path": "src/r8_geometry_driver.cc",
+    "source_sha256": "5f5754ec30efbf5ab87ed5bb5590ba3fb4aec38696b81e76d92dee9ef825f38b",
+    "purpose": "Supplementary Rxy/L3D/jet-multiplicity/leading-jet-pT/b-daughter diagnostic reading the SAME .cmnd cards via pythia.readFile(), so shower/seed/tau0 are identical to the analysis run by construction; does not reimplement the analysis's own signal-region selection or lepton-isolation logic."
+  },
+  "runs": {
+    "run_01": {
+      "recast_log_path": "results/r8_h2_model_derived_4b/run_01/recast.log",
+      "recast_log_sha256": "0e00db2887e0884976de4bd7681a058e36496bd7575f843ac392062409ee77d5",
+      "geometry_csv_path": "results/r8_h2_model_derived_4b/run_01/geometry.csv",
+      "geometry_csv_sha256": "3e34aa3f444153c321c0bfb66d8428b821adaf00e8960274987877e13e8ab7e5"
+    },
+    "run_02": {
+      "recast_log_path": "results/r8_h2_model_derived_4b/run_02/recast.log",
+      "recast_log_sha256": "8457725684219a7d798df3b3ecb707e32690868d235c3e3269f371a371ca70bb",
+      "geometry_csv_path": "results/r8_h2_model_derived_4b/run_02/geometry.csv",
+      "geometry_csv_sha256": "52d00220ce34ae4169f2475b29b17661adeba6a067e5553204222b7891a97065"
+    }
+  }
+}

@@ -31,3 +31,7 @@ extend-exclude = ["external/recastingCodes"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+# Fixed-width LHEF particle-line fixture data; wrapping would corrupt it.
+"tests/test_relabel_lhe_pdg.py" = ["E501"]
