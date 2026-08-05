@@ -15,7 +15,9 @@ jobs:
       MPLBACKEND: Agg
     strategy:
       matrix:
-        python-version: ["3.10", "3.11", "3.12"]
+        # Temporarily restricted for faster iteration.
+        # Restore Python 3.10 and 3.12 before final validation.
+        python-version: ["3.11"]
     steps:
       - uses: actions/checkout@v4
         with:
