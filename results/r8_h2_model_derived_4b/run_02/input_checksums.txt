@@ -1,3 +1,13 @@
+# Provenance note: the historical PR #6 run used a non-deterministic gzip
+# writer for the LHE line below; that run's actual compressed-file hash is
+# preserved in input_manifest.json as
+# lhe_inputs.run_02.lhe_identity.historical_relabelled_gzip_sha256_at_pr6_run_time
+# (3f0f2c37...) and is not expected to be independently reproducible. The
+# LHE hash recorded here reflects the current deterministic relabel writer
+# (scripts/relabel_lhe_pdg.py, gzip mtime=0, empty embedded filename) --
+# the hash a fresh reproduction of this run produces today. Decompressed
+# physics content is unchanged and byte-identical to the historical run;
+# see canonical_uncompressed_sha256 in input_manifest.json.
 f03a5cb6d94d8f3c5513c814f26036d38eddb180b35f91449ff74f83201e1331  results/upstream_build_patched/analysis/recast_2301_13866
 10f7ea494d418838541feaa4f3a1c8fca0fe1f867a9d0fea84713171c7545925  cards/r8_h2_model_derived_4b/physical_run_02.cmnd
-3f0f2c37c2c72739b9bd10e6f4130f7fd71c8eb29b95c233a54180a9973386f4  data/raw/r8_h2_model_derived_4b/relabelled_run_02.lhe.gz
+80b5e1f0044c00af8d97dc4138a56de3da4d6a86e74a44bcd9c624071148b3b7  data/raw/r8_h2_model_derived_4b/relabelled_run_02.lhe.gz
