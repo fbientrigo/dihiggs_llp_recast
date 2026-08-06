@@ -89,7 +89,7 @@ def main():
         old_row = old_grid[abs(old_grid["g_hH2H2_GeV"] - g) < 1e-5].iloc[0]
         sigma_pb = old_row["sigma_production_pb"]
         sigma_err = old_row["sigma_production_error_pb"]
-        commit = "R13_PHASE_A_COMMIT"
+        commit = "945f8fd82664d6f904b9eb5e8f467a79d6a097bb"
         
         for ctau in CTAU_VALUES:
             eff_row = eff_df[(abs(eff_df["g_hH2H2_GeV"] - g) < 1e-5) & (abs(eff_df["ctau_mm"] - ctau) < 1e-5)].iloc[0]
