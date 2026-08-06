@@ -11,7 +11,10 @@
       "event_count": 1000,
       "sigma_run_pb": 9.1549e-05,
       "sigma_run_error_pb": 4.8997e-07,
-      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g40_run_01_pdg35.lhe.gz"
+      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g40_run_01_pdg35.lhe.gz",
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "2fd2613654a9678fffc600fe03bc8b72bad09f9e",
+      "source_repository_path": "results/r12_madgraph_per_g_production/g40/run_01/unweighted_events.lhe.gz"
     },
     {
       "g": 40.0,
@@ -21,7 +24,10 @@
       "event_count": 1000,
       "sigma_run_pb": 9.0547e-05,
       "sigma_run_error_pb": 9.9153e-07,
-      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g40_run_02_pdg35.lhe.gz"
+      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g40_run_02_pdg35.lhe.gz",
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "2fd2613654a9678fffc600fe03bc8b72bad09f9e",
+      "source_repository_path": "results/r12_madgraph_per_g_production/g40/run_02/unweighted_events.lhe.gz"
     },
     {
       "g": 63.59142520075966,
@@ -31,7 +37,10 @@
       "event_count": 1000,
       "sigma_run_pb": 0.00023138,
       "sigma_run_error_pb": 1.2383e-06,
-      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g63p591425_run_01_pdg35.lhe.gz"
+      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g63p591425_run_01_pdg35.lhe.gz",
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "2fd2613654a9678fffc600fe03bc8b72bad09f9e",
+      "source_repository_path": "results/r12_madgraph_per_g_production/g63p591425/run_01/unweighted_events.lhe.gz"
     },
     {
       "g": 63.59142520075966,
@@ -41,7 +50,10 @@
       "event_count": 1000,
       "sigma_run_pb": 0.00022885,
       "sigma_run_error_pb": 2.506e-06,
-      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g63p591425_run_02_pdg35.lhe.gz"
+      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g63p591425_run_02_pdg35.lhe.gz",
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "2fd2613654a9678fffc600fe03bc8b72bad09f9e",
+      "source_repository_path": "results/r12_madgraph_per_g_production/g63p591425/run_02/unweighted_events.lhe.gz"
     },
     {
       "g": 100.0,
@@ -51,7 +63,10 @@
       "event_count": 1000,
       "sigma_run_pb": 0.00057218,
       "sigma_run_error_pb": 3.0623e-06,
-      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g100_run_01_pdg35.lhe.gz"
+      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g100_run_01_pdg35.lhe.gz",
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "2fd2613654a9678fffc600fe03bc8b72bad09f9e",
+      "source_repository_path": "results/r12_madgraph_per_g_production/g100/run_01/unweighted_events.lhe.gz"
     },
     {
       "g": 100.0,
@@ -61,7 +76,10 @@
       "event_count": 1000,
       "sigma_run_pb": 0.00056592,
       "sigma_run_error_pb": 6.197e-06,
-      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g100_run_02_pdg35.lhe.gz"
+      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g100_run_02_pdg35.lhe.gz",
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "2fd2613654a9678fffc600fe03bc8b72bad09f9e",
+      "source_repository_path": "results/r12_madgraph_per_g_production/g100/run_02/unweighted_events.lhe.gz"
     },
     {
       "g": 150.0,
@@ -71,7 +89,10 @@
       "event_count": 1000,
       "sigma_run_pb": 0.0012874,
       "sigma_run_error_pb": 6.8901e-06,
-      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g150_run_01_pdg35.lhe.gz"
+      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g150_run_01_pdg35.lhe.gz",
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "2fd2613654a9678fffc600fe03bc8b72bad09f9e",
+      "source_repository_path": "results/r12_madgraph_per_g_production/g150/run_01/unweighted_events.lhe.gz"
     },
     {
       "g": 150.0,
@@ -81,7 +102,10 @@
       "event_count": 1000,
       "sigma_run_pb": 0.0012733,
       "sigma_run_error_pb": 1.3943e-05,
-      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g150_run_02_pdg35.lhe.gz"
+      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g150_run_02_pdg35.lhe.gz",
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "2fd2613654a9678fffc600fe03bc8b72bad09f9e",
+      "source_repository_path": "results/r12_madgraph_per_g_production/g150/run_02/unweighted_events.lhe.gz"
     },
     {
       "g": 205.09272542237372,
@@ -91,7 +115,10 @@
       "event_count": 1000,
       "sigma_run_pb": 0.0024068,
       "sigma_run_error_pb": 1.2881e-05,
-      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g205p092725_run_01_pdg35.lhe.gz"
+      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g205p092725_run_01_pdg35.lhe.gz",
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "2fd2613654a9678fffc600fe03bc8b72bad09f9e",
+      "source_repository_path": "results/r12_madgraph_per_g_production/g205p092725/run_01/unweighted_events.lhe.gz"
     },
     {
       "g": 205.09272542237372,
@@ -101,7 +128,10 @@
       "event_count": 1000,
       "sigma_run_pb": 0.0023804,
       "sigma_run_error_pb": 2.6067e-05,
-      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g205p092725_run_02_pdg35.lhe.gz"
+      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g205p092725_run_02_pdg35.lhe.gz",
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "2fd2613654a9678fffc600fe03bc8b72bad09f9e",
+      "source_repository_path": "results/r12_madgraph_per_g_production/g205p092725/run_02/unweighted_events.lhe.gz"
     },
     {
       "g": 300.0,
@@ -111,7 +141,10 @@
       "event_count": 1000,
       "sigma_run_pb": 0.0051497,
       "sigma_run_error_pb": 2.7561e-05,
-      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g300_run_01_pdg35.lhe.gz"
+      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g300_run_01_pdg35.lhe.gz",
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "2fd2613654a9678fffc600fe03bc8b72bad09f9e",
+      "source_repository_path": "results/r12_madgraph_per_g_production/g300/run_01/unweighted_events.lhe.gz"
     },
     {
       "g": 300.0,
@@ -121,7 +154,10 @@
       "event_count": 1000,
       "sigma_run_pb": 0.0050932,
       "sigma_run_error_pb": 5.5773e-05,
-      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g300_run_02_pdg35.lhe.gz"
+      "local_materialization_path_relative": "results/r12_madgraph_per_g_scan/relabeled_lhes/g300_run_02_pdg35.lhe.gz",
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "2fd2613654a9678fffc600fe03bc8b72bad09f9e",
+      "source_repository_path": "results/r12_madgraph_per_g_production/g300/run_02/unweighted_events.lhe.gz"
     }
   ],
   "schema_version": 2,

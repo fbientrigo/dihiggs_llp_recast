@@ -186,25 +186,41 @@ def main(args: list[str] | None = None) -> int:
                 "g": g,
                 "production_run": run_name,
                 "production_seed": run_info["seed"],
-                "source_path": str(src_lhe),
+                "source_repository": "fbientrigo/dihiggs_hep_cross",
+                "source_commit": phase_a_commit,
+                "source_repository_path": f"results/r12_madgraph_per_g_production/{g_dir}/{run_name}/unweighted_events.lhe.gz",
                 "source_sha256": run_info["lhe_sha256"],
-                "relabeled_path": str(relabeled_lhe),
+                "local_materialization_path_relative": f"results/r12_madgraph_per_g_scan/relabeled_lhes/{relabeled_lhe.name}",
                 "event_count": 1000,
                 "sigma_run_pb": run_info["sigma_pb"],
                 "sigma_run_error_pb": run_info["sigma_error_pb"],
+                # Internal runtime paths (not committed)
+                "_runtime_source_path": str(src_lhe),
+                "_runtime_relabeled_path": str(relabeled_lhe),
             })
 
+    # Strip runtime-only keys before writing manifest
+    manifest_runs_clean = [
+        {k: v for k, v in r.items() if not k.startswith("_runtime_")}
+        for r in manifest_runs
+    ]
     prod_input_manifest = {
+        "schema_version": 2,
         "repository": "fbientrigo/dihiggs_hep_cross",
         "commit": phase_a_commit,
         "campaign": "results/r12_madgraph_per_g_production",
-        "runs": manifest_runs,
+        "runs": manifest_runs_clean,
     }
 
     if mode != "verify-only":
         (out_dir / "production_input_manifest.json").write_text(
             json.dumps(prod_input_manifest, indent=2) + "\n", encoding="utf-8"
         )
+
+    # Re-add runtime paths for in-memory use only (not written to disk)
+    for r in manifest_runs:
+        r["source_path"] = r.pop("_runtime_source_path", r.get("source_path", ""))
+        r["relabeled_path"] = r.pop("_runtime_relabeled_path", r.get("relabeled_path", ""))
 
     # 2. Relabel LHEs (9000006 -> 35)
     for run_item in manifest_runs:
