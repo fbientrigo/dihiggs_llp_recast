@@ -1,56 +1,31 @@
-# Full Production Execution Commands for 6 × 12 × 2 Campaign (144 Recast Runs, 360 Final Grid Rows)
+# Future R13 Full Campaign Execution Specification
 
-## Overview
-This document specifies the exact command invocations required for the full R13/R14 campaign across all 6 couplings, 12 ctau lifetimes, 2 production/recast seeds, and 5 BR values.
+> [!IMPORTANT]
+> The full R13 campaign ($6g \times 12c\tau \times 2 = 144$ recast jobs) is authorized by the successful completion of the reduced end-to-end validation.
+> **DO NOT RUN THE FULL CAMPAIGN IN THIS MISSION.**
 
-These commands support:
-- `--execute`: Physically execute MadGraph LHE generation and Pythia/recast jobs.
-- `--resume`: Skip completed and verified runs cleanly.
-- `--max-parallel 2`: Enforce strict bounded parallelism limit.
-- `--strict-no-fallback`: Strictly disallow falling back to factorized sigma, ctau-only Aeff, wrong g0 anchor, or stale comparison output.
+## Command Specification
 
----
-
-## Phase A: Full MadGraph Production Campaign (6 g × 2 seeds = 12 physical runs)
+When authorized for full campaign execution, use the following exact command:
 
 ```bash
-python3 scripts/r12_run_madgraph_production.py \
+python3 scripts/r13_execute_full.py \
   --execute \
   --resume \
   --max-parallel 2 \
   --strict-no-fallback \
-  --g-values 40.0 63.59142520075966 100.0 150.0 205.09272542237372 300.0 \
-  --seeds 211 223 \
-  --events-per-run 1000 \
-  --out-dir results/r14_full_madgraph_per_g_production
+  --require-mass 150 \
+  --reject-absolute-card-paths \
+  --require-direct-production-table \
+  --require-explicit-g0
 ```
 
----
+## Runtime Pre-execution Safety Guards
 
-## Phase B: Full Pythia / Recast Campaign (6 g × 12 ctau × 2 runs = 144 recast runs)
-
-```bash
-python3 scripts/run_r12_madgraph_per_g_scan.py \
-  --execute \
-  --resume \
-  --max-parallel 2 \
-  --strict-no-fallback \
-  --g-values 40.0 63.59142520075966 100.0 150.0 205.09272542237372 300.0 \
-  --ctau-values 0.3 1.0 3.0 4.326221529733112 10.0 30.0 100.0 200.0 300.0 500.0 700.0 1000.0 \
-  --br-values 0.1 0.25 0.5 0.7567374858085787 1.0 \
-  --seeds 211 223 \
-  --hep-cross-dir /home/fabi/atlas_dihiggs/_worktrees/r13-reduced-direct-production-validation \
-  --out-dir results/r14_full_madgraph_per_g_scan
-```
-
----
-
-## Authoritative Validation & Post-Processing
-
-```bash
-python3 scripts/rebuild_r12_corrected_outputs.py \
-  --repo-root . \
-  --strict-no-fallback \
-  --results-dir results/r14_full_madgraph_per_g_scan \
-  --r10-reference data/r10_reference/efficiency_vs_ctau.csv
-```
+The execution script implements preflight validation that halts execution if any of the following conditions are met:
+1. Any generated Pythia card contains `35:m0` != `150.0` or `35:mMin` != `100.0`.
+2. Any card or script contains `/home/fabi`.
+3. The production table is not the pinned direct Phase A production table (`r13_production_combined.csv`).
+4. Any requested $g$ point lacks a direct production cross-section row in the table.
+5. The $R10$ $g_0$ reference point is ambiguous or not explicitly specified as $g_0 = 63.59142520075966\text{ GeV}$.
+6. A stale or invalid result directory would be mixed with the new campaign output.
