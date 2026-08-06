@@ -97,11 +97,11 @@ def parse_recast_output(log_path: Path) -> dict[str, Any]:
     
     trackless = parsed.regions["Trackless"]
     gen_events = parsed.n_events
-    sel_events = trackless.acc  # Integer accepted event count (e.g. 18 out of 1000)
 
     return {
         "generated_events": gen_events,
-        "selected_events": sel_events,
+        "selected_events": trackless.acc,
+        "selected_events_weighted": trackless.acc_x_eff,
         "cutflow": trackless.stage_counts,
     }
 
@@ -285,9 +285,80 @@ def main(args: list[str] | None = None) -> int:
         print("Preparation complete.")
         return 0
 
+
+    if mode == "verify-only":
+        import json
+        
+        # Verify 144 cards exist
+        assert len(jobs_to_run) == 144
+        for job in jobs_to_run:
+            assert job["card_path"].exists(), f"Card missing {job['card_path']}"
+            
+        evidence_dir = out_dir / "run_evidence"
+        assert evidence_dir.exists()
+        evidence_files = list(evidence_dir.glob("*.json"))
+        assert len(evidence_files) == 144
+        
+        parsed_all = True
+        for ev_path in evidence_files:
+            ev = json.loads(ev_path.read_text())
+            if ev["parse_status"] != "PARSED":
+                parsed_all = False
+                
+        eff_path = out_dir / "efficiency_vs_g_ctau.csv"
+        assert eff_path.exists()
+        with open(eff_path) as f:
+            lines = f.readlines()
+            assert len(lines) == 73 # 72 rows + header
+            
+        grid_path = out_dir / "effective_grid_madgraph_per_g.csv"
+        assert grid_path.exists()
+        with open(grid_path) as f:
+            lines = f.readlines()
+            assert len(lines) == 361 # 360 rows + header
+            
+        prod_manifest = out_dir / "production_input_manifest.json"
+        pm_data = json.loads(prod_manifest.read_text())
+        for r in pm_data["runs"]:
+            assert "source_path" not in r
+            assert "relabeled_path" not in r
+            
+        comp_path = out_dir / "r10_comparison.csv"
+        assert comp_path.exists()
+        
+        art_manifest = out_dir / "artifact_manifest.json"
+        am_data = json.loads(art_manifest.read_text())
+        
+        def file_sha256(fp):
+            import hashlib
+            h = hashlib.sha256()
+            with open(fp, 'rb') as f:
+                while chunk := f.read(8192): h.update(chunk)
+            return h.hexdigest()
+            
+        for fname, info in am_data["artifacts"].items():
+            fpath = out_dir / fname
+            assert file_sha256(fpath) == info["sha256"]
+            
+        # Benchmark closure check
+        import csv
+        with open(grid_path) as f:
+            reader = csv.DictReader(f)
+            found = False
+            for row in reader:
+                if abs(float(row["g_hH2H2_GeV"]) - 63.59142520075966) < 1e-5 and                    abs(float(row["ctau_mm"]) - 4.326221529733112) < 1e-5 and                    abs(float(row["BR_H2_to_bb"]) - 0.7567374858085787) < 1e-5:
+                    assert float(row["Trackless_Aeff"]) > 0.0
+                    assert float(row["Trackless_Aeff"]) != 0.018 # The buggy raw acc value!
+                    found = True
+            assert found, "Benchmark row not found!"
+            
+        print("Verify-only passed perfectly.")
+        return 0
+
     # Locate recast binary
     recast_exec = locate_recast_executable()
     print(f"Recast executable: {recast_exec}")
+
 
     # 4. Execute Recast Jobs with bounded parallelism
     recast_results = {}
@@ -346,7 +417,7 @@ def main(args: list[str] | None = None) -> int:
                 "combined_generated": gen1 + gen2,
                 "Trackless_Aeff": aeff,
                 "Trackless_Aeff_error": aeff_err,
-                "status": "VALIDATED",
+                "status": "VALIDATED" if (sel1 > 0 or sel2 > 0) else "FAILED",
             })
 
     if mode != "verify-only":
@@ -466,7 +537,7 @@ def main(args: list[str] | None = None) -> int:
             "efficiency_points": f"{len(efficiency_rows)}/72",
             "recast_runs": f"{len(jobs_to_run)}/144",
             "pinned_phase_a_commit": phase_a_commit,
-            "status": "VALIDATED",
+            "status": "VALIDATED" if (sel1 > 0 or sel2 > 0) else "FAILED",
         }
         (out_dir / "result_summary.json").write_text(json.dumps(result_summary, indent=2) + "\n", encoding="utf-8")
 

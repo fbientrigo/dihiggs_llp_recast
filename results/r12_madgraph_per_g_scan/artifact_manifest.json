@@ -1,9 +1,16 @@
 {
-  "production_input_manifest.json": "17ac81cd4386115230f649c72b11ee9a3fee7015b343267ff98f5b4f2fb837ad",
-  "efficiency_vs_g_ctau.csv": "572f6f3ac9d570a2ae122a91aa25e0e0eb62aa3dfee1038ec32f57eae5266aca",
-  "effective_grid_madgraph_per_g.csv": "bfb7e6207d1e7bcf8f93688a515dd37fb26552da35fc680fef983b7505f92771",
-  "comparison_vs_r10_factorized.csv": "f212899cccc2f4f740c0b4c4c7a4b1443a111040f999037009a6958de595faf3",
-  "comparison_vs_r10_factorized.json": "d2ba926c79d031e1c38dc0b0a556acfdab7b6afc65960fee9f0e9cf565dbc05c",
-  "result_summary.json": "dad11b3711368944bd1526ef7b1a5441c993ea10cb64740193fe745932b949cb",
-  "verification_report.json": "8ec36803f2cadfe68c7db1ca291c0e5e96922ebf28a56fd98f4575a0e1aff652"
+  "artifacts": {
+    "efficiency_vs_g_ctau.csv": {
+      "sha256": "5ed0f810fe091201a191089e9e284e6265142b26ed62ba5a78ec678940fde6c6"
+    },
+    "effective_grid_madgraph_per_g.csv": {
+      "sha256": "0341de5de421f5b73414486a923e55af1c6b50b44b9add12e03c1f48deb40e23"
+    },
+    "r10_comparison.csv": {
+      "sha256": "80c76fbfade0e2114473045f4438c868d422f06329b536dccd973287b8958687"
+    },
+    "production_input_manifest.json": {
+      "sha256": "aca6379ced56ceedd1189fdbe3d317f962acc32dd56bff479b4e866057236118"
+    }
+  }
 }

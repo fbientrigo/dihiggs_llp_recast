@@ -1,0 +1,48 @@
+{
+  "g_hH2H2_GeV": 40.0,
+  "ctau_mm": 300.0,
+  "production_run": "run_01",
+  "pythia_seed": 120080,
+  "n_events": 1000,
+  "zero_llp_events": 0,
+  "trackless_acc_count": 17,
+  "trackless_acc_x_eff": 4.131251,
+  "trackless_raw_acceptance": 0.017,
+  "trackless_Aeff_weighted": 0.004131251,
+  "highpt_acc_count": 0,
+  "highpt_acc_x_eff": 0.0,
+  "trackless_stage_counts": {
+    "jet_selection_pct": 21,
+    "fiducial_pct": 17,
+    "r_vertex_gt_4mm_pct": 17,
+    "track_d0_gt_2mm_pct": 17,
+    "selected_decay_products_ge5_pct": 17,
+    "invariant_mass_gt_10gev_pct": 17
+  },
+  "trackless_stage_percentages": {
+    "jet_selection_pct": 2.1,
+    "fiducial_pct": 1.7,
+    "r_vertex_gt_4mm_pct": 1.7,
+    "track_d0_gt_2mm_pct": 1.7,
+    "selected_decay_products_ge5_pct": 1.7,
+    "invariant_mass_gt_10gev_pct": 1.7
+  },
+  "inclusive_cross_section_mb": 1e-09,
+  "authoritative_cutflow_lines": [
+    "All Events:                                       1.000000e+03",
+    "High-pT Acc:                                      0.000000e+00",
+    "High-pT Acc x Eff:                                0.000000e+00",
+    "Trackless Acc:                                    1.700000e+01",
+    "Trackless Acc x Eff:                              4.131251e+00",
+    "High-pT Acc [%]:                                  0.000000e+00",
+    "High-pT Acc x Eff [%]:                            0.000000e+00",
+    "Trackless Acc [%]:                                1.700000e+00",
+    "Trackless Acc x Eff [%]:                          4.131251e-01",
+    "The inclusive cross section after merging is:     1.000000e-09 mb"
+  ],
+  "full_log_sha256": "bd96d0347cdb6ed84d0a5074e824b39bcd68e0198551e3c9e92b35c0d24d0864",
+  "card_sha256": "fbec3480b85719388db744ac8652c2089150cb20d8cf9e4578d667cca00085cd",
+  "card_path": "cards/r12_madgraph_per_g_scan/g40/ctau_300mm/run_01.cmnd",
+  "parse_status": "PARSED",
+  "parser_commit": "ba9b78b1823c278697e35f7cf7b63c49213749cf"
+}

@@ -66,7 +66,7 @@ def test_generate_pythia_card_content():
 def test_calculate_aggregated_efficiency():
     aeff, err = calculate_aggregated_efficiency(15, 1000, 16, 1000)
     assert pytest.approx(aeff, rel=1e-5) == 31 / 2000
-    expected_err = math.sqrt((31 / 2000) * (1 - 31 / 2000) / 2000)
+    expected_err = abs(15/1000 - 16/1000)
     assert pytest.approx(err, rel=1e-5) == expected_err
 
 

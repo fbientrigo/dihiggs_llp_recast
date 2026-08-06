@@ -122,23 +122,25 @@ def generate_pythia_card_content(
 
 
 def calculate_aggregated_efficiency(
-    selected1: int,
+    acc_x_eff_1: float,
     gen1: int,
-    selected2: int,
+    acc_x_eff_2: float,
     gen2: int,
 ) -> tuple[float, float]:
-    """Aggregate two production runs using total counts and compute binomial uncertainty.
+    """Aggregate two production runs using weighted acc_x_eff and compute provisional uncertainty.
 
-    Aeff(g, ctau) = (selected1 + selected2) / (gen1 + gen2)
-    delta_Aeff = sqrt(Aeff * (1 - Aeff) / N_gen_total)
+    Aeff(g, ctau) = (acc_x_eff_1 + acc_x_eff_2) / (gen1 + gen2)
+    delta_Aeff = provisional between-run spread
     """
     gen_tot = gen1 + gen2
-    sel_tot = selected1 + selected2
+    acc_x_eff_tot = acc_x_eff_1 + acc_x_eff_2
     if gen_tot <= 0:
         return 0.0, 0.0
 
-    aeff = sel_tot / gen_tot
-    err = math.sqrt(max(0.0, aeff * (1.0 - aeff) / gen_tot))
+    aeff = acc_x_eff_tot / gen_tot
+    aeff_1 = acc_x_eff_1 / gen1 if gen1 > 0 else 0.0
+    aeff_2 = acc_x_eff_2 / gen2 if gen2 > 0 else 0.0
+    err = abs(aeff_1 - aeff_2)
     return aeff, err
 
 
@@ -157,6 +159,10 @@ def calculate_final_grid_row(
     run_count: int = 2,
     lumi_fb: float = LUMI_FB_INV,
     observed_s95: float = OBSERVED_S95,
+    aeff_definition: str = "weighted_acc_x_eff_over_generated",
+    raw_acceptance: float = 0.0,
+    aeff_uncertainty_model: str = "provisional_between_run_spread",
+    status: str = "VALIDATED"
 ) -> dict[str, Any]:
     """Calculate single phenomenological row for final 360-point grid.
 
@@ -190,6 +196,9 @@ def calculate_final_grid_row(
         "production_run_count": run_count,
         "Trackless_Aeff": aeff,
         "Trackless_Aeff_error": aeff_err,
+        "Trackless_Aeff_definition": aeff_definition,
+        "Trackless_raw_acceptance": raw_acceptance,
+        "Trackless_Aeff_uncertainty_model": aeff_uncertainty_model,
         "recast_generated_events": n_gen_tot,
         "recast_selected_events": n_sel_tot,
         "sigma_4b_fb": sigma_4b_fb,
@@ -203,5 +212,5 @@ def calculate_final_grid_row(
         "decay_mode": "forced_bb",
         "BR_application": "analytical_BR_squared",
         "interpretation": "EFFECTIVE_PHENOMENOLOGICAL",
-        "status": "VALIDATED",
+        "status": status,
     }

@@ -45,3 +45,6 @@ results/r12_madgraph_per_g_scan/recast_logs/
 .env
 configs/toolchain.env
 py.py
+!results/r12_madgraph_per_g_scan/run_evidence/
+!results/r12_madgraph_per_g_scan/run_evidence/**
+!data/r10_reference/
