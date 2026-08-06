@@ -1,0 +1,25 @@
+{
+  "artifacts": {
+    "r13_efficiency_vs_g_ctau.csv": {
+      "sha256": "db8ba4ab9436e4b3f6c6e04c0c8e497e0eb181092a51f0f44f20367ebbe93a4f"
+    },
+    "r13_effective_grid.csv": {
+      "sha256": "c8b513ae84f0b174b0f1631ac1113ab9f9e9904ff2d34b1135a76a3c958b0739"
+    },
+    "comparison_vs_r10.csv": {
+      "sha256": "3ddc07d113fc97d737b4090abd690f4adf72fba896bc5ebd9956bf7e92961e89"
+    },
+    "comparison_vs_r12.csv": {
+      "sha256": "a8b0f395439ab971ff6403c28aae932def7d90c00952b829bb7920e22de18793"
+    },
+    "result_summary.json": {
+      "sha256": "c3f0c37e3182a05377ec3e30cfbc2a4057d35a9946d70c7f233c5ce0a8b196b6"
+    },
+    "verification_report.json": {
+      "sha256": "d7347287c4b08f49165c1fab65800c584dfd7fa61fe692549179ec0d40614e4d"
+    },
+    "FULL_EXECUTION_COMMANDS.md": {
+      "sha256": "f969f1f9c6295dc2c21a5ff23ba15387f44e8a81e53e842c2e13a4ae1b64d502"
+    }
+  }
+}
