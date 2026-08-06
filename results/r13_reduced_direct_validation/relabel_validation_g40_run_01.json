@@ -1,0 +1,14 @@
+{
+  "lhes_identifier": "g40_run_01",
+  "source_lhe_path": "results/r13_reduced_direct_validation/production/g40/run_01/unweighted_events.lhe.gz",
+  "relabeled_lhe_path": "results/r13_reduced_direct_validation/relabeled_lhes/g40_run_01_pdg35.lhe.gz",
+  "source_sha256": "084ac3b0950675fe6840078561c52f534605e96109146e6f3dbd52805097cad7",
+  "source_uncompressed_sha256": "f20a3bf8962da8abea0f996dd3132c24d94bf1465d57682b3fe21731c1c2aaac",
+  "relabeled_sha256": "82304f7303e8871e0a6acb4f866f32c32f1498a9c668df4648198ab7f94c7f15",
+  "relabeled_uncompressed_sha256": "426e52366b9b0745c529033a74b34ddf7eabaea5d459da503fe18d102892118e",
+  "source_event_count": 1000,
+  "relabeled_event_count": 1000,
+  "changed_event_particle_id_fields": 2000,
+  "unexpected_changed_lines": 0,
+  "status": "PASSED"
+}

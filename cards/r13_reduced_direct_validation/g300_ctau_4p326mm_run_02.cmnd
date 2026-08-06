@@ -18,8 +18,8 @@ HadronLevel:Hadronize = on
 Tune:pp = 21
 
 Higgs:useBSM = on
-35:m0 = 50.0
-35:mMin = 20.0
+35:m0 = 150.0
+35:mMin = 100.0
 35:tauCalc = off
 35:tau0 = 4.326221529733112
 35:onMode = off
@@ -32,4 +32,4 @@ LesHouches:setLifetime = 2
 Beams:frameType = 4
 LHEFInputs:nSubruns = 1
 Main:subrun = 0
-Beams:LHEF = /home/fabi/atlas_dihiggs/_worktrees/r13-reduced-direct-recast-validation/results/r13_reduced_direct_validation/relabeled_lhes/g300_run_02_pdg35.lhe.gz
+Beams:LHEF = results/r13_reduced_direct_validation/relabeled_lhes/g300_run_02_pdg35.lhe.gz

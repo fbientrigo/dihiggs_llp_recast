@@ -1,0 +1,14 @@
+{
+  "lhes_identifier": "g300_run_01",
+  "source_lhe_path": "results/r13_reduced_direct_validation/production/g300/run_01/unweighted_events.lhe.gz",
+  "relabeled_lhe_path": "results/r13_reduced_direct_validation/relabeled_lhes/g300_run_01_pdg35.lhe.gz",
+  "source_sha256": "9e9919904de98f09e4ab61bc3be93cb58db2fc6a62b25c91aad36d1d031f90de",
+  "source_uncompressed_sha256": "5186873291e9881b6ed5bf84d2d4883214653ccaf1d9bb15bcbcb776f682f412",
+  "relabeled_sha256": "b032c7a3bcafd96ec769b4a2808d6a64074e4da212e6aa52dc724b4f959a60ba",
+  "relabeled_uncompressed_sha256": "04a24967dcc8cb6ceaa6817d2ad58f040369d1da627c0a9f3e932a4b48408bd2",
+  "source_event_count": 1000,
+  "relabeled_event_count": 1000,
+  "changed_event_particle_id_fields": 2000,
+  "unexpected_changed_lines": 0,
+  "status": "PASSED"
+}
