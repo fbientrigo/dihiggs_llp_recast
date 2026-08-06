@@ -1,0 +1,85 @@
+{
+  "production_combined_source_path": "results/r13_reduced_direct_validation/r13_production_combined.csv",
+  "production_combined_sha256": "cdfc7ec35e5228d8618ae601d478db2d9486e7f0fccc52f1047a21460d83aae7",
+  "production_combined_rows": 3,
+  "lhes": [
+    {
+      "g_hH2H2_GeV": 40.0,
+      "production_run": "run_01",
+      "MadGraph_seed": 211,
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "945f8fd82664d6f904b9eb5e8f467a79d6a097bb",
+      "source_repository_path": "results/r13_reduced_direct_validation/production/g40/run_01/unweighted_events.lhe.gz",
+      "source_sha256": "084ac3b0950675fe6840078561c52f534605e96109146e6f3dbd52805097cad7",
+      "source_uncompressed_sha256": "f20a3bf8962da8abea0f996dd3132c24d94bf1465d57682b3fe21731c1c2aaac",
+      "event_count": 1000,
+      "sigma_run_pb": 9.1384e-05,
+      "sigma_run_error_pb": 2.081387532993316e-07
+    },
+    {
+      "g_hH2H2_GeV": 40.0,
+      "production_run": "run_02",
+      "MadGraph_seed": 223,
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "945f8fd82664d6f904b9eb5e8f467a79d6a097bb",
+      "source_repository_path": "results/r13_reduced_direct_validation/production/g40/run_02/unweighted_events.lhe.gz",
+      "source_sha256": "bce23e1f7e51beb5f6b282e2323c852fd4e1f0bd6c1e391b5a2a5c9f74d43a60",
+      "source_uncompressed_sha256": "e6c6834f1c6e3e286b73e64721061ba2d3d8434c701ec748987800cf90f1ac6a",
+      "event_count": 1000,
+      "sigma_run_pb": 9.1384e-05,
+      "sigma_run_error_pb": 2.081387532993316e-07
+    },
+    {
+      "g_hH2H2_GeV": 63.59142520075966,
+      "production_run": "run_01",
+      "MadGraph_seed": 211,
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "945f8fd82664d6f904b9eb5e8f467a79d6a097bb",
+      "source_repository_path": "results/r13_reduced_direct_validation/production/g63p591425/run_01/unweighted_events.lhe.gz",
+      "source_sha256": "066287f23fd29f67bf05e2a36cec9fc95bb3d41f4e8f58da6491c5beb33a1854",
+      "source_uncompressed_sha256": "27695904a0fb923482d27404bfa8d7b24022c5518f446b4b5b79b7f460845358",
+      "event_count": 1000,
+      "sigma_run_pb": 0.000230965,
+      "sigma_run_error_pb": 5.260581284420953e-07
+    },
+    {
+      "g_hH2H2_GeV": 63.59142520075966,
+      "production_run": "run_02",
+      "MadGraph_seed": 223,
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "945f8fd82664d6f904b9eb5e8f467a79d6a097bb",
+      "source_repository_path": "results/r13_reduced_direct_validation/production/g63p591425/run_02/unweighted_events.lhe.gz",
+      "source_sha256": "1d42e9842615a46fe77180955937d0481a60b9af0d059c7628c051c3b876bc02",
+      "source_uncompressed_sha256": "cda4a7aabe511c2a581d896f36dce4f2782bf33c2389ccb0eb462205eab0c46f",
+      "event_count": 1000,
+      "sigma_run_pb": 0.000230965,
+      "sigma_run_error_pb": 5.260581284420953e-07
+    },
+    {
+      "g_hH2H2_GeV": 300.0,
+      "production_run": "run_01",
+      "MadGraph_seed": 211,
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "945f8fd82664d6f904b9eb5e8f467a79d6a097bb",
+      "source_repository_path": "results/r13_reduced_direct_validation/production/g300/run_01/unweighted_events.lhe.gz",
+      "source_sha256": "9e9919904de98f09e4ab61bc3be93cb58db2fc6a62b25c91aad36d1d031f90de",
+      "source_uncompressed_sha256": "5186873291e9881b6ed5bf84d2d4883214653ccaf1d9bb15bcbcb776f682f412",
+      "event_count": 1000,
+      "sigma_run_pb": 0.00514035,
+      "sigma_run_error_pb": 1.170792373779399e-05
+    },
+    {
+      "g_hH2H2_GeV": 300.0,
+      "production_run": "run_02",
+      "MadGraph_seed": 223,
+      "source_repository": "fbientrigo/dihiggs_hep_cross",
+      "source_commit": "945f8fd82664d6f904b9eb5e8f467a79d6a097bb",
+      "source_repository_path": "results/r13_reduced_direct_validation/production/g300/run_02/unweighted_events.lhe.gz",
+      "source_sha256": "ae3e3dedad8001acfc80b6908b838624668550df50d65855a9edb6b53eeb9576",
+      "source_uncompressed_sha256": "752e85e9e16c32447d7e5af06b65720f832abaf329b0e73ac8bf290cb262f679",
+      "event_count": 1000,
+      "sigma_run_pb": 0.00514035,
+      "sigma_run_error_pb": 1.170792373779399e-05
+    }
+  ]
+}
