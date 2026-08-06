@@ -1,0 +1,12 @@
+{
+  "generated_events": 1000,
+  "selected_events": 12,
+  "cutflow": {
+    "jet_selection_pct": 15,
+    "fiducial_pct": 15,
+    "r_vertex_gt_4mm_pct": 12,
+    "track_d0_gt_2mm_pct": 12,
+    "selected_decay_products_ge5_pct": 12,
+    "invariant_mass_gt_10gev_pct": 12
+  }
+}

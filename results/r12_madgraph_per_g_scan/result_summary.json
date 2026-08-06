@@ -1,0 +1,10 @@
+{
+  "campaign": "r12_madgraph_per_g_scan",
+  "production_execution_status": "COMPLETED",
+  "recast_execution_status": "COMPLETED",
+  "grid_completeness": "360/360",
+  "efficiency_points": "72/72",
+  "recast_runs": "144/144",
+  "pinned_phase_a_commit": "2fd2613654a9678fffc600fe03bc8b72bad09f9e",
+  "status": "VALIDATED"
+}

@@ -36,6 +36,10 @@ results/*
 !results/r7_h2_pair_4b/**
 !results/r8_h2_model_derived_4b/
 !results/r8_h2_model_derived_4b/**
+!results/r12_madgraph_per_g_scan/
+!results/r12_madgraph_per_g_scan/**
+results/r12_madgraph_per_g_scan/relabeled_lhes/
+results/r12_madgraph_per_g_scan/recast_logs/
 
 # Local configuration
 .env

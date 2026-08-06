@@ -1,0 +1,52 @@
+schema: llp_recast.r12.madgraph_per_g_scan_config.v1
+campaign_id: r12_madgraph_per_g_scan
+
+grid:
+  g_hH2H2_GeV:
+    - 40.0
+    - 63.59142520075966
+    - 100.0
+    - 150.0
+    - 205.09272542237372
+    - 300.0
+  ctau_mm:
+    - 0.3
+    - 1.0
+    - 3.0
+    - 4.326221529733112
+    - 10.0
+    - 30.0
+    - 100.0
+    - 200.0
+    - 300.0
+    - 500.0
+    - 700.0
+    - 1000.0
+  BR_H2_to_bb:
+    - 0.1
+    - 0.25
+    - 0.5
+    - 0.7567374858085787
+    - 1.0
+
+production_runs:
+  - run_01
+  - run_02
+
+pythia_settings:
+  numberOfEvents: 1000
+  pdg_llp: 35
+  forced_decay: "5 -5"
+  PartonLevel_ISR: "on"
+  PartonLevel_FSR: "on"
+  PartonLevel_MPI: "off"
+  HadronLevel_Hadronize: "on"
+  Tune_pp: 21
+
+recast_settings:
+  llpPdgIds: [35]
+  LesHouches_setLifetime: 2
+  observed_S95: 3.0
+  luminosity_fb_inv: 139.0
+
+seed_formula: "120000 + g_index * 1000 + ctau_index * 10 + run_index"

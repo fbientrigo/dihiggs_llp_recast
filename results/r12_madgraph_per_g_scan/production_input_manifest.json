@@ -1,0 +1,139 @@
+{
+  "repository": "fbientrigo/dihiggs_hep_cross",
+  "commit": "2fd2613654a9678fffc600fe03bc8b72bad09f9e",
+  "campaign": "results/r12_madgraph_per_g_production",
+  "runs": [
+    {
+      "g": 40.0,
+      "production_run": "run_01",
+      "production_seed": 101,
+      "source_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-six-g-madgraph-production/results/r12_madgraph_per_g_production/g40/run_01/unweighted_events.lhe.gz",
+      "source_sha256": "4a8cebb003ab0849a8a0fbebe6b06e4aaf991ee93d3da8a2ff5f17c1426366b7",
+      "relabeled_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-madgraph-per-g-recast-grid/results/r12_madgraph_per_g_scan/relabeled_lhes/g40_run_01_pdg35.lhe.gz",
+      "event_count": 1000,
+      "sigma_run_pb": 9.1549e-05,
+      "sigma_run_error_pb": 4.8997e-07
+    },
+    {
+      "g": 40.0,
+      "production_run": "run_02",
+      "production_seed": 107,
+      "source_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-six-g-madgraph-production/results/r12_madgraph_per_g_production/g40/run_02/unweighted_events.lhe.gz",
+      "source_sha256": "b2c55dd5e081839c79ca3702452828c4a1b754e6d25637b16e9a9824ac75d8b0",
+      "relabeled_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-madgraph-per-g-recast-grid/results/r12_madgraph_per_g_scan/relabeled_lhes/g40_run_02_pdg35.lhe.gz",
+      "event_count": 1000,
+      "sigma_run_pb": 9.0547e-05,
+      "sigma_run_error_pb": 9.9153e-07
+    },
+    {
+      "g": 63.59142520075966,
+      "production_run": "run_01",
+      "production_seed": 101,
+      "source_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-six-g-madgraph-production/results/r12_madgraph_per_g_production/g63p591425/run_01/unweighted_events.lhe.gz",
+      "source_sha256": "2325ed91227981014e1ad288ae0f5927d6d5c4b028947687177bad67c4fb1bca",
+      "relabeled_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-madgraph-per-g-recast-grid/results/r12_madgraph_per_g_scan/relabeled_lhes/g63p591425_run_01_pdg35.lhe.gz",
+      "event_count": 1000,
+      "sigma_run_pb": 0.00023138,
+      "sigma_run_error_pb": 1.2383e-06
+    },
+    {
+      "g": 63.59142520075966,
+      "production_run": "run_02",
+      "production_seed": 107,
+      "source_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-six-g-madgraph-production/results/r12_madgraph_per_g_production/g63p591425/run_02/unweighted_events.lhe.gz",
+      "source_sha256": "bdf006bbef586f861318defb8d4e3a14c7938e6cb0e27760570e27bdf9d10349",
+      "relabeled_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-madgraph-per-g-recast-grid/results/r12_madgraph_per_g_scan/relabeled_lhes/g63p591425_run_02_pdg35.lhe.gz",
+      "event_count": 1000,
+      "sigma_run_pb": 0.00022885,
+      "sigma_run_error_pb": 2.506e-06
+    },
+    {
+      "g": 100.0,
+      "production_run": "run_01",
+      "production_seed": 101,
+      "source_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-six-g-madgraph-production/results/r12_madgraph_per_g_production/g100/run_01/unweighted_events.lhe.gz",
+      "source_sha256": "9e08a7ce46daa1d84119d9b44518d734d2ea455c2a38c283bbc10c691a612adc",
+      "relabeled_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-madgraph-per-g-recast-grid/results/r12_madgraph_per_g_scan/relabeled_lhes/g100_run_01_pdg35.lhe.gz",
+      "event_count": 1000,
+      "sigma_run_pb": 0.00057218,
+      "sigma_run_error_pb": 3.0623e-06
+    },
+    {
+      "g": 100.0,
+      "production_run": "run_02",
+      "production_seed": 107,
+      "source_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-six-g-madgraph-production/results/r12_madgraph_per_g_production/g100/run_02/unweighted_events.lhe.gz",
+      "source_sha256": "1c85974147722fa3d4f4b3545ce1a3b7743fe593de3bccc6e4d14e567f37422d",
+      "relabeled_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-madgraph-per-g-recast-grid/results/r12_madgraph_per_g_scan/relabeled_lhes/g100_run_02_pdg35.lhe.gz",
+      "event_count": 1000,
+      "sigma_run_pb": 0.00056592,
+      "sigma_run_error_pb": 6.197e-06
+    },
+    {
+      "g": 150.0,
+      "production_run": "run_01",
+      "production_seed": 101,
+      "source_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-six-g-madgraph-production/results/r12_madgraph_per_g_production/g150/run_01/unweighted_events.lhe.gz",
+      "source_sha256": "89b4a6d17384628504a6108fb9552713a93bf4bffd253ca005b609c175b3c54a",
+      "relabeled_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-madgraph-per-g-recast-grid/results/r12_madgraph_per_g_scan/relabeled_lhes/g150_run_01_pdg35.lhe.gz",
+      "event_count": 1000,
+      "sigma_run_pb": 0.0012874,
+      "sigma_run_error_pb": 6.8901e-06
+    },
+    {
+      "g": 150.0,
+      "production_run": "run_02",
+      "production_seed": 107,
+      "source_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-six-g-madgraph-production/results/r12_madgraph_per_g_production/g150/run_02/unweighted_events.lhe.gz",
+      "source_sha256": "0178786f1a19772a945cdb240bc6dfeaf2551812a9ab89367b20a57f592ee517",
+      "relabeled_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-madgraph-per-g-recast-grid/results/r12_madgraph_per_g_scan/relabeled_lhes/g150_run_02_pdg35.lhe.gz",
+      "event_count": 1000,
+      "sigma_run_pb": 0.0012733,
+      "sigma_run_error_pb": 1.3943e-05
+    },
+    {
+      "g": 205.09272542237372,
+      "production_run": "run_01",
+      "production_seed": 101,
+      "source_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-six-g-madgraph-production/results/r12_madgraph_per_g_production/g205p092725/run_01/unweighted_events.lhe.gz",
+      "source_sha256": "4602a299dff27ac5ce1be9cf46f92db57b05e522b7f8586a4bf2bc3abc9f1642",
+      "relabeled_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-madgraph-per-g-recast-grid/results/r12_madgraph_per_g_scan/relabeled_lhes/g205p092725_run_01_pdg35.lhe.gz",
+      "event_count": 1000,
+      "sigma_run_pb": 0.0024068,
+      "sigma_run_error_pb": 1.2881e-05
+    },
+    {
+      "g": 205.09272542237372,
+      "production_run": "run_02",
+      "production_seed": 107,
+      "source_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-six-g-madgraph-production/results/r12_madgraph_per_g_production/g205p092725/run_02/unweighted_events.lhe.gz",
+      "source_sha256": "026021f07f1d10c0152f5dc8d0f6b4e4bd62ce07bac350c53d3794f6a57434e4",
+      "relabeled_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-madgraph-per-g-recast-grid/results/r12_madgraph_per_g_scan/relabeled_lhes/g205p092725_run_02_pdg35.lhe.gz",
+      "event_count": 1000,
+      "sigma_run_pb": 0.0023804,
+      "sigma_run_error_pb": 2.6067e-05
+    },
+    {
+      "g": 300.0,
+      "production_run": "run_01",
+      "production_seed": 101,
+      "source_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-six-g-madgraph-production/results/r12_madgraph_per_g_production/g300/run_01/unweighted_events.lhe.gz",
+      "source_sha256": "9fc608e3f17cadfc740630299204355fa6e639b75112567f36b6a26f65112c11",
+      "relabeled_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-madgraph-per-g-recast-grid/results/r12_madgraph_per_g_scan/relabeled_lhes/g300_run_01_pdg35.lhe.gz",
+      "event_count": 1000,
+      "sigma_run_pb": 0.0051497,
+      "sigma_run_error_pb": 2.7561e-05
+    },
+    {
+      "g": 300.0,
+      "production_run": "run_02",
+      "production_seed": 107,
+      "source_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-six-g-madgraph-production/results/r12_madgraph_per_g_production/g300/run_02/unweighted_events.lhe.gz",
+      "source_sha256": "58f90aa397fb7de1ad029067646786d0cdec462a8af28c15ae0f9f35ded7ded7",
+      "relabeled_path": "/home/fabi/atlas_dihiggs/_worktrees/r12-madgraph-per-g-recast-grid/results/r12_madgraph_per_g_scan/relabeled_lhes/g300_run_02_pdg35.lhe.gz",
+      "event_count": 1000,
+      "sigma_run_pb": 0.0050932,
+      "sigma_run_error_pb": 5.5773e-05
+    }
+  ]
+}
