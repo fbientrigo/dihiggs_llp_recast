@@ -1,0 +1,9 @@
+{
+  "study_type": "PAIRED_EVENT_LHE_KINEMATICS",
+  "methodology": "Paired event-by-event comparison using common MadGraph seeds across g values",
+  "allowed_scientific_claim": "With common random streams, the paired LHE events are identical or compatible within the stored numerical precision. This supports the interpretation that, for the fixed model, mass and topology used here, varying g changes the normalization but does not induce a resolvable parton-level shape change.",
+  "forbidden_claim": "KS p-value 1 proves exact kinematic independence.",
+  "paired_event_count_per_sample": 1000,
+  "total_observable_tests": 84,
+  "status": "VALIDATED"
+}

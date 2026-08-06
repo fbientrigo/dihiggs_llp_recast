@@ -1,0 +1,13 @@
+{
+  "invalidated_commit": "dd574f6a97d08b3fe8fc40ab341724598f710dd3",
+  "invalidated_reason": "Committed cards used wrong LLP mass contract (50 GeV instead of 150 GeV), contained absolute local paths (/home/fabi), final grid loaded R12 production cross sections, status was hardcoded without gate evaluation, and kinematic shape analysis misused KS tests on paired seeds.",
+  "wrong_mass_card_value": 50.0,
+  "required_mass_card_value": 150.0,
+  "wrong_mMin_value": 20.0,
+  "required_mMin_value": 100.0,
+  "absolute_path_cards_detected": true,
+  "grid_used_r12_sigma": true,
+  "status_was_hardcoded": true,
+  "physical_rerun_required": 36,
+  "MadGraph_rerun_required": 0
+}
