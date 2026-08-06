@@ -1,7 +1,4 @@
 {
-  "status": "PASSED",
-  "total_grid_rows": 360,
-  "total_efficiency_rows": 72,
-  "recast_runs_executed": 144,
-  "pinned_phase_a_commit": "2fd2613654a9678fffc600fe03bc8b72bad09f9e"
+  "commit": "29ba4ec128102ee1bddfc8f18d69222324ebbcea",
+  "notes": "Rebuilt R12 outputs with corrected R10 logic"
 }

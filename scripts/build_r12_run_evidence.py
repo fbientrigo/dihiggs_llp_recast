@@ -28,7 +28,11 @@ def get_parser_commit():
         return "UNKNOWN"
 
 def build_evidence():
-    worktree = "/home/fabi/atlas_dihiggs/_worktrees/r12-madgraph-per-g-recast-grid"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--repo-root", type=str, default=str(Path(__file__).resolve().parents[1]))
+    args = parser.parse_args()
+    
+    worktree = args.repo_root
     logs_dir = os.path.join(worktree, "results/r12_madgraph_per_g_scan/recast_logs")
     evidence_dir = os.path.join(worktree, "results/r12_madgraph_per_g_scan/run_evidence")
     cards_dir = os.path.join(worktree, "cards/r12_madgraph_per_g_scan")

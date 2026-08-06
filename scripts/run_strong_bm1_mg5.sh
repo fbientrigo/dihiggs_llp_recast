@@ -10,7 +10,7 @@ RUN_NAME="${4:?run_name}"
 WORKDIR="${5:?workdir}"
 
 REPO_ROOT="$(realpath "$(dirname "${BASH_SOURCE[0]}")/..")"
-MG5_BIN="${MG5_BIN:-/home/fabi/.local/mg5amcnlo/3.5.3/bin/mg5_aMC}"
+MG5_BIN="${MG5_BIN:-mg5_aMC}"
 PROC_CARD="${REPO_ROOT}/benchmarks/upstream/strong-bm1/cards/source/pp2gogo_${MULT}_proc_card_mg5.dat"
 RUN_CARD="${REPO_ROOT}/benchmarks/upstream/strong-bm1/cards/source/run_card.dat"
 SLHA="${REPO_ROOT}/benchmarks/upstream/strong-bm1/cards/generated/GG_qqn1_2000_850_rpvLF_p01ns.slha"

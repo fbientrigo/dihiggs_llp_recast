@@ -1,0 +1,35 @@
+! Pythia8 config for R13 recast
+Main:numberOfEvents = 1000
+Main:timesAllowErrors = 3
+Init:showChangedSettings = on
+Init:showChangedParticleData = off
+Next:numberCount = 5000
+Next:numberShowInfo = 0
+Next:numberShowProcess = 0
+Next:numberShowEvent = 0
+
+Random:setSeed = on
+Random:seed = 230022
+
+PartonLevel:MPI = off
+PartonLevel:ISR = on
+PartonLevel:FSR = on
+HadronLevel:Hadronize = on
+Tune:pp = 21
+
+Higgs:useBSM = on
+35:m0 = 50.0
+35:mMin = 20.0
+35:tauCalc = off
+35:tau0 = 4.326221529733112
+35:onMode = off
+35:onIfMatch = 5 -5
+
+Recast:llpPdgIds = {35}
+Recast:llpTau0 = 4.326221529733112
+LesHouches:setLifetime = 2
+
+Beams:frameType = 4
+LHEFInputs:nSubruns = 1
+Main:subrun = 0
+Beams:LHEF = /home/fabi/atlas_dihiggs/_worktrees/r13-reduced-direct-recast-validation/results/r13_reduced_direct_validation/relabeled_lhes/g40_run_02_pdg35.lhe.gz

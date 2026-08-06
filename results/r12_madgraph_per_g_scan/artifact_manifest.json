@@ -4,13 +4,22 @@
       "sha256": "5ed0f810fe091201a191089e9e284e6265142b26ed62ba5a78ec678940fde6c6"
     },
     "effective_grid_madgraph_per_g.csv": {
-      "sha256": "0341de5de421f5b73414486a923e55af1c6b50b44b9add12e03c1f48deb40e23"
+      "sha256": "1cd1d72c3ea42902d3ea237e4a00efad9063841614b82b43715ad66e5e401d5a"
     },
-    "r10_comparison.csv": {
-      "sha256": "80c76fbfade0e2114473045f4438c868d422f06329b536dccd973287b8958687"
+    "comparison_vs_r10_factorized.csv": {
+      "sha256": "0f69f4533109e2dc528e9e69ec14038ca5365c21ae088046fa0e614c4eb03861"
+    },
+    "comparison_vs_r10_factorized.json": {
+      "sha256": "38bb2920764a48cbf547901b5df51b434c182d4da6297b50417b2248749e465e"
     },
     "production_input_manifest.json": {
-      "sha256": "aca6379ced56ceedd1189fdbe3d317f962acc32dd56bff479b4e866057236118"
+      "sha256": "7b1d3c9b8af76886989f794ebf9bb3e755e16c4bed151661c594c9047d9b7d0c"
+    },
+    "result_summary.json": {
+      "sha256": "ca8c49ef48e4605beed68fa15dd88ad669d557f93b88c83f13ca04203eedd605"
+    },
+    "verification_report.json": {
+      "sha256": "f856cd31befa9407e90b15fdfd9fc44083246f68aedef7157bca6de51f90feee"
     }
   }
 }
