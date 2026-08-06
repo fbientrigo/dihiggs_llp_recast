@@ -1,0 +1,160 @@
+{
+  "campaign_id": "r13_reduced_recast_150gev_correction",
+  "derived_status": "REDUCED_END_TO_END_VALIDATED",
+  "full_execution_status": "FULL_EXECUTION_AUTHORIZED",
+  "artifact_count": 19,
+  "artifacts": {
+    "INVALIDATED_PREVIOUS_RECAST.json": {
+      "relative_path": "results/r13_reduced_direct_validation/INVALIDATED_PREVIOUS_RECAST.json",
+      "sha256": "7e8f269429e4aecda175358455ca8325d145eb4a93d74b0039a5031ebe92c30a",
+      "size_bytes": 673,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "production_source_manifest.json": {
+      "relative_path": "results/r13_reduced_direct_validation/production_source_manifest.json",
+      "sha256": "0c876560b59e7e964d1bdaec07a906b880151a291653ebbed739f6e9c9d237f0",
+      "size_bytes": 4227,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "production_combined_frozen.csv": {
+      "relative_path": "results/r13_reduced_direct_validation/production_combined_frozen.csv",
+      "sha256": "cdfc7ec35e5228d8618ae601d478db2d9486e7f0fccc52f1047a21460d83aae7",
+      "size_bytes": 444,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "relabel_validation_report.json": {
+      "relative_path": "results/r13_reduced_direct_validation/relabel_validation_report.json",
+      "sha256": "14170be4a5d4ac26286bab6f49116bd9fc5388eb00483f4cf30318999ec5f5f7",
+      "size_bytes": 4982,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "card_validation_report.json": {
+      "relative_path": "results/r13_reduced_direct_validation/card_validation_report.json",
+      "sha256": "a17fdadccfbdc7e3f54accfc96366f1b07ad2f5759f3bd2c2152d471cdbea489",
+      "size_bytes": 18448,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "smoke_test_report.json": {
+      "relative_path": "results/r13_reduced_direct_validation/smoke_test_report.json",
+      "sha256": "e905fe5bdf8c51b5f505cbdeea435141efbf9fa53710be9d27b403f387f2acff",
+      "size_bytes": 35161,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "r13_efficiency_vs_g_ctau_corrected.csv": {
+      "relative_path": "results/r13_reduced_direct_validation/r13_efficiency_vs_g_ctau_corrected.csv",
+      "sha256": "89a031fa9f0d57b4be2ce8a7e180ec9c9e8c63f03ebb3ff468bfffa4df56d822",
+      "size_bytes": 4935,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "r13_effective_grid_corrected.csv": {
+      "relative_path": "results/r13_reduced_direct_validation/r13_effective_grid_corrected.csv",
+      "sha256": "04577745db4671a4e5ff3f5b89a93cbbdb7eabbb5a05b2a1267b29a3e13ca0e4",
+      "size_bytes": 32789,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "comparison_vs_r10_corrected.csv": {
+      "relative_path": "results/r13_reduced_direct_validation/comparison_vs_r10_corrected.csv",
+      "sha256": "36c1c6870e28738d009e217fa5a2d36b30408130164772f316f134668e61c816",
+      "size_bytes": 11901,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "comparison_vs_r10_corrected.json": {
+      "relative_path": "results/r13_reduced_direct_validation/comparison_vs_r10_corrected.json",
+      "sha256": "fece03ef90406a844d2a9fb7f650693e083b7b8d7b744ca7bd42b054b53550cb",
+      "size_bytes": 38376,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "comparison_vs_r12_corrected.csv": {
+      "relative_path": "results/r13_reduced_direct_validation/comparison_vs_r12_corrected.csv",
+      "sha256": "0c010b3561e803fe0e5126f61e9cb5a15af1c74d2f7c26005f552b4c9ad24fc3",
+      "size_bytes": 15348,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "comparison_vs_r12_corrected.json": {
+      "relative_path": "results/r13_reduced_direct_validation/comparison_vs_r12_corrected.json",
+      "sha256": "9752ba02a89a287edeb2ef532cf0d7b7e445504af5643e51c8b0a4788f26eb96",
+      "size_bytes": 38548,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "paired_kinematic_comparison.csv": {
+      "relative_path": "results/r13_reduced_direct_validation/paired_kinematic_comparison.csv",
+      "sha256": "b3484bdb185af7b622be2f9b9bced28bb17d41597d8c1473338b62e65f2b20dc",
+      "size_bytes": 13522,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "paired_kinematic_comparison.json": {
+      "relative_path": "results/r13_reduced_direct_validation/paired_kinematic_comparison.json",
+      "sha256": "8f67b731d680ec54aef5ee1b6ab6ab6015803e4ba9d6235528167a5f8684e151",
+      "size_bytes": 49107,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "paired_kinematic_summary.json": {
+      "relative_path": "results/r13_reduced_direct_validation/paired_kinematic_summary.json",
+      "sha256": "079352a781c9360c1da066e13d5fe736c09cd0c9a0487e2e103a755dcd21d97a",
+      "size_bytes": 653,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "gate_report.json": {
+      "relative_path": "results/r13_reduced_direct_validation/gate_report.json",
+      "sha256": "925a7011f0a391ef5ad155564867ad8a3754093d3f749bd04d794d48b38f619a",
+      "size_bytes": 3001,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "result_summary_corrected.json": {
+      "relative_path": "results/r13_reduced_direct_validation/result_summary_corrected.json",
+      "sha256": "69cbbf2e2000971a1828a1d3440f93afe0a7c33c5fbd0bc217ceb554541512be",
+      "size_bytes": 421,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "verification_report_corrected.json": {
+      "relative_path": "results/r13_reduced_direct_validation/verification_report_corrected.json",
+      "sha256": "9d426fd730d170468109834139ed99458cfc99fe04c6013693ed8d6a9cf595ce",
+      "size_bytes": 2993,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    },
+    "FULL_EXECUTION_COMMANDS.md": {
+      "relative_path": "results/r13_reduced_direct_validation/FULL_EXECUTION_COMMANDS.md",
+      "sha256": "9713c0f1a98cd91990339c7f96ac5cb903ba98dc1939e91a91a1472645701063",
+      "size_bytes": 1299,
+      "git_tracked_status": "TRACKED",
+      "artifact_role": "CURATED_EVIDENCE",
+      "authoritative_status": "AUTHORITATIVE"
+    }
+  }
+}

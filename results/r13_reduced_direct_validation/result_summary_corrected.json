@@ -1,0 +1,11 @@
+{
+  "status": "REDUCED_END_TO_END_VALIDATED",
+  "full_execution_authorization": "FULL_EXECUTION_AUTHORIZED",
+  "campaign_id": "r13_reduced_recast_150gev_correction",
+  "phase_a_commit": "945f8fd82664d6f904b9eb5e8f467a79d6a097bb",
+  "invalidated_phase_b_commit": "dd574f6a97d08b3fe8fc40ab341724598f710dd3",
+  "cards_generated": 36,
+  "recast_runs_executed": 36,
+  "efficiency_table_rows": 18,
+  "effective_grid_rows": 54
+}
