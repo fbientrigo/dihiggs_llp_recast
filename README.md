@@ -54,6 +54,7 @@ The R8 scalar patch is intentionally minimal: configurable LLP PDG and lifetime,
 ```bash
 git clone https://github.com/fbientrigo/dihiggs_llp_recast.git
 cd dihiggs_llp_recast
+git submodule update --init --recursive
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip

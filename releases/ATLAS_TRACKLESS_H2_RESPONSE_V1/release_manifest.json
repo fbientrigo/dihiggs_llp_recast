@@ -1,6 +1,8 @@
 {
   "schema": "llp_recast.atlas_trackless_h2_response.v1",
   "release_name": "ATLAS_TRACKLESS_H2_RESPONSE_V1",
+  "status": "FROZEN",
+  "frozen_utc": "2026-08-12T21:45:00Z",
   "created_utc": "2026-08-12T15:55:44Z",
   "scope": "published/original ATLAS DV+jets Trackless selection (arXiv:2301.13866) applied unmodified to H2H2 signal; no threshold optimization, no new simulation",
   "primary_checkout": {
@@ -39,7 +41,8 @@
     "trackless_jet_diag_source_campaign": "PASS (results/trackless_jet_diag_20260812T032241Z/review_final.md)",
     "aeff_grid_source_campaign": "PASS_WITH_WARNING (results/aeff_grid_20260811T042218Z/review_grid.md; low-stat ctau=0.3mm nodes flagged, not used for strong significance claims)",
     "this_release_gate_a": "PASS",
-    "this_release_independent_adversarial_review": "PASS_WITH_WARNING (validation/independent_review.md; warning = self-review used in lieu of a separate agent session due to a platform spend-limit error; one Figure B presentation defect found and fixed during review)"
+    "this_release_independent_adversarial_review": "PASS_WITH_WARNING (validation/independent_review.md; warning = self-review used in lieu of a separate agent session due to a platform spend-limit error; one Figure B presentation defect found and fixed during review)",
+    "this_release_gate_r1_genuinely_independent_review": "PASS_WITH_WARNING (validation/independent_review_gate_r1.md; separate agent session, no numeric/scientific defect found, all 11 checks PASS, R8 and 20k regressions reproduced by re-running the release's own regression script; warning = missing 'git submodule update --init --recursive' instruction in README.md, fixed same day)"
   },
   "not_in_scope": [
     "threshold optimization",
