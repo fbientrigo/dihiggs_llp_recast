@@ -1,0 +1,23 @@
+{
+  "sample_id": "h2_mH300_physicalctau_s81001_EXAMPLE",
+  "parent_model_point_id": "H2scan_mH300_physical_width_EXAMPLE",
+  "model_variant": "PHYSICAL_DECAYS_NO_HEAVY_CASCADES",
+  "m_h_GeV": 125.0,
+  "m_H2_GeV": 300.0,
+  "m_A_GeV": null,
+  "m_Hp_GeV": null,
+  "ctau_response_mm": 22.7,
+  "ctau_physical_mm": 22.7,
+  "decay_sampling_mode": "physical_BR_inclusive",
+  "forced_decay_channel": null,
+  "physical_BR": 0.58,
+  "production_process": "g g > H > h2 h2",
+  "sigma_fb": 0.0,
+  "lhe_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "card_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "ufo_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "generator_version": "MadGraph5_aMC@NLO 3.5.3 / Pythia 8.308",
+  "seed": 81001,
+  "N_events": 10000,
+  "_note": "SCHEMA-VALIDATION EXAMPLE ONLY -- placeholder checksums and sigma_fb, not a real generated sample. PHYSICAL_DECAYS_NO_HEAVY_CASCADES: ctau_physical_mm is derived from the model point's total width and used directly as ctau_response_mm for this sample (no independent response scan); inclusive branching sampled, heavy-cascade decay channels excluded by construction of this variant."
+}

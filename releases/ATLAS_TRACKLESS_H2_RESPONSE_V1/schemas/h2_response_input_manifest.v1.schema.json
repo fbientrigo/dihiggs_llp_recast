@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "llp_recast.h2_response_input_manifest.v1",
+  "title": "H2 response campaign sample manifest (mass-ready receiver contract)",
+  "description": "Versioned input manifest for future H2 response campaigns (including masses beyond the validated 130/150/170 GeV grid). This schema defines the RECEIVER contract only: it does not change, optimize, or implement any analysis or physics behavior. ctau_response_mm and ctau_physical_mm are intentionally separate fields and must never be silently equated -- see field descriptions.",
+  "type": "object",
+  "required": [
+    "sample_id",
+    "parent_model_point_id",
+    "model_variant",
+    "m_h_GeV",
+    "m_H2_GeV",
+    "m_A_GeV",
+    "m_Hp_GeV",
+    "ctau_response_mm",
+    "ctau_physical_mm",
+    "decay_sampling_mode",
+    "forced_decay_channel",
+    "physical_BR",
+    "production_process",
+    "sigma_fb",
+    "lhe_sha256",
+    "card_sha256",
+    "ufo_sha256",
+    "generator_version",
+    "seed",
+    "N_events"
+  ],
+  "properties": {
+    "sample_id": {
+      "type": "string",
+      "description": "Unique identifier for this generated sample (e.g. h2_mH300_ctauresp10mm_s81001)."
+    },
+    "parent_model_point_id": {
+      "type": "string",
+      "description": "Identifier of the physical model point (mass spectrum + coupling configuration) this sample belongs to. Multiple samples (different seeds, different ctau_response_mm scan points) can share one parent_model_point_id."
+    },
+    "model_variant": {
+      "type": "string",
+      "description": "Production/decay model-generation variant. This is a PHYSICS GENERATION axis, distinct from any recast analysis-mode label (e.g. 'ORIGINAL_PUBLISHED_TRACKLESS' used elsewhere in this release for the recast selection). At minimum, FACTORIZED_G_ONLY and PHYSICAL_DECAYS_NO_HEAVY_CASCADES must be accepted; additional variants may be added later without breaking this schema.",
+      "examples": ["FACTORIZED_G_ONLY", "PHYSICAL_DECAYS_NO_HEAVY_CASCADES"]
+    },
+    "m_h_GeV": {"type": "number", "minimum": 0, "description": "SM-like Higgs mass input [GeV]. Fixed at 125 GeV in current benchmarks but recorded explicitly for future non-degenerate points."},
+    "m_H2_GeV": {"type": "number", "minimum": 0, "description": "Heavy scalar H2 mass [GeV] -- the primary LLP mass axis this schema is being extended to cover at higher values."},
+    "m_A_GeV": {"type": ["number", "null"], "minimum": 0, "description": "Pseudoscalar A mass [GeV], null if not present/relevant in this model point."},
+    "m_Hp_GeV": {"type": ["number", "null"], "minimum": 0, "description": "Charged scalar H+ mass [GeV], null if not present/relevant in this model point."},
+    "ctau_response_mm": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "Lifetime [mm] used to configure the DETECTOR-RESPONSE scan (Recast:llpTau0 in the recast card). A factorized detector-response scan may vary this independently of any physical model width. MUST NOT be silently equated with ctau_physical_mm."
+    },
+    "ctau_physical_mm": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "Lifetime [mm] derived from the physical model point's total decay width (c*hbar/Gamma_total). Used for physical-model studies. MUST NOT be silently equated with ctau_response_mm -- a physical-model study must use this field, not the response-scan value, unless the two are demonstrably identical for that sample and that equality is recorded explicitly downstream."
+    },
+    "decay_sampling_mode": {
+      "type": "string",
+      "description": "How the LLP decay is sampled in generation, e.g. 'forced_bb', 'physical_BR_inclusive', 'forced_single_channel'.",
+      "examples": ["forced_bb", "physical_BR_inclusive", "forced_single_channel"]
+    },
+    "forced_decay_channel": {
+      "type": ["string", "null"],
+      "description": "If decay_sampling_mode forces a single channel (e.g. H2->bb as in the current canonical benchmark), the channel label; null if the sample uses inclusive/physical branching."
+    },
+    "physical_BR": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Physical branching ratio for forced_decay_channel (if any), to be applied downstream exactly once. Null if not applicable (inclusive sampling)."
+    },
+    "production_process": {
+      "type": "string",
+      "description": "MadGraph production process string, e.g. 'g g > H > h2 h2'."
+    },
+    "sigma_fb": {"type": "number", "minimum": 0, "description": "Production cross section [fb] at the generator level for production_process."},
+    "lhe_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$", "description": "sha256 of the (uncompressed, physics-content) LHE event file."},
+    "card_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$", "description": "sha256 of the Pythia .cmnd run card used for this sample."},
+    "ufo_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$", "description": "sha256 of the UFO model archive used to generate this sample."},
+    "generator_version": {"type": "string", "description": "e.g. 'MadGraph5_aMC@NLO 3.5.3', 'Pythia 8.308'."},
+    "seed": {"type": "integer", "description": "Random seed used for this run."},
+    "N_events": {"type": "integer", "minimum": 1, "description": "Number of events generated/processed in this sample."}
+  },
+  "additionalProperties": true,
+  "allowed_model_variants_minimum_support": [
+    "FACTORIZED_G_ONLY",
+    "PHYSICAL_DECAYS_NO_HEAVY_CASCADES"
+  ]
+}

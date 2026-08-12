@@ -1,0 +1,51 @@
+{
+  "schema": "llp_recast.atlas_trackless_h2_response.v1",
+  "release_name": "ATLAS_TRACKLESS_H2_RESPONSE_V1",
+  "created_utc": "2026-08-12T15:55:44Z",
+  "scope": "published/original ATLAS DV+jets Trackless selection (arXiv:2301.13866) applied unmodified to H2H2 signal; no threshold optimization, no new simulation",
+  "primary_checkout": {
+    "path": "/home/fabian/atlas_dihiggs/dihiggs_llp_recast",
+    "base_commit": "0cd325c497ba8c6665dd0248130f8f79c0c39336",
+    "base_commit_subject": "docs: freeze canonical R8 Trackless status"
+  },
+  "release_branch": "release/atlas-trackless-h2-response-v1",
+  "release_worktree": "/home/fabian/atlas_dihiggs/dihiggs_llp_recast-release-v1",
+  "upstream_recast": {
+    "repository": "https://github.com/llprecasting/recastingCodes.git",
+    "commit": "d4047c744062094c9f88e507bb1ccf69e9fe88d6",
+    "analysis_path": "DisplacedVertices/ATLAS-SUSY-2018-13_GCottin",
+    "patched_executable_sha256": "f03a5cb6d94d8f3c5513c814f26036d38eddb180b35f91449ff74f83201e1331"
+  },
+  "toolchain": {
+    "pythia": "8.308",
+    "fastjet": "3.4.0"
+  },
+  "gate_a": {
+    "verdict": "PASS",
+    "detail_file": "validation/gate_a_result.json"
+  },
+  "source_campaigns_reused_not_rerun": [
+    "results/r8_h2_model_derived_4b (git-tracked, frozen R8, N=2000, mH=150)",
+    "results/trackless_jet_diag_20260812T032241Z (independent review PASS; anchor 20k mH=150 + endpoint 20k mH=130/170)",
+    "results/aeff_grid_20260811T042218Z (independent review PASS_WITH_WARNING; validated 3x12 Aeff(mH,ctau) grid)",
+    "results/mass_dependence_trackless (motivating mass-dependence campaign)"
+  ],
+  "samples_file_sha256": "d92b0e41bbf66fe88379ac0a77d980bf55ca146fba4d2cb48174bc082a498cb5",
+  "cutflow_long_sha256": "efc0b9f58ff121d2734af54e3edaf7c4fd0ef4f8bea66b109eb4cc7cabbc053c",
+  "jet_branch_decomposition_sha256": "fbf0ec53bf6a24c373b2318c66f5d94932dbc6839b5c17df198995000dfcd0b3",
+  "aeff_grid_sha256": "ef3fa150f595226475043e87bb9ee4c53143627cd50d6217a3bab535446a4cd3",
+  "cut_definitions_sha256": "5ed1e9565d125177e15015c6c7686d345e1f782538a4f4111cf1ff006dde5aa8",
+  "review_gates": {
+    "trackless_jet_diag_source_campaign": "PASS (results/trackless_jet_diag_20260812T032241Z/review_final.md)",
+    "aeff_grid_source_campaign": "PASS_WITH_WARNING (results/aeff_grid_20260811T042218Z/review_grid.md; low-stat ctau=0.3mm nodes flagged, not used for strong significance claims)",
+    "this_release_gate_a": "PASS",
+    "this_release_independent_adversarial_review": "PASS_WITH_WARNING (validation/independent_review.md; warning = self-review used in lieu of a separate agent session due to a platform spend-limit error; one Figure B presentation defect found and fixed during review)"
+  },
+  "not_in_scope": [
+    "threshold optimization",
+    "new broad simulation",
+    "the 'modified' analysis-mode branch (~0.0531 result; see docs/CANONICAL_TRACKLESS_STATUS_20260807.md)",
+    "High-pT analysis region",
+    "SHAP/Shapley or any surrogate-model attribution claim (see FUTURE_ATTRIBUTION_READINESS.md)"
+  ]
+}

@@ -1,0 +1,13 @@
+hostname: debsat
+date_utc: 2026-08-12T15:55:44Z
+os: Linux debsat 6.12.63+deb13-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.12.63-1 (2025-12-30) x86_64 GNU/Linux
+python: Python 3.13.5
+matplotlib: 3.11.1
+numpy: 2.5.1
+pandas: 3.0.5
+
+upstream recast toolchain (from docs/CANONICAL_TRACKLESS_STATUS_20260807.md, not rerun in this release):
+  Pythia: 8.308
+  FastJet: 3.4.0
+  upstream commit: d4047c744062094c9f88e507bb1ccf69e9fe88d6
+  patched recast executable sha256: f03a5cb6d94d8f3c5513c814f26036d38eddb180b35f91449ff74f83201e1331

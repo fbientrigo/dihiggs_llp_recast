@@ -1,0 +1,37 @@
+{
+  "schema": "llp_recast.atlas_trackless_h2_response.validation.frozen_r8.v1",
+  "sample_id": "r8_frozen_mH150_ctau4p326_2x1000",
+  "verdict": "PASS",
+  "checks": [
+    {
+      "sample_id": "r8_frozen_mH150_ctau4p326_2x1000",
+      "status": "PASS",
+      "checks": {
+        "N_generated": true,
+        "final_raw_combined": true,
+        "weighted_combined": true,
+        "Aeff_combined": true
+      },
+      "observed": {
+        "N_generated": "2000",
+        "final_raw_combined": "40",
+        "weighted_combined": "31.46772",
+        "Aeff_combined": "0.01573386"
+      },
+      "frozen": {
+        "N_generated": 2000,
+        "final_raw_combined": 40,
+        "weighted_combined": 31.46772,
+        "Aeff_combined": 0.01573386,
+        "jet_selection_combined": 48
+      }
+    },
+    {
+      "sample_id": "r8_frozen_mH150_ctau4p326_2x1000",
+      "status": "PASS",
+      "check": "Jet_Selection_combined_from_cutflow_long",
+      "observed": 48,
+      "frozen": 48
+    }
+  ]
+}

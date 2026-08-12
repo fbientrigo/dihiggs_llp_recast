@@ -1,0 +1,18 @@
+=== primary checkout (source of truth for all reused artifacts) ===
+path: /home/fabian/atlas_dihiggs/dihiggs_llp_recast
+## main...origin/main
+?? cards/mass_dependence_trackless/
+?? results/r8_h2_model_derived_4b/bin/
+?? scripts/make_aeff_grid_products.py
+?? scripts/run_aeff_grid_mission.py
+0cd325c497ba8c6665dd0248130f8f79c0c39336
+
+=== release worktree ===
+path: /home/fabian/atlas_dihiggs/dihiggs_llp_recast-release-v1
+## release/atlas-trackless-h2-response-v1
+?? releases/
+0cd325c497ba8c6665dd0248130f8f79c0c39336
+
+=== worktree list (both) ===
+/home/fabian/atlas_dihiggs/dihiggs_llp_recast             0cd325c [main]
+/home/fabian/atlas_dihiggs/dihiggs_llp_recast-release-v1  0cd325c [release/atlas-trackless-h2-response-v1]

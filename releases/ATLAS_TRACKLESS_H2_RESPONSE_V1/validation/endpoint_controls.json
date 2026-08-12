@@ -1,0 +1,74 @@
+{
+  "schema": "llp_recast.atlas_trackless_h2_response.validation.endpoint_controls.v1",
+  "sample_ids": [
+    "endpoint20k_mH130_ctau4p326_2x10000",
+    "endpoint20k_mH170_ctau4p326_2x10000"
+  ],
+  "verdict": "PASS",
+  "checks": {
+    "mH130": [
+      {
+        "sample_id": "endpoint20k_mH130_ctau4p326_2x10000",
+        "status": "PASS",
+        "checks": {
+          "N_generated": true,
+          "final_raw_combined": true,
+          "weighted_combined": true,
+          "Aeff_combined": true
+        },
+        "observed": {
+          "N_generated": "20000",
+          "final_raw_combined": "300",
+          "weighted_combined": "224.64260000000002",
+          "Aeff_combined": "0.011232130000000002"
+        },
+        "frozen": {
+          "N_generated": 20000,
+          "final_raw_combined": 300,
+          "weighted_combined": 224.6426,
+          "Aeff_combined": 0.01123213,
+          "jet_selection_combined": 357
+        }
+      },
+      {
+        "sample_id": "endpoint20k_mH130_ctau4p326_2x10000",
+        "status": "PASS",
+        "check": "Jet_Selection_combined_from_cutflow_long",
+        "observed": 357,
+        "frozen": 357
+      }
+    ],
+    "mH170": [
+      {
+        "sample_id": "endpoint20k_mH170_ctau4p326_2x10000",
+        "status": "PASS",
+        "checks": {
+          "N_generated": true,
+          "final_raw_combined": true,
+          "weighted_combined": true,
+          "Aeff_combined": true
+        },
+        "observed": {
+          "N_generated": "20000",
+          "final_raw_combined": "439",
+          "weighted_combined": "318.6092",
+          "Aeff_combined": "0.01593046"
+        },
+        "frozen": {
+          "N_generated": 20000,
+          "final_raw_combined": 439,
+          "weighted_combined": 318.6092,
+          "Aeff_combined": 0.01593046,
+          "jet_selection_combined": 558
+        }
+      },
+      {
+        "sample_id": "endpoint20k_mH170_ctau4p326_2x10000",
+        "status": "PASS",
+        "check": "Jet_Selection_combined_from_cutflow_long",
+        "observed": 558,
+        "frozen": 558
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "sample_id": "h2_mH300_ctauresp10mm_s81001_EXAMPLE",
+  "parent_model_point_id": "H2scan_mH300_geometry_scan_EXAMPLE",
+  "model_variant": "FACTORIZED_G_ONLY",
+  "m_h_GeV": 125.0,
+  "m_H2_GeV": 300.0,
+  "m_A_GeV": null,
+  "m_Hp_GeV": null,
+  "ctau_response_mm": 10.0,
+  "ctau_physical_mm": 10.0,
+  "decay_sampling_mode": "forced_bb",
+  "forced_decay_channel": "H2->bb",
+  "physical_BR": null,
+  "production_process": "g g > H > h2 h2",
+  "sigma_fb": 0.0,
+  "lhe_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "card_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "ufo_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "generator_version": "MadGraph5_aMC@NLO 3.5.3 / Pythia 8.308",
+  "seed": 81001,
+  "N_events": 10000,
+  "_note": "SCHEMA-VALIDATION EXAMPLE ONLY -- placeholder checksums and sigma_fb, not a real generated sample. FACTORIZED_G_ONLY: ctau_response_mm is set independently of any physical width calculation (here trivially equal to ctau_physical_mm as a placeholder); this variant is for pure detector-response scans not implying a self-consistent physical model width."
+}

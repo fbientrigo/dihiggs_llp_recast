@@ -1,0 +1,5 @@
+sample_id,model_variant,mH_GeV,ctau_mm,N_generated,seeds,analysis_region,final_raw_combined,weighted_combined,Aeff_combined,provenance_source
+r8_frozen_mH150_ctau4p326_2x1000,ORIGINAL_PUBLISHED_TRACKLESS,150.0,4.326221529733112,2000,81001|81002,Trackless,40,31.46772,0.01573386,"results/r8_h2_model_derived_4b/run_0{1,2}/recast.log + results/trackless_jet_diag_20260812T032241Z/r8_regression_v2/seed_*/events.csv"
+anchor20k_mH150_ctau4p326_2x10000,ORIGINAL_PUBLISHED_TRACKLESS,150.0,4.326221529733112,20000,81001|81002,Trackless,370,267.5069,0.013375344999999999,"results/trackless_jet_diag_20260812T032241Z/anchor_20k_v2/seed_*/{events.csv,recast.log}"
+endpoint20k_mH130_ctau4p326_2x10000,ORIGINAL_PUBLISHED_TRACKLESS,130.0,4.326221529733112,20000,81001|81002,Trackless,300,224.64260000000002,0.011232130000000002,"results/trackless_jet_diag_20260812T032241Z/endpoint_130_20k/seed_*/{events.csv,recast.log}"
+endpoint20k_mH170_ctau4p326_2x10000,ORIGINAL_PUBLISHED_TRACKLESS,170.0,4.326221529733112,20000,81001|81002,Trackless,439,318.6092,0.01593046,"results/trackless_jet_diag_20260812T032241Z/endpoint_170_20k/seed_*/{events.csv,recast.log}"

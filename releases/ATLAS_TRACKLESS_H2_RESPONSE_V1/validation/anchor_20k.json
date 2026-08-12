@@ -1,0 +1,37 @@
+{
+  "schema": "llp_recast.atlas_trackless_h2_response.validation.anchor_20k.v1",
+  "sample_id": "anchor20k_mH150_ctau4p326_2x10000",
+  "verdict": "PASS",
+  "checks": [
+    {
+      "sample_id": "anchor20k_mH150_ctau4p326_2x10000",
+      "status": "PASS",
+      "checks": {
+        "N_generated": true,
+        "final_raw_combined": true,
+        "weighted_combined": true,
+        "Aeff_combined": true
+      },
+      "observed": {
+        "N_generated": "20000",
+        "final_raw_combined": "370",
+        "weighted_combined": "267.5069",
+        "Aeff_combined": "0.013375344999999999"
+      },
+      "frozen": {
+        "N_generated": 20000,
+        "final_raw_combined": 370,
+        "weighted_combined": 267.5069,
+        "Aeff_combined": 0.013375345,
+        "jet_selection_combined": 460
+      }
+    },
+    {
+      "sample_id": "anchor20k_mH150_ctau4p326_2x10000",
+      "status": "PASS",
+      "check": "Jet_Selection_combined_from_cutflow_long",
+      "observed": 460,
+      "frozen": 460
+    }
+  ]
+}

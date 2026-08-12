@@ -1,0 +1,195 @@
+schema: llp_recast.atlas_trackless_h2_response.cut_definitions.v1
+description: >
+  Machine-readable cut-definition contract for the published/original ATLAS
+  DV+jets Trackless analysis (arXiv:2301.13866, ATLAS-SUSY-2018-13) as
+  implemented in the frozen recastingCodes upstream, applied unmodified to
+  the H2H2 signal. This file is the single source of truth for thresholds
+  used to generate cutflow_long.csv and Figures A-F. No threshold in this
+  release exists only in prose.
+
+analysis_name: ATLAS DV+jets Trackless (published/original selection)
+analysis_region: Trackless
+analysis_mode: original
+# The upstream code also contains a "modified" analysis-mode branch with
+# different thresholds (High-pT 250/195/116/90 GeV) that is NOT part of this
+# release. This release only exercises the "original" Trackless branch.
+upstream_recast_commit: d4047c744062094c9f88e507bb1ccf69e9fe88d6
+upstream_repository: https://github.com/llprecasting/recastingCodes.git
+upstream_analysis_path: DisplacedVertices/ATLAS-SUSY-2018-13_GCottin
+upstream_paper: arXiv:2301.13866
+upstream_validation_paper: arXiv:2404.06126
+patched_recast_executable_sha256: f03a5cb6d94d8f3c5513c814f26036d38eddb180b35f91449ff74f83201e1331
+recast_source_sha256:
+  recast_2301_13866.cc: 7cd3f9c9d189437a7996f29230adf628032e7af180a006660b0dd74838cea268
+  Simpler_ToyDetector.cc: 8220ca20e9ba0f121cc3f7ee3ff7c48c4767c4fe5f36dd564fd7b53028425379
+  Simpler_ToyDetector.h: d4d584a7eec8757c3adca222b5577d085b415eb564c78560cea64d7701d75cb2
+  efficiency.cc: c19e57cd2de24f223a69e4e5757c62683655319c9e7948357a84440b4232856b
+  efficiency.h: 4506a6a5eee6ad8ba0e24d868b93c5bf6a77a49fe74290603778cc2d15fef0eb
+toolchain:
+  pythia_version: "8.308"
+  fastjet_version: "3.4.0"
+  patch_scope: >
+    The R8 patch only makes LLP PDG ID and lifetime configurable
+    (Recast:llpPdgIds, Recast:llpTau0, LesHouches:setLifetime). It does not
+    intentionally change the published analysis thresholds, efficiency maps,
+    geometry, or jet definitions.
+
+jet_algorithm: fastjet::kt_algorithm
+jet_R:
+  value: 0.4
+  units: dimensionless
+jet_min_pt:
+  value: 20.0
+  units: GeV
+  note: fastjet inclusive_jets minimum pT before jet-level smearing/selection
+
+smearing_definition:
+  jet_energy_smearing:
+    formula: >
+      scale = 1 + (jb_1 if |rapidity|<2.0 else jb_2);
+      res = ja_max*E if E<50 GeV else (max(-0.002*E,-0.2)+0.3)*E;
+      scale *= 1 + res*gauss()/E; E_smeared = scale * E
+    ja_max: 0.20
+    jb_1: 0.01
+    jb_2: 0.03
+    units: GeV (E), dimensionless (scale factors)
+  electron_energy_smearing:
+    formula: "res = (max(-0.00011*E,-0.01)+0.021)*E if E<100 GeV else 0.01*E; E_smeared = E + res*gauss()"
+    units: GeV
+  muon_energy_smearing:
+    formula: "res = (min(0.0175*E,0.025)+0.015)*E for |eta|<2.0 (else lepton discarded)"
+    units: GeV
+  source_file: Simpler_ToyDetector.cc
+
+J1:
+  object: fourth-leading jet (index 3, 0-based, sorted descending by smeared pT)
+  requirement: pT > 137 GeV
+  units: GeV
+  cumulative: false
+J2:
+  object: fifth-leading jet (index 4)
+  requirement: pT > 101 GeV
+  units: GeV
+  cumulative: false
+J3:
+  object: sixth-leading jet (index 5)
+  requirement: pT > 83 GeV
+  units: GeV
+  cumulative: false
+J4:
+  object: seventh-leading jet (index 6)
+  requirement: pT > 55 GeV
+  units: GeV
+  cumulative: false
+ordinary_jet_OR:
+  requirement: J1 OR J2 OR J3 OR J4
+  note: >
+    Each branch requires the jet at that index to exist (n_jets >= index+1)
+    AND to pass its own threshold; branches are independent tests on
+    different jet ranks, not a cumulative ladder.
+
+matching_deltaR:
+  value: 0.3
+  units: dimensionless (ΔR = sqrt(Δeta^2 + Δphi^2))
+  applies_to: charged, final-state LLP daughters matched to smeared jets (nearest ΔR < 0.3 wins per jet)
+matching_eta:
+  value: 2.5
+  units: dimensionless (|eta|, absolute pseudorapidity)
+  applies_to: matched jet, cut is |eta(jet)| < 2.5
+matching_decay_radius:
+  value: 3870.0
+  units: mm
+  requirement: R_vertex(mother decay, transverse) < 3870 mm
+  note: >
+    This is a matching-stage gate on the LLP mother's own decay vertex used
+    to build the "displaced jet" candidate list; distinct from the DV
+    fiducial cut below.
+
+displaced_addendum:
+  requirement: >
+    (leading matched displaced jet pT > 70 GeV) OR
+    (second-leading matched displaced jet pT > 50 GeV)
+  leading_pt_threshold:
+    value: 70.0
+    units: GeV
+  second_pt_threshold:
+    value: 50.0
+    units: GeV
+  cumulative: false
+
+jet_selection_combination:
+  requirement: >
+    passJetSelection = passHighPTJetSelection OR
+    (passTracklessJetSelection AND passTracklessAdditional)
+  note: >
+    This release only reports the Trackless branch
+    (passTracklessJetSelection AND passTracklessAdditional); the High-pT
+    branch is a separate ATLAS analysis region, out of scope here.
+
+DV_fiducial_R:
+  value: 300.0
+  units: mm
+  requirement: transverse decay radius rVertex < 300 mm
+DV_fiducial_z:
+  value: 300.0
+  units: mm
+  requirement: "|zVertex| < 300 mm"
+DV_inner_R:
+  value: 4.0
+  units: mm
+  requirement: rVertex > 4 mm ("R_DV_gt_4mm" stage)
+  cumulative: true
+  note: cumulative on top of DV_fiducial_R/DV_fiducial_z within the per-vertex loop
+
+track_d0:
+  value: 2.0
+  units: mm
+  requirement: at least one daughter track with |transverse impact parameter| > 2 mm (impactedCount >= 1)
+  cumulative: true
+
+track_multiplicity:
+  value: 5
+  units: count
+  requirement: >
+    at least 5 selected daughter tracks (selectedCount >= 5), where a track
+    is "selected" if its transverse decay-length proxy beta*gamma*tau > 520 mm
+    AND pT/|charge| > 1 GeV
+  cumulative: true
+  selected_track_sub_cuts:
+    transverse_distance_mm: 520.0
+    pt_over_charge_gev: 1.0
+
+DV_mass:
+  value: 10.0
+  units: GeV
+  requirement: invariant mass of selected decay products (pion-mass hypothesis) > 10 GeV
+  cumulative: true
+  quantity_name: mCalc() of summed 4-momentum of selected tracks
+
+efficiency_map_source:
+  description: >
+    Digitized ATLAS vertex-reconstruction efficiency map vertexEff(rVertex,
+    massDV, nTrack), a 12x8x8 lookup table binned in truth decay radius,
+    displaced-vertex invariant mass, and selected track multiplicity, as
+    embedded in the frozen recastingCodes upstream (efficiency.cc). This is
+    the ATLAS-published Trackless vertex-reconstruction efficiency from
+    arXiv:2301.13866, reproduced by the recastingCodes authors
+    (Cheung/Chung/Cottin/Wang, arXiv:2404.06126). Event-level Acc x Eff sums
+    (1 - product(1 - vertexEff(...))) over all vertices passing the full DV
+    cutflow in a given event.
+  source_file: efficiency.cc
+  source_sha256: c19e57cd2de24f223a69e4e5757c62683655319c9e7948357a84440b4232856b
+
+denominator_semantics:
+  N_generated: total events processed through Pythia for that sample (raw_fraction_global uses this)
+  raw_fraction_global: stage raw_count / N_generated
+  conditional_retention: stage raw_count / previous_stage raw_count
+  weighted_count_if_defined: >
+    only defined at the final "acc_x_eff" stage; equals sum over
+    fully-selected events of vEff = 1 - prod(1 - vertexEff(...)) over that
+    event's fully-selected vertices. Aeff = weighted_count_if_defined / N_generated.
+
+not_in_scope_this_release:
+  - High-pT analysis region thresholds (250/195/116/90 GeV)
+  - "modified" analysis mode (different Trackless thresholds/displaced requirement/efficiency convention; see docs/CANONICAL_TRACKLESS_STATUS_20260807.md)
+  - Threshold optimization or any change to the above values
