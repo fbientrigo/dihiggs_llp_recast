@@ -1,0 +1,76 @@
+! high_mass_h2_pilot fixed-ctau ATLAS response card: pp -> H2 H2 -> b b~ b b~,
+! m_H2 = 250.0 GeV, ctau FORCED to the mH=150 benchmark value
+! 4.326221529733112 mm (this point's own physical ctau_physical_mm is many orders of
+! magnitude smaller -- see docs/campaigns/high_mass_h2_physical_point_scan_v1/
+! high_mass_valid_points.csv in the dihiggs repo -- and is NOT used here by
+! design: this is the FACTORIZED_G_ONLY / MASS_CONTROL response study, which
+! isolates the mH2 dependence of the ATLAS Trackless response at fixed
+! response lifetime, per HIGH_MASS_H2_CONTRACT.md section 4 / mission section 9).
+! Extends results/mass_dependence_trackless/ (mH=130/150/170) to a new,
+! theory-valid high-mass point beyond the diagnostic-only range. Every
+! setting other than the mass-dependent production sample and 35:m0 is
+! copied unchanged from cards/mass_dependence_trackless/fixed_ctau_mH130_run_01.cmnd
+! (shower, jet definition, analysis mode, lifetime mechanism, relabel
+! mechanism), which is itself copied unchanged from
+! cards/r8_h2_model_derived_4b/physical_run_01.cmnd except mass/LHE path.
+! point_id = point_0960bd688a662562 (dihiggs-point-search science/high-mass-valid-point-atlas, commit fa19d06)
+!
+! Production kinematics: g g > H > h2 h2, sqrt(s) = 13 TeV, MadGraph 3.5.3,
+! dihiggs_hep_cross results/r14_direct_g_production, run tag s101
+! (10000 events generated; the first 1000 are extracted as a genuine
+! 1000-event LHE slice via scripts/slice_lhe.py -- no MadGraph
+! regeneration -- matching R8/mass_dependence_trackless per-seed statistics
+! exactly. r8_geometry_driver enforces an exact-event-count invariant on its
+! input, which is why a true 1000-event file is used rather than
+! truncating via Main:numberOfEvents alone.)
+!   raw LHE sha256     = c6c3292715b6a961e50c47f3542ec1c3bdaf209d24b4e6141d2cb54d73761198
+!   sliced LHE sha256  = e41876662ff05321d2df6e19b6a784abc1cbaac7015daca32d9221d3865c6d38
+!   relabelled sha256  = 13c91b07b4259350cc01ced763efc4bcddccd87e161a9af30443f2c17d724176
+!
+! Relabel mechanism (9000006 -> 35, scripts/relabel_lhe_pdg.py) is byte-for-byte
+! the same validated tool used for R8/mass_dependence_trackless;
+! momenta/status/mothers/colours/mass/tau/spin are unchanged, only the IDUP
+! field differs (2000 changes per run of 1000 events; verified
+! by the script's own acceptance check).
+!
+! Shower configuration (FSR on, ISR on, MPI off, hadronization on, Tune:pp =
+! 21), jet definition (FastJet kt, R=0.4, pT>20 GeV, unmodified
+! Simpler_ToyDetector.cc), and the original/published Trackless analysis mode
+! are reused unchanged from the R8/R7/mass_dependence_trackless real-recast
+! path. The later `modified` Trackless analysis is NOT used here. The
+! published ATLAS thresholds themselves are NOT modified by this card --
+! only the input sample changes.
+Main:numberOfEvents = 1000
+Main:timesAllowErrors = 3
+Init:showChangedSettings = on
+Init:showChangedParticleData = off
+Next:numberCount = 5000
+Next:numberShowInfo = 0
+Next:numberShowProcess = 0
+Next:numberShowEvent = 0
+
+Random:setSeed = on
+Random:seed = 81005
+
+PartonLevel:MPI = off
+PartonLevel:ISR = on
+PartonLevel:FSR = on
+HadronLevel:Hadronize = on
+Tune:pp = 21
+
+Higgs:useBSM = on
+35:m0 = 250.0
+35:mMin = 100.
+35:tauCalc = off
+35:tau0 = 4.326221529733112
+35:onMode = off
+35:onIfMatch = 5 -5
+
+Recast:llpPdgIds = {35}
+Recast:llpTau0 = 4.326221529733112
+LesHouches:setLifetime = 2
+
+Beams:frameType = 4
+LHEFInputs:nSubruns = 1
+Main:subrun = 0
+Beams:LHEF = data/raw/high_mass_h2_pilot/relabelled_mH250_s101.lhe.gz

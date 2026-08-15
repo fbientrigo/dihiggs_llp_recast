@@ -1,0 +1,44 @@
+! mass_dependence_trackless EXTENDED-STATISTICS fixed-ctau CONTROL card
+! (Phase 3 refinement: the primary 1000-event-per-seed comparison showed
+! only a ~2 sigma mH130-vs-mH170 separation; this pass uses the FULL
+! already-generated 10000-event sample per seed -- no new MadGraph run --
+! to determine whether the trend firms up, per the mission's sequential-
+! refinement rule. mH=150 benchmark is NOT extended: it stays pinned at
+! R8's frozen canonical 2000-event result as the fixed reference.
+! Identical in every other respect to
+! cards/mass_dependence_trackless/fixed_ctau_mH130_run_02.cmnd
+! (same seed, same ctau, same shower/jet/analysis config).
+Main:numberOfEvents = 10000
+Main:timesAllowErrors = 3
+Init:showChangedSettings = on
+Init:showChangedParticleData = off
+Next:numberCount = 5000
+Next:numberShowInfo = 0
+Next:numberShowProcess = 0
+Next:numberShowEvent = 0
+
+Random:setSeed = on
+Random:seed = 81002
+
+PartonLevel:MPI = off
+PartonLevel:ISR = on
+PartonLevel:FSR = on
+HadronLevel:Hadronize = on
+Tune:pp = 21
+
+Higgs:useBSM = on
+35:m0 = 130.
+35:mMin = 100.
+35:tauCalc = off
+35:tau0 = 4.32622152973311191
+35:onMode = off
+35:onIfMatch = 5 -5
+
+Recast:llpPdgIds = {35}
+Recast:llpTau0 = 4.32622152973311191
+LesHouches:setLifetime = 2
+
+Beams:frameType = 4
+LHEFInputs:nSubruns = 1
+Main:subrun = 0
+Beams:LHEF = data/raw/mass_dependence_trackless/relabelled_full_mH130_s107.lhe.gz

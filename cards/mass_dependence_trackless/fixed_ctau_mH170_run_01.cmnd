@@ -1,0 +1,64 @@
+! mass_dependence_trackless fixed-ctau CONTROL card: pp -> H2 H2 -> b b~ b b~,
+! m_H2 = 170 GeV, ctau FORCED to the mH=150 benchmark value
+! 4.32622152973311191 mm (not this point's physical lifetime -- see the
+! Phase-5 physical_ctau card for that). Only the mass-dependent production
+! sample and 35:m0 differ from cards/r8_h2_model_derived_4b/physical_run_01.cmnd;
+! every other setting (shower, jet definition, analysis mode, lifetime
+! mechanism, relabel mechanism, Random:seed) is copied unchanged.
+! benchmark_id = H2scan_mH170_tb300000 (mission: "MAIN PROMPT" -- Trackless A x eff vs mH)
+!
+! Production kinematics: g g > H > h2 h2, sqrt(s) = 13 TeV, MadGraph 3.5.3,
+! dihiggs_hep_cross results/r14_direct_g_production, run tag s101
+! (10000 events generated; the first 1000 are extracted as a genuine
+! 1000-event LHE slice via scripts.slice_lhe -- no MadGraph regeneration --
+! matching R8's per-seed statistics exactly. r8_geometry_driver enforces an
+! exact-event-count invariant on its input, which is why a true 1000-event
+! file is used here rather than truncating via Main:numberOfEvents alone.)
+!   raw LHE sha256     = b7092f7bfb775760a30b7fce08ba1035adcdc4f7904907c656bee9a3afbf872c
+!   sliced LHE sha256  = 58917ac92bf41f61e1c73517debc12cbd5f617633290068bd730e086a50d1bad
+!   relabelled sha256  = 269e8613e342fcce48b1ce92253a90021d4b260e0fb23c3dee5d0623d7f8a708
+!
+! Relabel mechanism (9000006 -> 35, scripts/relabel_lhe_pdg.py) is byte-for-byte
+! the same validated tool used for R8; momenta/status/mothers/colours/mass/
+! tau/spin are unchanged, only the IDUP field differs (20000 changes per run
+! of 10000 events; verified by the script's own acceptance check).
+!
+! Shower configuration (FSR on, ISR on, MPI off, hadronization on, Tune:pp =
+! 21), jet definition (FastJet kt, R=0.4, pT>20 GeV, unmodified
+! Simpler_ToyDetector.cc), and the original/published Trackless analysis mode
+! are reused unchanged from the R8/R7 real-recast path. The later `modified`
+! Trackless analysis is NOT used here.
+Main:numberOfEvents = 1000
+Main:timesAllowErrors = 3
+Init:showChangedSettings = on
+Init:showChangedParticleData = off
+Next:numberCount = 5000
+Next:numberShowInfo = 0
+Next:numberShowProcess = 0
+Next:numberShowEvent = 0
+
+Random:setSeed = on
+Random:seed = 81001
+
+PartonLevel:MPI = off
+PartonLevel:ISR = on
+PartonLevel:FSR = on
+HadronLevel:Hadronize = on
+Tune:pp = 21
+
+Higgs:useBSM = on
+35:m0 = 170.
+35:mMin = 100.
+35:tauCalc = off
+35:tau0 = 4.32622152973311191
+35:onMode = off
+35:onIfMatch = 5 -5
+
+Recast:llpPdgIds = {35}
+Recast:llpTau0 = 4.32622152973311191
+LesHouches:setLifetime = 2
+
+Beams:frameType = 4
+LHEFInputs:nSubruns = 1
+Main:subrun = 0
+Beams:LHEF = data/raw/mass_dependence_trackless/relabelled_mH170_s101.lhe.gz

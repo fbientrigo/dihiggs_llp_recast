@@ -1,0 +1,44 @@
+! mass_dependence_trackless PHYSICAL-CTAU card (Phase 5): pp -> H2 H2 -> b b~ b b~,
+! m_H2 = 130 GeV, ctau = PHYSICAL 2HDMC-derived value 5.052537625426944 mm for this
+! mass point (NOT the mH=150 control value 4.32622152973311191 mm used in
+! the fixed_ctau_* cards -- this is the actual model-predicted lifetime).
+! ctau_physical/BRbb sourced unchanged from the already-completed campaign
+! dihiggs_hep_cross/results/presentation_update/cross_section_comparison.csv
+! (point_id H2scan_mH130_tb300000), not recomputed here.
+! Uses the same 1000-event-per-seed LHE slice as the primary fixed-ctau
+! comparison (data/raw/mass_dependence_trackless/relabelled_mH130_s101.lhe.gz),
+! identical shower/jet/analysis configuration; only 35:tau0/Recast:llpTau0 differ.
+Main:numberOfEvents = 1000
+Main:timesAllowErrors = 3
+Init:showChangedSettings = on
+Init:showChangedParticleData = off
+Next:numberCount = 5000
+Next:numberShowInfo = 0
+Next:numberShowProcess = 0
+Next:numberShowEvent = 0
+
+Random:setSeed = on
+Random:seed = 81001
+
+PartonLevel:MPI = off
+PartonLevel:ISR = on
+PartonLevel:FSR = on
+HadronLevel:Hadronize = on
+Tune:pp = 21
+
+Higgs:useBSM = on
+35:m0 = 130.
+35:mMin = 100.
+35:tauCalc = off
+35:tau0 = 5.052537625426944
+35:onMode = off
+35:onIfMatch = 5 -5
+
+Recast:llpPdgIds = {35}
+Recast:llpTau0 = 5.052537625426944
+LesHouches:setLifetime = 2
+
+Beams:frameType = 4
+LHEFInputs:nSubruns = 1
+Main:subrun = 0
+Beams:LHEF = data/raw/mass_dependence_trackless/relabelled_mH130_s101.lhe.gz
