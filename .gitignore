@@ -36,6 +36,7 @@ results/*
 !results/r7_h2_pair_4b/**
 !results/r8_h2_model_derived_4b/
 !results/r8_h2_model_derived_4b/**
+results/r8_h2_model_derived_4b/bin/
 
 # Local configuration
 .env
