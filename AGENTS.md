@@ -35,3 +35,18 @@ Use these states only:
 ## Local environment
 
 Primary development target: Linux or WSL, with the repository stored in the Linux filesystem. External tools may be installed under `.local/`; outputs belong under `results/` or `data/` and remain untracked unless they are compact validation artifacts.
+
+## Data authority (workspace-wide, added 2026-08-31 reset)
+
+Before using any numerical DiHiggs result:
+
+1. Read `dihiggs_hep_cross/docs/CURRENT_DATA_AUTHORITY.md`.
+2. Read `dihiggs_hep_cross/state/CURRENT_CAMPAIGN.yaml`.
+3. Use only artifacts those two files explicitly mark current/authoritative.
+4. Never use archived, superseded, legacy, search, exploratory, or
+   presentation-only results for a current physics claim unless the user
+   explicitly asks for historical comparison.
+
+A MadGraph cross section is incomplete metadata unless it includes: mH2,
+GHphiphi, coupling prescription, process, sqrt(s), UFO identity, seed, and a
+banner/source artifact.
