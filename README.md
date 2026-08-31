@@ -103,3 +103,30 @@ patches/       versioned adaptations against the frozen upstream commit
 - ATLAS DV+jets search: https://arxiv.org/abs/2301.13866
 - Public recast: https://github.com/llprecasting/recastingCodes/tree/main/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin
 - HEPData: https://www.hepdata.net/record/ins2628398
+
+## Reusable response and derivative utilities
+
+The validated event-level response can be regenerated without rerunning
+Pythia or the recast binary. Named groups in `--group-pattern` become arbitrary
+metadata columns; the current command therefore does not embed a five-mass
+list.
+
+```bash
+python scripts/extract_response_table.py \
+  --events-root results/jet_threshold_response_20260815T230503Z/runs/main \
+  --file-glob 'mH*/seed_*/events.csv' \
+  --group-pattern 'mH(?P<mH2>[0-9]+)' \
+  --out-dir /tmp/h2_response/response_table
+
+python scripts/plot_s_response.py \
+  --input /tmp/h2_response/response_table/response_table.csv \
+  --group-by mH2 \
+  --output /tmp/h2_response/s_response_derivative.html \
+  --derivative-output /tmp/h2_response/s_response_derivative.csv \
+  --parquet-output /tmp/h2_response/s_response_derivative.parquet
+```
+
+For one selected response column, the derivative-only entry point is
+`scripts/calculate_response_derivative.py`. The three-point nonuniform-grid
+contract is in `docs/s_response_design_contract.md`; implementation and narrow
+tests are in `src/dvrecast/s_response.py` and `tests/test_s_response.py`.
