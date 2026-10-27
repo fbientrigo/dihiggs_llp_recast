@@ -103,3 +103,6 @@ patches/       versioned adaptations against the frozen upstream commit
 - ATLAS DV+jets search: https://arxiv.org/abs/2301.13866
 - Public recast: https://github.com/llprecasting/recastingCodes/tree/main/DisplacedVertices/ATLAS-SUSY-2018-13_GCottin
 - HEPData: https://www.hepdata.net/record/ins2628398
+## Convention provenance
+
+The project-wide theory convention is owned by `dihiggs`. This repository's v3 cache is identified by `conventions/physics_conventions.lock.yaml`; new sample manifests and handoffs must preserve the incoming `physics_conventions_schema`, `physics_conventions_commit`, and `physics_conventions_sha256`. The cache does not make frozen recast results current or authoritative.
