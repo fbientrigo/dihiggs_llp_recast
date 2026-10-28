@@ -105,4 +105,4 @@ patches/       versioned adaptations against the frozen upstream commit
 - HEPData: https://www.hepdata.net/record/ins2628398
 ## Convention provenance
 
-The project-wide theory convention is owned by `dihiggs`. This repository's v3 cache is identified by `conventions/physics_conventions.lock.yaml`; new sample manifests and handoffs must preserve the incoming `physics_conventions_schema`, `physics_conventions_commit`, and `physics_conventions_sha256`. The cache does not make frozen recast results current or authoritative.
+The project-wide theory convention is owned by `dihiggs`. This repository keeps no copy (the YAML lives in `dihiggs/conventions/`; `scripts/check_workspace.py` verifies its sha256); new sample manifests and handoffs must preserve the incoming `physics_conventions_schema`, `physics_conventions_commit`, and `physics_conventions_sha256`. The cache does not make frozen recast results current or authoritative.
