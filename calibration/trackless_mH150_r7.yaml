@@ -1,0 +1,33 @@
+# Trackless response for dhb.llp_signal (schema: dihiggs_boundary python/dhb/llp_calibration.py).
+# Every value is copied from a tracked llp_recast artifact (cited per field); nothing is invented.
+# A value with no source is null, so dhb.llp_calibration rejects the file and llp_signal writes
+# failure-marked rows until it is filled (fbientrigo/atlas_dihiggs#11).
+schema_version: dhb.llp_signal_calibration.v2
+calibration_version: trackless_mH150_r7_v0
+calibration_status: PROVISIONAL
+domain:
+  m_H2_GeV:
+    value: 150.0                 # results/r7_h2_pair_4b/input/param_card.dat:30 (mh2)
+    abs_tolerance: null          # no source: a policy choice
+  ctau_min_mm: 0.481             # results/r7_h2_pair_4b/summary.csv row 1
+  ctau_max_mm: 48.070            # results/r7_h2_pair_4b/summary.csv row 3
+acceptance:
+  analysis: Trackless
+  model: log_linear_ctau
+  # aeff = trackless_a_x_efficiency, results/r7_h2_pair_4b/summary.csv (1000 events per ctau).
+  # aeff_unc: no column in that table.
+  points:
+    - {ctau_mm: 0.481, aeff: 0.00090064, aeff_unc: null}
+    - {ctau_mm: 4.326, aeff: 0.01069558, aeff_unc: null}
+    - {ctau_mm: 48.070, aeff: 0.01434416, aeff_unc: null}
+normalization:
+  luminosity_fb: 139.0           # docs/R8_PI_RESULT_BRIEF.md:78 (ATLAS JHEP 06 (2023) 200, arXiv:2301.13866)
+  S95: null                      # no source: docs/R8_H2_MODEL_DERIVED_4B_RESULT.md:284 lists observed/expected S95 as missing
+classification:
+  near_fraction: null            # no source: a policy choice
+provenance:
+  source_commit: ef6b6c9         # dihiggs_llp_recast commit of the cited files
+  cross_check: >-
+    results/r8_h2_model_derived_4b/normalization.json gives Trackless a_eff_acc_x_eff = 0.01573386
+    at ctau = 4.326 mm (2000 events, model-derived sample) vs 0.01069558 here (r7, 1000 events);
+    the two samples disagree and this file does not choose between them.

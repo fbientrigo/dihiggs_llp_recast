@@ -93,6 +93,7 @@ docs/          scientific status, validation and reproduction contracts
 external/      locally materialized third-party code; ignored by Git
 data/          local or downloaded inputs; heavy content ignored
 results/       frozen compact validation / recast artifacts
+calibration/   Trackless response YAML for dihiggs_boundary dhb.join_signal (values cited from results/; nulls tracked in atlas_dihiggs#11)
 cards/         versioned Pythia/recast cards
 models/        model metadata and small source definitions
 patches/       versioned adaptations against the frozen upstream commit
