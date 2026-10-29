@@ -1,5 +1,5 @@
 # Trackless response for dhb.llp_signal (schema: dihiggs_boundary python/dhb/llp_calibration.py).
-# Every value is copied from a tracked llp_recast artifact (cited per field); nothing is invented.
+# Every value is copied from a tracked llp_recast artifact or, for S95, a hep_cross artifact in the lake (cited per field); nothing is invented.
 # A value with no source is null, so dhb.llp_calibration rejects the file and llp_signal writes
 # failure-marked rows until it is filled (fbientrigo/atlas_dihiggs#11).
 schema_version: dhb.llp_signal_calibration.v2
@@ -8,23 +8,30 @@ calibration_status: PROVISIONAL
 domain:
   m_H2_GeV:
     value: 150.0                 # results/r7_h2_pair_4b/input/param_card.dat:30 (mh2)
-    abs_tolerance: null          # no source: a policy choice
+    abs_tolerance: null          # no source: a policy choice; the only values anywhere are test fixtures
+                                 # (dihiggs_boundary tests/test_llp_signal.py:17, test_join_signal.py:35), not artifacts
   ctau_min_mm: 0.481             # results/r7_h2_pair_4b/summary.csv row 1
   ctau_max_mm: 48.070            # results/r7_h2_pair_4b/summary.csv row 3
 acceptance:
   analysis: Trackless
   model: log_linear_ctau
   # aeff = trackless_a_x_efficiency, results/r7_h2_pair_4b/summary.csv (1000 events per ctau).
-  # aeff_unc: no column in that table.
+  # aeff_unc: no column in that table. The only A_eff uncertainty is hep_cross r10
+  # results/r10_effective_ctau_g_br_scan/efficiency_vs_ctau.csv (Trackless_Aeff_stat_uncertainty;
+  # lake 20261013T001159Z-7e0782), but that is the r8 model-derived sample: using it means replacing
+  # these r7 points, i.e. deciding the r7-vs-r8 disagreement below (left to the user, #11).
   points:
     - {ctau_mm: 0.481, aeff: 0.00090064, aeff_unc: null}
     - {ctau_mm: 4.326, aeff: 0.01069558, aeff_unc: null}
     - {ctau_mm: 48.070, aeff: 0.01434416, aeff_unc: null}
 normalization:
   luminosity_fb: 139.0           # docs/R8_PI_RESULT_BRIEF.md:78 (ATLAS JHEP 06 (2023) 200, arXiv:2301.13866)
-  S95: null                      # no source: docs/R8_H2_MODEL_DERIVED_4B_RESULT.md:284 lists observed/expected S95 as missing
+  S95: 3.0                       # observed, Trackless jet SR: ATLAS arXiv:2301.13866v3 Table 6 (p. 22), as recorded in
+                                 # dihiggs_hep_cross results/r9_h2_sensitivity_threshold/atlas_threshold.json
+                                 # numerical_threshold.observed_S95 (lake 20261013T001159Z-7e0782, sha256 65acfe4c…;
+                                 # written by hep_cross scripts/r9_atlas_threshold.py:26, commit 1177252); expected 3.4 +1.3 -0.3
 classification:
-  near_fraction: null            # no source: a policy choice
+  near_fraction: null            # no source: a policy choice; only test fixtures use one (0.2, tests/test_llp_signal.py:31)
 provenance:
   source_commit: ef6b6c9         # dihiggs_llp_recast commit of the cited files
   cross_check: >-
